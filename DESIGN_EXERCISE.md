@@ -35,7 +35,6 @@ Completed by DANA PARK(dp178), ANDY NGUYEN(aln20), BRENDAN CHENG(bmc41)
     public void setCellNeighbors ();
     // Knows what its rules are
     public void giveRules (Rule rule);
-    
 
     
 ```
