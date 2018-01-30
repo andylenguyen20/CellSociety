@@ -1,15 +1,19 @@
 ## Introduction
 
 **This section describes the problem your team is trying to solve by writing this program, the primary design goals of the project (i.e., where is it most flexible), and the primary architecture of the design (i.e., what is closed and what is open). This section should discuss the program at a high-level (i.e., without referencing specific classes, data structures, or code).**
-*Problem we are trying to solve:* In this program, we are trying to solve the problem of simulating several cell societies, which takes in a criteria of “rules” that cause certain cells in a 2-D grid to change their state. 
-*Primary design goals:* The primary design goal of the project is to implement several flexible classes that can work together to represent a variety of CA simulations that can be specified through a set of rules. 
-*Primary architecture of the design:* We feel that our grid should be open in the sense that it can assign cell neighbours in different ways based on the rules it is given. We think the cells should be open for extension since cells may have different rules for different simulations. Moreover, we believe that the simulation class will be closed based on the information that we have now.
+*Problem we are trying to solve:* 
+In this program, we are trying to solve the problem of simulating several cell societies, which takes in a criteria of “rules” that cause certain cells in a 2-D grid to change their state. 
+*Primary design goals:* 
+The primary design goal of the project is to implement several flexible classes that can work together to represent a variety of CA simulations that can be specified through a set of rules. 
+*Primary architecture of the design:* 
+We feel that our grid should be open in the sense that it can assign cell neighbours in different ways based on the rules it is given. We think the cells should be open for extension since cells may have different rules for different simulations. Moreover, we believe that the simulation class will be closed based on the information that we have now.
 
 ## Overview
 
 **This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. As such, it should describe specific components you intend to create, their purpose with regards to the program's functionality, and how they collaborate with each other. It should also include a picture of how the components are related (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML design program). This section should discuss specific classes, methods, and data structures, but not individual lines of code.**
 
-*Specific components:* We think that there should be at least 3 main components that work together to carry out the simulation. Those components are a cell class, grid class, and simulation class.  
+*Specific components:* 
+We think that there should be at least 3 main components that work together to carry out the simulation. Those components are a cell class, grid class, and simulation class.  
 
 * The Cell Class: The cell class will have at least 3 methods that help design a Cell object. There should be:
 	* a method that will allow the cell to know what its neighbors are given a parameter of a list of neighbor cells
@@ -44,7 +48,8 @@ a method that allows the cell to know what rules it abides by in the CA simulati
 The user interface will have a toolbar on the screen while simulations run that allow the user to load a new file that would stop the current simulation and start a new one. We can do this using a drop-down menu for the user to choose between different types of simulations and a button that allows the user to go to another simulation. There will also be buttons on the toolbar that allow the user to pause, resume, speed through, slow down, and advance through a given simulation.
 Pictures:
 
-*Erroneous Situations Reported to User:* When there is bad input data/empty data, there will be a text message indicating to the user that the data is corrupt/empty on the screen and an exception will be thrown. Examples of erroneous situations that could occur are:
+*Erroneous Situations Reported to User:* 
+When there is bad input data/empty data, there will be a text message indicating to the user that the data is corrupt/empty on the screen and an exception will be thrown. Examples of erroneous situations that could occur are:
 * Empty files
 * Misformatted files
 * Invalid Grid Size
