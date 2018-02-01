@@ -13,9 +13,9 @@ import javafx.scene.control.*;
 
 
 public class Visualizer extends Application {
+	public int mergyboiiiiiis;
 	
-	
-
+//lets start some conflict
 	  
 	    @Override 
 	    public void start(Stage stage) {
