@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Cell {
 	private ArrayList<Cell> neighbors;
-	private int currState;
+	private int currState, nextState;
 	public Cell(){
 		
 	}
@@ -12,16 +12,14 @@ public abstract class Cell {
 	/*
 	 * A method that allows the cell to know what rules it abides by in the CA simulation and returns a next state given these rules.
 	 */
-	private void setRules(){
+	public void setRules(){
 		
 	}
 	/*
 	 * A method that updates the Cell’s state to the next state.
 	 */
 	public void update(){
-		
+		currState = nextState;
 	}
-	private int applyRules(){
-		return 0;
-	}
+	public abstract void applyRules();
 }
