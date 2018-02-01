@@ -12,13 +12,14 @@ import javafx.util.Duration;
 import java.io.File;
 
 public class Simulation {
-	private double mySpeed;
+	private int mySpeed;
 	private String myTitle;
 	private Grid grid;
 	public Simulation(String fileName){
 		initializeComponents(fileName);
 		start();
 	}
+	
 	public void start(){
 		KeyFrame frame = new KeyFrame(Duration.millis(mySpeed),
                 e-> update());
@@ -33,7 +34,7 @@ public class Simulation {
 	public String getTitle(){
 		return myTitle;
 	}
-	public void setSpeed(double speed){
+	public void setSpeed(int speed){
 		mySpeed = speed;
 	}
 	public static void main(String[] args){
