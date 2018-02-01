@@ -12,7 +12,7 @@ import javafx.util.Duration;
 import java.io.File;
 
 public class Simulation {
-	private int mySpeed;
+	private double mySpeed;
 	private String myTitle;
 	private Grid grid;
 	public Simulation(String fileName){
@@ -21,14 +21,20 @@ public class Simulation {
 	}
 	
 	public void start(){
+		System.out.println(mySpeed);
 		KeyFrame frame = new KeyFrame(Duration.millis(mySpeed),
                 e-> update());
-		Timeline timeline = new Timeline(frame);
+		/*Timeline timeline = new Timeline(frame);
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        timeline.play();*/
+		System.out.println(frame.getTime().toSeconds());
+        Timeline animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
 	}
 	
-	public void update(){
+	private void update(){
 		System.out.println("hi");
 	}
 	public String getTitle(){
@@ -36,9 +42,6 @@ public class Simulation {
 	}
 	public void setSpeed(int speed){
 		mySpeed = speed;
-	}
-	public static void main(String[] args){
-		Simulation sim = new Simulation("xml/gol_simulation.xml");
 	}
 	private Document readInFile(String fileName){
 		Document doc = null;
