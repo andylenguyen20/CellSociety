@@ -34,7 +34,6 @@ public class SimulationXMLParser {
 		Element dimensions = (Element) gridTag.getElementsByTagName("dimension");
 		int width = Integer.parseInt(dimensions.getElementsByTagName("width").item(0).getTextContent());
 		int height = Integer.parseInt(dimensions.getElementsByTagName("height").item(0).getTextContent());
-		Dimension dim = new Dimension();
 		return new Dimension(width, height);
 	}
 	public int getSpeed(String attributeName){
