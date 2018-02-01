@@ -12,10 +12,12 @@ import javafx.util.Duration;
 import java.io.File;
 
 public class Simulation {
+	private XMLParser xmlParser;
 	private double mySpeed;
 	private String myTitle;
 	private Grid grid;
 	public Simulation(String fileName){
+		xmlParser = new XMLParser(fileName);
 		initializeComponents(fileName);
 		start();
 	}
@@ -43,12 +45,21 @@ public class Simulation {
 	public void setSpeed(int speed){
 		mySpeed = speed;
 	}
+	private Grid setUpGrid(Document document){
+		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
+		int width = Integer.parseInt(gridTag.getAttribute("width"));
+		int height = Integer.parseInt(gridTag.getAttribute("height"));
+		return new Grid(width, height);
+	}
+	//getDocumentElement()
+	/*
+	 * taken from https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+	 */
 	private Document readInFile(String fileName){
 		Document doc = null;
 		try {
 			File fXmlFile = new File(fileName);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 		} catch (Exception e) {
@@ -56,15 +67,6 @@ public class Simulation {
 		}
 		return doc;
 	}
-	private Grid setUpGrid(Document document){
-		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
-		int width = Integer.parseInt(gridTag.getAttribute("width"));
-		int height = Integer.parseInt(gridTag.getAttribute("height"));
-		return new Grid(width, height);
-	}
-	/*
-	 * taken from https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
-	 */
 	private void initializeComponents(String fileName){
 		Document document = readInFile(fileName);
 		grid = setUpGrid(document);
