@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<gol_simulation>
+<simulation speed = "20">
 	<name>Game Of Life</name>
 	<title>Game Of Life Simulation</title>
-	<author>Andy Nguyen</author>
-	<sim_speed>20</sim_speed>
-	<grid width = "20" height = "20">
+	<authors>
+		<author>Andy Nguyen</author>
+		<author>Dana Park</author>
+		<author>Brendan Cheng</author>
+	</authors>
+	<grid>
+		<dimension>
+			<width>20</width>
+			<height>20</height>
+		</dimension>
 	</grid>
 	
-</gol_simulation>
+</simulation>
