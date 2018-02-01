@@ -12,13 +12,15 @@ import javafx.util.Duration;
 import java.io.File;
 
 public class Simulation {
-	private XMLParser xmlParser;
+	
+	private SimulationXMLParser simXMLParser;
+	
 	private double mySpeed;
 	private String myTitle;
 	private Grid grid;
 	public Simulation(String fileName){
-		xmlParser = new XMLParser(fileName);
-		initializeComponents(fileName);
+		simXMLParser = new SimulationXMLParser(fileName);
+		initializeComponents();
 		start();
 	}
 	
@@ -67,9 +69,8 @@ public class Simulation {
 		}
 		return doc;
 	}
-	private void initializeComponents(String fileName){
-		Document document = readInFile(fileName);
-		grid = setUpGrid(document);
-		mySpeed = Integer.parseInt(document.getElementsByTagName("sim_speed").item(0).getTextContent());
+	private void initializeComponents(){
+		grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
+		mySpeed = simXMLParser.getSpeed("speed");
 	}
 }
