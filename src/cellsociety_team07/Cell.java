@@ -3,10 +3,14 @@ package cellsociety_team07;
 import java.util.ArrayList;
 
 public abstract class Cell {
+	public static final int DEFAULT_STATE = 0;
 	private ArrayList<Cell> neighbors;
 	private int currState, nextState;
-	public Cell(){
-		
+	
+	//private Rule rule = new GameOfLifeRule();
+	
+	public Cell(int initialState){
+		currState = initialState;
 	}
 	
 	/*
@@ -21,5 +25,21 @@ public abstract class Cell {
 	public void update(){
 		currState = nextState;
 	}
+	public void setNeighbors(ArrayList<Cell> neigh){
+		return neighbors = neigh;
+	}
+	public ArrayList<Cell> getNeighbors(){
+		return neighbors;
+	}
+	public int getCurrentState(){
+		return currState;
+	}
+	public void setNextState(int state){
+		nextState = state;
+	}
+	/*
+	public void applyRules(){
+		nextState = rule.getNextState(neighbors, currState);
+	}*/
 	public abstract void applyRules();
 }

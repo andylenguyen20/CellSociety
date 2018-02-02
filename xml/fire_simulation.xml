@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
 	<speed>20</speed>
-	<name>GameOfLife</name>
-	<title>Game Of Life Simulation</title>
+	<name>Fire</name>
+	<title>Fire Simulation</title>
 	<authors>
 		<author>Andy Nguyen</author>
 		<author>Dana Park</author>

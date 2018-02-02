@@ -1,76 +1,60 @@
 package cellsociety_team07;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
-import java.io.File;
+import java.awt.Point;
+import java.util.HashMap;
 
 public class Simulation {
 	
 	private SimulationXMLParser simXMLParser;
-	
+	private Grid grid;
 	private double mySpeed;
 	private String myTitle;
-	private Grid grid;
+	
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
-		initializeComponents();
-		start();
+		grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
+		mySpeed = simXMLParser.getSpeed();
+		myTitle = simXMLParser.getTitle();
+		setUpCells();
 	}
 	
 	public void start(){
-		System.out.println(mySpeed);
 		KeyFrame frame = new KeyFrame(Duration.millis(mySpeed),
                 e-> update());
-		/*Timeline timeline = new Timeline(frame);
+		Timeline timeline = new Timeline(frame);
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();*/
-		System.out.println(frame.getTime().toSeconds());
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
+        timeline.play();
 	}
-	
 	private void update(){
-		System.out.println("hi");
+		System.out.println("updating");
 	}
 	public String getTitle(){
 		return myTitle;
 	}
-	public void setSpeed(int speed){
+	public void setSpeed(double speed){
 		mySpeed = speed;
 	}
-	private Grid setUpGrid(Document document){
-		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
-		int width = Integer.parseInt(gridTag.getAttribute("width"));
-		int height = Integer.parseInt(gridTag.getAttribute("height"));
-		return new Grid(width, height);
+	public double getSpeed(){
+		return mySpeed;
 	}
-	//getDocumentElement()
-	/*
-	 * taken from https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
-	 */
-	private Document readInFile(String fileName){
-		Document doc = null;
-		try {
-			File fXmlFile = new File(fileName);
-			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
-		} catch (Exception e) {
-			e.printStackTrace();
+	
+	private void setUpCells(){
+		HashMap<Point, Integer> initialCellInfo = simXMLParser.getInitialCellInfo();
+		Cell[][] cells = grid.getCells();
+		for(Point point : initialCellInfo.keySet()){
+			int state = initialCellInfo.get(point);
+			cells[point.x][point.y] = new GameOfLifeCell(state);
 		}
-		return doc;
-	}
-	private void initializeComponents(){
-		grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
-		mySpeed = simXMLParser.getSpeed("speed");
+		for(int i = 0; i < cells.length; i++){
+			for(int j = 0; j < cells[i].length; j++){
+				if(cells[i][j] == null){
+					cells[i][j] = new GameOfLifeCell(Cell.DEFAULT_STATE);
+				}
+			}
+		}
 	}
 }
