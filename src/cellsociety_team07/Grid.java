@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class Grid {
+public abstract class Grid{
 
 	/************************** FIELDS *************************/
 	
@@ -41,9 +41,7 @@ public class Grid {
 	/*
 	 * sets cell neighbors
 	 */
-	public void setCellNeighbors(){
-		
-	}
+	public abstract void setCellNeighbors();
 	
 	/*
 	 * gets its cells
@@ -52,19 +50,6 @@ public class Grid {
 		return cells;
 	}
 	
-	/*
-	 * sets the rules for each individual cell.
-	 */
-	private void setCellRules(){
-		
-	}
-	
-	/*
-	 * getRules from an XML document
-	 */
-	private void getRules(){
-		
-	}
 	
 	/*
 	 * A method that updates the Grid’s state to the next state.
