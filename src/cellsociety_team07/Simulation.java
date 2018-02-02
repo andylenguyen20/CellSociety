@@ -45,6 +45,8 @@ public class Simulation {
 	public void setSpeed(int speed){
 		mySpeed = speed;
 	}
+	
+	
 	private Grid setUpGrid(Document document){
 		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
 		int width = Integer.parseInt(gridTag.getAttribute("width"));
