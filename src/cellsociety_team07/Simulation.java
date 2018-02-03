@@ -38,8 +38,18 @@ public class Simulation {
 	public void setSpeed(double speed){
 		mySpeed = speed;
 	}
+<<<<<<< HEAD
+	
+	
+	private Grid setUpGrid(Document document){
+		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
+		int width = Integer.parseInt(gridTag.getAttribute("width"));
+		int height = Integer.parseInt(gridTag.getAttribute("height"));
+		return new Grid(width, height);
+=======
 	public double getSpeed(){
 		return mySpeed;
+>>>>>>> a2f2b7f9f3244c5a1a833e1448cc82a71519b9ac
 	}
 	
 	private void setUpCells(){
