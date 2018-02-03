@@ -2,7 +2,9 @@ package cellsociety_team07;
 
 import java.util.ArrayList;
 
-public abstract class Cell {
+import javafx.scene.Node;
+
+public abstract class Cell{
 	public static final int DEFAULT_STATE = 0;
 	private ArrayList<Cell> neighbors;
 	private int currState, nextState;
@@ -25,10 +27,7 @@ public abstract class Cell {
 	public void update(){
 		currState = nextState;
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 875b15bb0d823f4d4e8b62c963903c458b856d43
 	public void setNeighbors(ArrayList<Cell> neigh){
 		neighbors = neigh;
 	}

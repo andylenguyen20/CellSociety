@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashMap;
 
@@ -17,10 +18,11 @@ public class Simulation {
 	
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
-		//grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
+		myType = simXMLParser.getType();
+		Dimension gridDimensions = simXMLParser.getGridDimensions();
+		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
 		mySpeed = simXMLParser.getSpeed();
 		myTitle = simXMLParser.getTitle();
-		myType = simXMLParser.getType();
 		setUpCells();
 	}
 	
