@@ -7,8 +7,6 @@ import javafx.util.Duration;
 import java.awt.Point;
 import java.util.HashMap;
 
-import org.w3c.dom.Document;
-
 public class Simulation {
 	
 	private SimulationXMLParser simXMLParser;
