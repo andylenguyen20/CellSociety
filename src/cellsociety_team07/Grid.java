@@ -1,7 +1,6 @@
 package cellsociety_team07;
 import java.util.HashMap;
 import java.awt.Point;
-import java.util.ArrayList;
 
 public class Grid {
 

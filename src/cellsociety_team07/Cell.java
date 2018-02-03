@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public abstract class Cell {
 	private ArrayList<Cell> neighbors;
 	private int currState, nextState;
+	
+	
 	public Cell(){
 		
 	}
