@@ -1,24 +1,21 @@
 package cellsociety_team07;
-
-import java.util.ArrayList;
+import javafx.scene.paint.*;
 
 public class GameOfLifeCell extends Cell{
 	public static final int DEAD = 0;
 	public static final int ALIVE = 1;
+	public final Paint[] colors = {Color.BLACK, Color.GREEN};
 	
 	public GameOfLifeCell(int initialState) {
 		super(initialState);
 	}
 
 	public void applyRules(){
-		ArrayList<Cell> numNeighbors = super.getNeighbors();
-		int numAliveNeighbors = 0;
-		for(Cell cell:numNeighbors){
-			if(cell.getCurrentState() == ALIVE){
-				numAliveNeighbors++;
-			}
+		int alive = 0;
+		for (Cell neigh:super.getNeighbors()) {
+			alive += neigh.getCurrentState();
 		}
-		if(numAliveNeighbors >= 1 && numAliveNeighbors < 3){
+		if(alive >= 1 && alive <3){
 			super.setNextState(ALIVE);
 		}else{
 			super.setNextState(DEAD);
