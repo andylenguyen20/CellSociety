@@ -65,8 +65,10 @@ public class Visualizer extends Application {
 	    
 	    
 	    private void step(double elapsedTime) {
-	    	//todo
-	    
+	    		pause();
+	    		play();
+	    		speedUp();
+	    		slowDown();
 	    }
 
 	    private void setSpeed(double speed){
