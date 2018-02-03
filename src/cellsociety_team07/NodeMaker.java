@@ -19,8 +19,7 @@ public class NodeMaker extends StackPane{
 	    		for( int i=0; i < rows; i++) {
 	            for( int j=0; j < columns; j++) {
 	            		Rectangle rectangle = new Rectangle( gridWidth, gridHeight);
-		            rectangle.setStroke(Color.BLACK);
-		            rectangle.setFill(Color.LIGHTBLUE);
+		            
 		            setTranslateX( i * gridWidth);
 		            setTranslateY( j * gridHeight);
 		            grid[i][j] = rectangle;

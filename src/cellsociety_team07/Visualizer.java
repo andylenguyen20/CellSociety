@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.control.*;
 
 
@@ -21,14 +22,21 @@ public class Visualizer extends Application {
 	private ComboBox<String> simulationMenu;
     private ComboBox<String> commandsBox;
 	private double mySpeed;
-	private Grid myGrid;
+	private double sceneWidth = 400;
+	private double sceneHeight = 400;
+	private int rows = 10;
+	private int columns = 10;
+	double gridWidth = sceneWidth / rows;
+	double gridHeight = sceneHeight / columns;
+	private int r = 0;
+	private int c = 0;
 
 	
 	
 	  
 	    @Override 
 	    public void start(Stage stage) {
-	    	simulation = new Simulation("xml/gol_simulation.xml");
+	    		simulation = new Simulation("xml/gol_simulation.xml");
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
@@ -50,6 +58,18 @@ public class Visualizer extends Application {
 	        grid.add(new Label("Command: "), 2, 0);
 	        grid.add(commandsBox, 3, 0);
 	
+	        for (Cell[] cells : simulation.getCells()) {
+	        	
+	        		for (Cell cell : cells) {
+	        			
+	        			cell.setWidth(gridWidth);
+	        			cell.setHeight(gridHeight);
+	        			cell.setFill(cell.getColors());
+	        			cell.setX(sceneWidth / columns * c);
+	    				cell.setY(sceneHeight / rows * r);
+	        			root.getChildren().add(cell);
+	        		}
+	        }
 	       
 	        root.getChildren().add(grid);
 
