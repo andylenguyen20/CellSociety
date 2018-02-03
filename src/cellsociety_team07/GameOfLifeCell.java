@@ -4,7 +4,7 @@ import javafx.scene.paint.*;
 public class GameOfLifeCell extends Cell{
 	public static final int DEAD = 0;
 	public static final int ALIVE = 1;
-	public final Paint[] colors = {Color.BLACK, Color.GREEN};
+	public static final Paint[] colors = {Color.BLACK, Color.GREEN};
 	
 	public GameOfLifeCell(int initialState) {
 		super(initialState);

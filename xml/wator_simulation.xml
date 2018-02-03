@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-	<type>Fire</type>
-	<title>Fire Simulation</title>
+	<type>Wator</type>
+	<title>Wator Simulation</title>
 	<author>Andy Nguyen</author>
 	<grid>
 		<dimension>
