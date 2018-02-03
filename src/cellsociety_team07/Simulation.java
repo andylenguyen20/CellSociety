@@ -24,7 +24,7 @@ public class Simulation {
 	
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
-		//grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
+		grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
 		mySpeed = simXMLParser.getSpeed();
 		myTitle = simXMLParser.getTitle();
 		myType = simXMLParser.getType();
