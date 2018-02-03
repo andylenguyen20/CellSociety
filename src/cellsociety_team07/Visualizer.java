@@ -21,6 +21,7 @@ public class Visualizer extends Application {
 	private ComboBox<String> simulationMenu;
     private ComboBox<String> commandsBox;
 	private double mySpeed;
+	private Grid myGrid;
 
 	
 	
