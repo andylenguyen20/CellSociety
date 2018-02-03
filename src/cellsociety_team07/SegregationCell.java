@@ -1,5 +1,7 @@
 package cellsociety_team07;
 
+import javafx.scene.paint.Paint;
+
 public class SegregationCell extends Cell{
 
 	public SegregationCell(int initialState) {
@@ -11,6 +13,12 @@ public class SegregationCell extends Cell{
 	public void applyRules() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Paint getColors() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,5 +1,7 @@
 package cellsociety_team07;
 
+import javafx.scene.paint.Paint;
+
 public class WatorCell extends Cell{
 
 	public WatorCell(int initialState) {
@@ -11,6 +13,12 @@ public class WatorCell extends Cell{
 	public void applyRules() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Paint getColors() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public abstract class Grid{
 
 	/************************** FIELDS *************************/
-	
-	HashMap<Point,Cell> grid; // maps x,y coordinates of a cell on screen to the Cell object itself
+	private NeighborFinder neighFinder;
+	private HashMap<Point,Cell> grid; // maps x,y coordinates of a cell on screen to the Cell object itself
 	private Cell[][] cells;
 	
 	/********************** CONSTRUCTOR ************************/
@@ -39,7 +39,17 @@ public abstract class Grid{
 	/*
 	 * sets cell neighbors
 	 */
-	public abstract void setCellNeighbors();
+	public void setCellNeighbors(){
+		for(int i = 0; i < cells.length; i++){
+			for(int j = 0; j < cells.length; j++){
+				cells[i][j].setNeighbors(neighFinder.getCellNeighborhood(cells, i, j));
+			}
+		}
+	}
+	
+	public void setNeighborFinder(NeighborFinder neighFinder){
+		this.neighFinder = neighFinder;
+	}
 	
 	/*
 	 * gets its cells

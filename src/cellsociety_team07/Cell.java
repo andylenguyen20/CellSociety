@@ -2,7 +2,6 @@ package cellsociety_team07;
 
 import java.util.ArrayList;
 
-import javafx.scene.Node;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 

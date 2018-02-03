@@ -4,8 +4,4 @@ public class SegregationGrid extends Grid{
 	public SegregationGrid(int width, int height){
 		super(width, height);
 	}
-	@Override
-	public void setCellNeighbors() {
-		// TODO Auto-generated method stub
-	}
 }
