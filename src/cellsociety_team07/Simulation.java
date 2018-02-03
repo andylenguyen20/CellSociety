@@ -14,6 +14,13 @@ public class Simulation {
 	private Grid grid;
 	private double mySpeed;
 	private String myTitle;
+	private double sceneWidth = 400;
+	private double sceneHeight = 400;
+	private int rows = 10;
+	private int columns = 10;
+	double gridWidth = sceneWidth / rows;
+	double gridHeight = sceneHeight / columns;
+
 	private String myType;
 	
 	public Simulation(String fileName){
@@ -25,17 +32,11 @@ public class Simulation {
 		myTitle = simXMLParser.getTitle();
 		setUpCells();
 	}
-	
-	public void start(){
-		KeyFrame frame = new KeyFrame(Duration.millis(mySpeed),
-                e-> update());
-		Timeline timeline = new Timeline(frame);
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-	}
+
 	private void update(){
 		System.out.println("updating");
 	}
+	
 	public String getTitle(){
 		return myTitle;
 	}
@@ -45,6 +46,8 @@ public class Simulation {
 		Cell[][] cells = grid.getCells();
 		for(Point point : initialCellInfo.keySet()){
 			int state = initialCellInfo.get(point);
+			cells[point.x][point.y] = new GameOfLifeCell(state);
+			
 			cells[point.x][point.y] = SimulationObjectManager.getSpecificCell(myTitle, state);
 		}
 		for(int i = 0; i < cells.length; i++){

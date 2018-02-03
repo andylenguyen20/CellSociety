@@ -2,9 +2,10 @@ package cellsociety_team07;
 
 import java.util.ArrayList;
 
-import javafx.scene.Node;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 
-public abstract class Cell{
+public abstract class Cell extends Rectangle {
 	public static final int DEFAULT_STATE = 0;
 	private ArrayList<Cell> neighbors;
 	private int currState, nextState;
@@ -40,9 +41,13 @@ public abstract class Cell{
 	public void setNextState(int state){
 		nextState = state;
 	}
+	
+	public abstract Paint getColors();
 	/*
 	public void applyRules(){
 		nextState = rule.getNextState(neighbors, currState);
 	}*/
 	public abstract void applyRules();
 }
+
+

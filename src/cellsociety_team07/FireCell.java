@@ -6,6 +6,8 @@ import com.sun.javafx.jmx.MXNodeAlgorithm;
 import com.sun.javafx.jmx.MXNodeAlgorithmContext;
 import com.sun.javafx.sg.prism.NGNode;
 
+import javafx.scene.paint.Paint;
+
 public class FireCell extends Cell{
 
 	public FireCell(int initialState) {
@@ -17,5 +19,11 @@ public class FireCell extends Cell{
 	public void applyRules() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Paint getColors() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

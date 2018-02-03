@@ -9,6 +9,14 @@ public class GameOfLifeCell extends Cell{
 	public GameOfLifeCell(int initialState) {
 		super(initialState);
 	}
+	
+	public Paint getColors() {
+		if (this.getCurrentState()==1) {
+			return colors[1];
+		}
+		return colors[0];
+	
+	}
 
 	public void applyRules(){
 		int alive = 0;
