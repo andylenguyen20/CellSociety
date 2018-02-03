@@ -25,7 +25,7 @@ public abstract class Cell {
 	public void update(){
 		currState = nextState;
 	}
-	public void setNeighbors(ArrayList<Cell> neigh){
+	public ArrayList<Cell> setNeighbors(ArrayList<Cell> neigh){
 		return neighbors = neigh;
 	}
 	public ArrayList<Cell> getNeighbors(){
