@@ -3,9 +3,7 @@ package cellsociety_team07;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

@@ -11,8 +11,11 @@ public class GameOfLifeCell extends Cell{
 	}
 
 	public void applyRules(){
-		int numNeighbors = super.getNeighbors().size();
-		if(numNeighbors >= 1 && numNeighbors <3){
+		int alive = 0;
+		for (Cell neigh:super.getNeighbors()) {
+			alive += neigh.getCurrentState();
+		}
+		if(alive >= 1 && alive <3){
 			super.setNextState(ALIVE);
 		}else{
 			super.setNextState(DEAD);
