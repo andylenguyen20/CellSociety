@@ -1,4 +1,6 @@
 package cellsociety_team07;
+import com.sun.javafx.geom.Shape;
+
 import javafx.scene.paint.*;
 
 public class GameOfLifeCell extends Cell{
@@ -21,4 +23,5 @@ public class GameOfLifeCell extends Cell{
 			super.setNextState(DEAD);
 		}
 	}
+
 }
