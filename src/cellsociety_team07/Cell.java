@@ -25,6 +25,10 @@ public abstract class Cell {
 	public void update(){
 		currState = nextState;
 	}
+<<<<<<< HEAD
+
+=======
+>>>>>>> 875b15bb0d823f4d4e8b62c963903c458b856d43
 	public void setNeighbors(ArrayList<Cell> neigh){
 		neighbors = neigh;
 	}
