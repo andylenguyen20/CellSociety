@@ -8,7 +8,7 @@ public abstract class Grid{
 	/************************** FIELDS *************************/
 	
 	HashMap<Point,Cell> grid; // maps x,y coordinates of a cell on screen to the Cell object itself
-	
+	private Cell[][] cells;
 	
 	/********************** CONSTRUCTOR ************************/
 	
@@ -19,6 +19,9 @@ public abstract class Grid{
 		
 	}
 	
+	public Grid(int width, int height){
+		cells = new Cell[width][height];
+	}
 	
 	/********************** METHODS ****************************/
 	
@@ -32,11 +35,6 @@ public abstract class Grid{
 //		}
 //		return cellList;
 //	}
-	
-	private Cell[][] cells;
-	public Grid(int width, int height){
-		cells = new Cell[width][height];
-	}
 	
 	/*
 	 * sets cell neighbors

@@ -61,6 +61,10 @@ public class SimulationXMLParser {
 		}
 		return cellMap;
 	}
+	public String getType(){
+		Element type = (Element) document.getElementsByTagName("type").item(0);
+		return type.getTextContent();
+	}
 	private int getTagValue(Element directParent, String tagName){
 		return Integer.parseInt(directParent.getElementsByTagName(tagName).item(0).getTextContent());
 	}

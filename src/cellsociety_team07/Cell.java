@@ -3,6 +3,10 @@ package cellsociety_team07;
 import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 
+import javafx.scene.Node;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+
 public abstract class Cell extends Rectangle {
 	public static final int DEFAULT_STATE = 0;
 	private ArrayList<Cell> neighbors;
@@ -26,10 +30,7 @@ public abstract class Cell extends Rectangle {
 	public void update(){
 		currState = nextState;
 	}
-//<<<<<<< HEAD
-//
-//=======
-//>>>>>>> 875b15bb0d823f4d4e8b62c963903c458b856d43
+
 	public void setNeighbors(ArrayList<Cell> neigh){
 		neighbors = neigh;
 	}
@@ -42,9 +43,13 @@ public abstract class Cell extends Rectangle {
 	public void setNextState(int state){
 		nextState = state;
 	}
+	
+	public abstract Paint getColors();
 	/*
 	public void applyRules(){
 		nextState = rule.getNextState(neighbors, currState);
 	}*/
 	public abstract void applyRules();
 }
+
+
