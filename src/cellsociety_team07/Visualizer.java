@@ -1,5 +1,7 @@
 package cellsociety_team07;
 
+import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -17,6 +19,7 @@ import javafx.scene.control.*;
 public class Visualizer extends Application{
 	public static final int MY_SPEED= 10;
 	public static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private Timeline animation;
 	private Simulation simulation;
 	private ComboBox<String> simulationMenu;
@@ -27,6 +30,8 @@ public class Visualizer extends Application{
 	private GridPane gridPane;
 	private String currentSim = "xml/gol_simulation.xml";
 	private Scene myScene;
+	private ResourceBundle myResources_C;
+	private ResourceBundle myResources_S;
 
 	    
 	    @Override
@@ -78,37 +83,58 @@ public class Visualizer extends Application{
 	    private void setUpGridPane() {
 	    	
 	    	 		gridPane = new GridPane();
-
+	    	 		
+	    	 		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
+	    	 		myResources_S = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
+	    	 		
 		        simulationMenu = new ComboBox<String>();
-		        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
-		        simulationMenu.setValue("Choose Simulation");
+		        simulationMenu.setValue(getResources(myResources_S, "InitialCommand"));
+		        
+		        simulationMenu.getItems().addAll(getResources(myResources_S, "GOLCommand"), getResources(myResources_S, "FireCommand"), 
+		        									getResources(myResources_S, "SegregationCommand"), getResources(myResources_S, "PredatorPreyCommand"));  
+		       
 		        
 		        commandsBox = new ComboBox<String>();
-		        commandsBox.getItems().addAll("Play", "Pause", "Slow Down", "Speed Up");  
-		        commandsBox.setValue("Choose Command");
+		        commandsBox.setValue(getResources(myResources_C, "InitialCommand"));
 		        
-		        Button stepForward = new Button ("Step Forward");
-		        
-		        gridPane.add(stepForward, 1, 3);
-		        gridPane.add(new Label("Simulation: "), 0, 0);
-		        gridPane.add(simulationMenu, 1, 0);
-		        gridPane.add(new Label("Command: "), 2, 0);
-		        gridPane.add(commandsBox, 3, 0);
-		        
-		        stepForward.setOnAction((e) -> {
-		             handleStepForward("Step Forward");
-		        });
+		        commandsBox.getItems().addAll(getResources(myResources_C, "PlayCommand"), getResources(myResources_C, "StopCommand"), 
+		        								 getResources(myResources_C, "SlowerCommand"), getResources(myResources_C, "FasterCommand"));  
+		        addToGridPane();
+	       
 		   }
 	    
+	    private void addToGridPane() {
+	    	 	Button stepForward = new Button (getResources(myResources_C, "StepForwardCommand"));
+	    		gridPane.add(stepForward, 1, 3);
+	        gridPane.add(new Label(getResources(myResources_S, "LabelCommand")), 0, 0);
+	        gridPane.add(simulationMenu, 1, 0);
+	        gridPane.add(new Label(getResources(myResources_C, "LabelCommand")), 2, 0);
+	        gridPane.add(commandsBox, 3, 0);
+	        stepForward.setOnAction((e) -> {
+	             handleStepForward(getResources(myResources_C, "StepForwardCommand"));
+	        });
+	    	
+	    }
+	    
+	    private  String getResources(ResourceBundle rb, String s) {
+	    			return rb.getString(s);
+	    	}
+	    
 	
+<<<<<<< HEAD
 	        private void step(double elapsedTime) {
 	    			update();
+=======
+	   private void step(double elapsedTime) {
+	    	
+	     		update();
+>>>>>>> ece711b7c3cfd8fe60e7817f7a0f8277c209b441
 	   
-	     		commandsBox.setOnAction((e) -> {
+	     	commandsBox.setOnAction((e) -> {
 		             handleCommand(e);
-		        });		    		
+		     });		    		
 	    			
-	    			simulationMenu.setOnAction((e) -> {
+	    		simulationMenu.setOnAction((e) -> {
 		             handleSimulation(e);
 		    });
 		    
