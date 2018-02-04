@@ -33,13 +33,10 @@ public class SegregationCell extends Cell{
 	
 	@Override
 	public void applyRules() {
-<<<<<<< HEAD
 		if(this.getCurrentState() == EMPTY){
 			toBeMoved = false;
 			return;
 		}
-=======
->>>>>>> ece711b7c3cfd8fe60e7817f7a0f8277c209b441
 
 		int numLiveNeighbors = 0;
 		int numSimilar = 0;
