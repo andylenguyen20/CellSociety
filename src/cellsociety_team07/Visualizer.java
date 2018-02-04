@@ -27,6 +27,9 @@ public class Visualizer extends Application{
 	private double sceneHeight = 400;
 	private Stage stg;
 
+	private int r = 0;
+	private int c = 0;
+
 	  
 	    @Override 
 	    public void start(Stage stage) {
@@ -91,14 +94,19 @@ public class Visualizer extends Application{
 	    private void step(double elapsedTime) {
 	    		update(simulation.getCells());
 	    		
-	    		commandsBox.setOnAction((e) -> {
-	             handleCommand(e);
-	        });
-//	    		
+	     		commandsBox.setOnAction((e) -> {
+		             handleCommand(e);
+		        });
+//		    		
+	    			
+	    			
+	    		}
+	    
+	   
 //	    		simulationMenu.setOnAction((e) -> {
 //		             handleSim(e);
 //		    });
-	    }
+	    //}
 	    
 	    private void handleCommand(Event e) {
 			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();
@@ -134,6 +142,20 @@ public class Visualizer extends Application{
 	    	
 	    		
 
+	    private void handleSim(Event e) {
+				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
+				if ( selectedAction.equals("Game of Life"))
+	    				//do something
+				if ( selectedAction.equals("Segregation"))
+					//
+				if (selectedAction.equals("Predator/Prey"))
+					//
+				if ( selectedAction.equals("Fire")){
+					
+				}
+					//
+					
+			}
 	    
 	    
 	    
