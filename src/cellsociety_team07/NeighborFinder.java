@@ -4,13 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class NeighborFinder {
-	private ArrayList<Point> offsetIgnore;
-	public NeighborFinder(){
-		this(new ArrayList<Point>());
-	}
-	public NeighborFinder(ArrayList<Point> offsetIgnore){
+	private Point[] offsetIgnore;
+	public NeighborFinder(Point[] offsetIgnore){
 		this.offsetIgnore = offsetIgnore;
-		offsetIgnore.add(new Point(0,0));
 	}
 	public ArrayList<Cell> getCellNeighborhood(Cell[][] cells, int row, int col){
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();

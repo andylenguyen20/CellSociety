@@ -3,6 +3,7 @@
 	<type>Segregation</type>
 	<title>Segregation Simulation</title>
 	<author>Andy Nguyen</author>
+	<param id = "similarityReq">0.5</param>
 	<grid>
 		<dimension>
 			<width>20</width>

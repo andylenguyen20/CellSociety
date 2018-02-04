@@ -8,8 +8,8 @@ public class GameOfLifeCell extends Cell{
 	public static final int ALIVE = 1;
 	public static final Paint[] colors = {Color.BLACK, Color.GREEN};
 	
-	public GameOfLifeCell(int initialState) {
-		super(initialState);
+	public GameOfLifeCell(int state, double[] props) {
+		super(state, props);
 		super.setColors(colors);
 	}
 
@@ -18,9 +18,11 @@ public class GameOfLifeCell extends Cell{
 		for (Cell neigh:super.getNeighbors()) {
 			alive += neigh.getCurrentState();
 		}
-		if(alive >= 1 && alive <3 && this.getCurrentState() == ALIVE){
+		if(alive >= 2 && alive <4 && this.getCurrentState() == ALIVE){
 			super.setNextState(ALIVE);
-		} else{
+		}else if(alive == 3 && this.getCurrentState() == DEAD){
+			super.setNextState(ALIVE);
+		}else{
 			super.setNextState(DEAD);
 		}
 	}

@@ -4,8 +4,8 @@ import javafx.scene.paint.Paint;
 
 public class WatorCell extends Cell{
 
-	public WatorCell(int initialState) {
-		super(initialState);
+	public WatorCell(int state, double[] props) {
+		super(state, props);
 		// TODO Auto-generated constructor stub
 	}
 

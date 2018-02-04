@@ -3,29 +3,35 @@
 	<type>Fire</type>
 	<title>Fire Simulation</title>
 	<author>Andy Nguyen</author>
+	<param id = "probCatch">0.5</param>
 	<grid>
 		<dimension>
 			<width>20</width>
 			<height>20</height>
 		</dimension>
 		<cell>
-			<row>10</row>
-			<col>5</col>
+			<row>0</row>
+			<col>1</col>
 			<state>1</state>
 		</cell>
 		<cell>
-			<row>10</row>
-			<col>9</col>
+			<row>1</row>
+			<col>2</col>
+			<state>2</state>
+		</cell>
+		<cell>
+			<row>2</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell>
+			<row>2</row>
+			<col>1</col>
 			<state>1</state>
 		</cell>
 		<cell>
-			<row>12</row>
-			<col>4</col>
-			<state>1</state>
-		</cell>
-		<cell>
-			<row>13</row>
-			<col>4</col>
+			<row>2</row>
+			<col>2</col>
 			<state>1</state>
 		</cell>
 	</grid>

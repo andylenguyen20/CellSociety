@@ -6,6 +6,7 @@ import javafx.util.Duration;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Simulation {
@@ -41,22 +42,24 @@ public class Simulation {
 
 	private void setUpCells(){
 		HashMap<Point, Integer> initialCellInfo = simXMLParser.getInitialCellInfo();
+		double[] cellParams = simXMLParser.getSimulationParams();
 		Cell[][] cells = grid.getCells();
-		for(Point point : initialCellInfo.keySet()){
-			int state = initialCellInfo.get(point);
-			cells[point.x][point.y] = new GameOfLifeCell(state);
-			
-			cells[point.x][point.y] = SimulationObjectManager.getSpecificCell(myType, state);
+		for(Point location : initialCellInfo.keySet()){
+			int state = initialCellInfo.get(location);
+			cells[location.x][location.y] = SimulationObjectManager.getSpecificCell(myType, state, cellParams);
 		}
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells[i].length; j++){
 				if(cells[i][j] == null){
-					System.out.println("hi");
-					cells[i][j] = SimulationObjectManager.getSpecificCell(myType, Cell.DEFAULT_STATE);
+					cells[i][j] = SimulationObjectManager.getSpecificCell(myType, Cell.DEFAULT_STATE, cellParams);
 				}
 			}
 		}
 		grid.setCellNeighbors();
+	}
+	
+	public Grid getGrid(){
+		return grid;
 	}
 	
 	public Cell[][] getCells(){

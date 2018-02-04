@@ -1,39 +1,60 @@
 package cellsociety_team07;
 
-import javafx.scene.paint.*;
+
+import java.awt.Point;
+import java.util.ArrayList;
+
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class SegregationCell extends Cell{
+	public static final int EMPTY = 0; // an empty cell
+	public static final int RACE1 = 1; // first race inside of the cell
+	public static final int RACE2 = 2; // second race inside of the cell
+	public static final int SIMILARITY_REQ = 0;
+	private boolean isSatisfied;
+	public static final Paint[] colors = {Color.AZURE, Color.RED, Color.BLUE}; // Array of Colors
 	
-	private static final int EMPTY = 0;
-	private static final int RED = 1;
-	private static final int BLUE = 2;
-	private static final Paint[] colors = {Color.WHITE, Color.RED, Color.BLUE};
-	private static double satisfaction; // satisfaction threshold
-
-	public SegregationCell(int initialState) {
-		super(initialState);
+	public SegregationCell(int initialState, double[] props) {
+		super(initialState, props);
 		super.setColors(colors);
-		// TODO Auto-generated constructor stub
+		isSatisfied = true;
+
 	}
 
 	@Override
 	public void applyRules() {
-		int same = 0; // number of cells of same type surrounding this cell
-		int total = this.getNeighbors().size(); // total number of neighbors
-		for (Cell neigh:this.getNeighbors()) {
-			if (neigh.getCurrentState() == this.getCurrentState())
-				same++;
-		}
-		
-		double frac = same/total;
-		
-		if (frac < satisfaction) { // if not enough similar neighbors
-			this.move(); // move to an empty cell
+//<<<<<<< HEAD
+//		int same = 0; // number of cells of same type surrounding this cell
+//		int total = this.getNeighbors().size(); // total number of neighbors
+//		for (Cell neigh:this.getNeighbors()) {
+//			if (neigh.getCurrentState() == this.getCurrentState())
+//				same++;
+//		}
+//=======
+		int numLiveNeighbors = 0;
+		int numSimilar = 0;
+		for (Cell cell:super.getNeighbors()) {
+			if (cell.getCurrentState() != EMPTY){
+				numLiveNeighbors++;
+			}
+			if (cell.getCurrentState() == super.getCurrentState()){
+				numSimilar++;
+			}
 		}
 	}
-	
-	public void move() { // move to empty cell
-		
+	public void move(CellMover cm){
+		ArrayList<Point> emptyLocations = cm.getEmptyLocations(EMPTY);
+		Point myChoice = emptyLocations.get((int) Math.random() * emptyLocations.size());
+
 	}
 
+	
+	public boolean isSatisifed(){
+		return isSatisfied;
+	}
+	public boolean isEmpty(){
+		return this.getCurrentState() == EMPTY;
+
+	}
 }

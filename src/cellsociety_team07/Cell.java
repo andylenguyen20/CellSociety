@@ -9,12 +9,14 @@ public abstract class Cell extends Rectangle {
 	public static final int DEFAULT_STATE = 0;
 	private ArrayList<Cell> neighbors;
 	private int currState, nextState;
+	private double[] props;
 	private static Paint[] colors;
 	
 	//private Rule rule = new GameOfLifeRule();
 	
-	public Cell(int initialState){
-		currState = initialState;
+	public Cell(int initialState, double[] props){
+		this.currState = initialState;
+		this.props = props;
 	}
 	
 	/*
@@ -43,6 +45,10 @@ public abstract class Cell extends Rectangle {
 	
 	public void setColors(Paint[] arr) {
 		colors = arr;
+	}
+	
+	public double[] getProps(){
+		return props;
 	}
 
 	public abstract void applyRules();
