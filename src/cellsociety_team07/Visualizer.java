@@ -24,6 +24,8 @@ public class Visualizer extends Application{
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
 	private Stage stg;
+	private GridPane gridPane;
+	
 
 	    @Override 
 	    public void start(Stage stage) {
@@ -32,32 +34,13 @@ public class Visualizer extends Application{
 	        stg.setTitle("CA Simulation");
 	        
 	        Scene scene = new Scene(new Group(), 500, 500);
-	        
 	        Group root = (Group)scene.getRoot();
-	        GridPane gridPane = new GridPane();
-
-	        simulationMenu = new ComboBox<String>();
-	        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
-	        simulationMenu.setValue("Choose Simulation");
-	        
-	        commandsBox = new ComboBox<String>();
-	        commandsBox.getItems().addAll("Play", "Pause", "Slow Down", "Speed Up");  
-	        commandsBox.setValue("Choose Command");
-	        
-	        Button stepForward = new Button ("Step Forward");
-	        
-	        gridPane.add(stepForward, 1, 3);
-	        gridPane.add(new Label("Simulation: "), 0, 0);
-	        gridPane.add(simulationMenu, 1, 0);
-	        gridPane.add(new Label("Command: "), 2, 0);
-	        gridPane.add(commandsBox, 3, 0);
-	        
+	        setUpGridPane();
 	        root.getChildren().add(gridPane);
-	        
 	        
 	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
 	        double cellHeight = sceneHeight / simulation.getCells().length;
-	
+
 	        for(int i = 0; i < simulation.getCells().length; i++){
 				for(int j = 0; j < simulation.getCells()[i].length; j++){
 					Cell cell = simulation.getCells() [i][j];
@@ -70,15 +53,10 @@ public class Visualizer extends Application{
 	        			root.getChildren().add(cell);
 	        		}
 	        }
-	      
-	        stepForward.setOnAction((e) -> {
-	             handleStepForward("Step Forward");
-	        });	
-	        
+
 	        stg.setScene(scene);
 	        stg.show();
 	
-	        
 	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 			animation = new Timeline();
 			animation.setCycleCount(Timeline.INDEFINITE);
@@ -87,7 +65,33 @@ public class Visualizer extends Application{
 	    }
 	    
 	    
-	    private void step(double elapsedTime) {
+	    private void setUpGridPane() {
+	    	
+	    	 		gridPane = new GridPane();
+
+		        simulationMenu = new ComboBox<String>();
+		        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
+		        simulationMenu.setValue("Choose Simulation");
+		        
+		        commandsBox = new ComboBox<String>();
+		        commandsBox.getItems().addAll("Play", "Pause", "Slow Down", "Speed Up");  
+		        commandsBox.setValue("Choose Command");
+		        
+		        Button stepForward = new Button ("Step Forward");
+		        
+		        gridPane.add(stepForward, 1, 3);
+		        gridPane.add(new Label("Simulation: "), 0, 0);
+		        gridPane.add(simulationMenu, 1, 0);
+		        gridPane.add(new Label("Command: "), 2, 0);
+		        gridPane.add(commandsBox, 3, 0);
+		        
+		        stepForward.setOnAction((e) -> {
+		             handleStepForward("Step Forward");
+		        });
+		   }
+	    
+	
+	        private void step(double elapsedTime) {
 	    	
 	    		update(simulation.getCells());
 	   
@@ -101,7 +105,22 @@ public class Visualizer extends Application{
 		    
 	    }
 
-	    
+		private void update(Cell[][] cell) {
+		    	 for(int i = 0; i < simulation.getCells().length; i++){
+						for(int j = 0; j < simulation.getCells()[i].length; j++){
+							Cell c = simulation.getCells() [i][j];
+							c.applyRules();
+						}
+		    	 }
+		    	 for(int i = 0; i < simulation.getCells().length; i++){
+					for(int j = 0; j < simulation.getCells()[i].length; j++){
+						Cell c = simulation.getCells() [i][j];
+						c.update();
+						c.setFill(c.getColors());
+					}
+		    	 	}
+		    }
+	        
 	    private void handleCommand(Event e) {
 			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();
     			
@@ -134,21 +153,7 @@ public class Visualizer extends Application{
 					
 			}
 	    
-	    private void update(Cell[][] cell) {
-	    	 for(int i = 0; i < simulation.getCells().length; i++){
-					for(int j = 0; j < simulation.getCells()[i].length; j++){
-						Cell c = simulation.getCells() [i][j];
-						c.applyRules();
-					}
-	    	 }
-	    	 for(int i = 0; i < simulation.getCells().length; i++){
-				for(int j = 0; j < simulation.getCells()[i].length; j++){
-					Cell c = simulation.getCells() [i][j];
-					c.update();
-					c.setFill(c.getColors());
-				}
-	    	 	}
-	    }
+
 	    private void newSim(String sim) {
 	    		 simulation = new Simulation(sim);
 	    		 Scene scene = new Scene(new Group(), 500, 500);
