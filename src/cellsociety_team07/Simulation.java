@@ -45,7 +45,6 @@ public class Simulation {
 		for(Point point : initialCellInfo.keySet()){
 			int state = initialCellInfo.get(point);
 			cells[point.x][point.y] = new GameOfLifeCell(state);
-			
 			cells[point.x][point.y] = SimulationObjectManager.getSpecificCell(myType, state);
 		}
 		for(int i = 0; i < cells.length; i++){

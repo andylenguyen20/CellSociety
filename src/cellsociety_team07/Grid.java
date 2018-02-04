@@ -16,12 +16,12 @@ public abstract class Grid{
 	 * @param
 	 */
 	public Grid() {
-		neighFinder = new NeighborFinder();
-		
+		setCellNeighbors();
 	}
 	
 	public Grid(int width, int height){
 		cells = new Cell[width][height];
+
 	}
 	
 	/********************** METHODS ****************************/
@@ -44,6 +44,7 @@ public abstract class Grid{
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells.length; j++){
 				cells[i][j].setNeighbors(neighFinder.getCellNeighborhood(cells, i, j));
+				System.out.println("hi");
 			}
 		}
 	}
