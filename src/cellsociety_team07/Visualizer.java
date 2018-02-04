@@ -89,6 +89,11 @@ public class Visualizer extends Application {
 	    		play();
 	    		speedUp();
 	    		slowDown();
+	    		update();
+	    }
+	    
+	    private void update() {
+	    		
 	    }
 
 	    private void setSpeed(double speed){
@@ -101,33 +106,32 @@ public class Visualizer extends Application {
 		
 	    
 	    private void pause() {
-	    		if ( commandsBox.getValue().toString()=="pause")
+	    		if ( getCommand()=="pause")
 	    			animation.stop();
 	    		}
 	    
 	    private void play() {
-	    	if ( commandsBox.getValue().toString()=="play")
+	    	if ( getCommand()=="play")
 	    		animation.play();
 	    }
 	    
-	    private void getSimulation() {
-	    		simulationMenu.getValue().toString();
+	    private String getSimulation() {
+	    		return simulationMenu.getValue().toString();
 	    	}
 	    
-	    private void getCommand() {
-	    		commandsBox.getValue().toString();
+	    private String getCommand() {
+	    		return commandsBox.getValue().toString();
 	    }
 	    
 	    private void speedUp() {
-	    		if ( commandsBox.getValue().toString()=="Speed Up")
+	    		if ( getCommand() =="Speed Up")
 	    			setSpeed(getSpeed()*1.2);
-	    	
-	    }
+	    	}
+	    
 	    private void slowDown() {
-	    		if ( commandsBox.getValue().toString()=="Slow Down")
+	    		if ( getCommand() =="Slow Down")
 	    			setSpeed(getSpeed()*0.8);
-    	
-	    }
+    		}
 	    
 	    
 	    
