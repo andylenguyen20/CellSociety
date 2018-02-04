@@ -13,11 +13,7 @@ public class GameOfLifeCell extends Cell{
 	}
 	
 	public Paint getColors() {
-		if (this.getCurrentState()==1) {
-			return colors[1];
-		}
-		return colors[0];
-	
+		return colors[this.getCurrentState()];	
 	}
 
 	public void applyRules(){
