@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
 public abstract class Cell extends Rectangle {
 	public static final int DEFAULT_STATE = 0;
