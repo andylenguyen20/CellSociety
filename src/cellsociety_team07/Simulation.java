@@ -25,11 +25,11 @@ public class Simulation {
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
 		myType = simXMLParser.getType();
-		System.out.println(myType);
 		Dimension gridDimensions = simXMLParser.getGridDimensions();
 		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
 		myTitle = simXMLParser.getTitle();
 		setUpCells();
+		
 	}
 
 	private void update(){
