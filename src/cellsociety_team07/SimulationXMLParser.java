@@ -46,6 +46,8 @@ public class SimulationXMLParser {
 		Element simulation = (Element) document.getElementsByTagName("simulation").item(0);
 		return this.getTagValue(simulation, "speed");
 	}
+	
+	
 	public String getTitle(){
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();

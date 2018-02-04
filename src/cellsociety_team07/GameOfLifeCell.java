@@ -1,5 +1,5 @@
 package cellsociety_team07;
-import com.sun.javafx.geom.Shape;
+import javafx.scene.shape.Rectangle;
 
 import javafx.scene.paint.*;
 

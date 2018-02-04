@@ -89,12 +89,14 @@ public class Visualizer extends Application {
 	    		play();
 	    		speedUp();
 	    		slowDown();
-	    		update();
+	    		//update();
 	    }
 	    
-	    private void update() {
+	    private void update(Cell cell) {
+	    		cell.applyRules();
+	    		cell.setFill(cell.getColors());
 	    		
-	    }
+	    	}
 
 	    private void setSpeed(double speed){
 			mySpeed = speed;
