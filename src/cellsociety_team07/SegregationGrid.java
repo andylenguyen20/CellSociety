@@ -12,6 +12,7 @@ public class SegregationGrid extends Grid implements CellMover{
 	@Override
 	public void prepareNextState(){
 		super.prepareNextState();
+		/*
 		SegregationCell[][] segregationGrid = (SegregationCell[][]) super.getCells();
 		for(int row = 0; row < segregationGrid.length; row++){
 			for(int col = 0; col < segregationGrid.length; col++){
@@ -20,7 +21,7 @@ public class SegregationGrid extends Grid implements CellMover{
 					currCell.move(this);
 				}
 			}
-		}
+		}*/
 	}
 	private void moveCell(SegregationCell[][] segregationGrid, Cell currentCell){
 		for(int row = 0; row < segregationGrid.length; row++){

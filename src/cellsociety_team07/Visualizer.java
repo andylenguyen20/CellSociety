@@ -16,47 +16,32 @@ import javafx.scene.control.*;
 
 
 public class Visualizer extends Application{
-	public static final int FRAMES_PER_SECOND = 60;
-	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	public static final int MY_SPEED= 10;
+	public static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
 	private Timeline animation;
 	private Simulation simulation;
 	private ComboBox<String> simulationMenu;
     private ComboBox<String> commandsBox;
-	private double mySpeed=30;
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
 	private Stage stg;
+	private GridPane gridPane;
+	
 
 	    @Override 
 	    public void start(Stage stage) {
-	    		stg = stage;
-	    		simulation = new Simulation("xml/fire_simulation.xml");
+	    	stg = stage;
+	    	simulation = new Simulation("xml/fire_simulation.xml");
 	        stg.setTitle("CA Simulation");
 	        
 	        Scene scene = new Scene(new Group(), 500, 500);
-	        scene.setOnKeyPressed(e -> {
-				handleKeyInput(e.getCode());
-			});
 	        Group root = (Group)scene.getRoot();
-	        GridPane gridPane = new GridPane();
-
-	        simulationMenu = new ComboBox<String>();
-	        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
-	        simulationMenu.setValue("Choose Simulation");
-	        
-	        commandsBox = new ComboBox<String>();
-	        commandsBox.getItems().addAll("Play", "Pause","Skip forward", "Slow Down", "Speed Up");  
-	        commandsBox.setValue("Choose Command");
-	        
-	        gridPane.add(new Label("Simulation: "), 0, 0);
-	        gridPane.add(simulationMenu, 1, 0);
-	        gridPane.add(new Label("Command: "), 2, 0);
-	        gridPane.add(commandsBox, 3, 0);
+	        setUpGridPane();
+	        root.getChildren().add(gridPane);
 	        
 	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
 	        double cellHeight = sceneHeight / simulation.getCells().length;
-	
+
 	        for(int i = 0; i < simulation.getCells().length; i++){
 				for(int j = 0; j < simulation.getCells()[i].length; j++){
 					Cell cell = simulation.getCells() [i][j];
@@ -69,14 +54,11 @@ public class Visualizer extends Application{
 	        			root.getChildren().add(cell);
 	        		}
 	        }
-	       
-	        root.getChildren().add(gridPane);
 
 	        stg.setScene(scene);
-	        //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 	        stg.show();
-	        
-	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+	
+	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 			animation = new Timeline();
 			animation.setCycleCount(Timeline.INDEFINITE);
 			animation.getKeyFrames().add(frame);
@@ -84,16 +66,36 @@ public class Visualizer extends Application{
 	    }
 	    
 	    
-	    private void step(double elapsedTime) {
-	    	/*
-	    	update(simulation.getCells());
-    		commandsBox.setOnAction((e) -> {
-	             handleCommand(e);
-	        });
-=======
+	    private void setUpGridPane() {
+	    	
+	    	 		gridPane = new GridPane();
+
+		        simulationMenu = new ComboBox<String>();
+		        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
+		        simulationMenu.setValue("Choose Simulation");
+		        
+		        commandsBox = new ComboBox<String>();
+		        commandsBox.getItems().addAll("Play", "Pause", "Slow Down", "Speed Up");  
+		        commandsBox.setValue("Choose Command");
+		        
+		        Button stepForward = new Button ("Step Forward");
+		        
+		        gridPane.add(stepForward, 1, 3);
+		        gridPane.add(new Label("Simulation: "), 0, 0);
+		        gridPane.add(simulationMenu, 1, 0);
+		        gridPane.add(new Label("Command: "), 2, 0);
+		        gridPane.add(commandsBox, 3, 0);
+		        
+		        stepForward.setOnAction((e) -> {
+		             handleStepForward("Step Forward");
+		        });
+		   }
+	    
+	
+	        private void step(double elapsedTime) {
+	    	
 	    		update(simulation.getCells());
->>>>>>> 8f565ef9ccaf0559a330a6e25c078984e1e00351
-	    		
+	   
 	     		commandsBox.setOnAction((e) -> {
 		             handleCommand(e);
 		        });		    		
@@ -101,20 +103,42 @@ public class Visualizer extends Application{
 	    			simulationMenu.setOnAction((e) -> {
 		             handleSimulation(e);
 		    });
-		    */
+		    
 	    }
-	    
-	    
+
+		private void update(Cell[][] cell) {
+		    	 for(int i = 0; i < simulation.getCells().length; i++){
+						for(int j = 0; j < simulation.getCells()[i].length; j++){
+							Cell c = simulation.getCells() [i][j];
+							c.applyRules();
+						}
+		    	 }
+		    	 for(int i = 0; i < simulation.getCells().length; i++){
+					for(int j = 0; j < simulation.getCells()[i].length; j++){
+						Cell c = simulation.getCells() [i][j];
+						c.update();
+						c.setFill(c.getColors());
+					}
+		    	 	}
+		    }
+	        
 	    private void handleCommand(Event e) {
 			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();
-			if ( selectedAction.equals("Pause"))
+    			
+			if ( selectedAction.equals("Pause")) {
     				animation.stop();
-			if ( selectedAction.equals("Play"))
-				animation.play();
-			if ( selectedAction.equals("Speed Up"))
-				setSpeed(getSpeed()*1.2);
-			if ( selectedAction.equals("Slow Down"))
-				setSpeed(getSpeed()*0.8);
+			}
+			if ( selectedAction.equals("Play")) {
+				defaultRateAndPlay(1.0);
+			}
+			if ( selectedAction.equals("Speed Up")) {
+				defaultRateAndPlay(1.0);
+				animation.setRate(animation.getRate()*2);
+			}
+			if ( selectedAction.equals("Slow Down")) {
+				defaultRateAndPlay(1.0);
+				animation.setRate(animation.getRate()*0.5);
+			}
 		}
 	    
 	    private void handleSimulation(Event e) {
@@ -166,29 +190,26 @@ public class Visualizer extends Application{
 	    		 stg.setScene(scene);
 	    		 stg.show();
 	    	}
+	   
 	    
-
-	    private void setSpeed(double speed){
-			mySpeed = speed;
-		}
-	    
-	    private double getSpeed() {
-	    		return mySpeed;
+	    private void defaultRateAndPlay(double rate) {
+	    		animation.setRate(rate);
+	    		animation.play();
 	    }
 	    
-	    public static void main(String[] args) {
-	        launch(args);
-	    }
-	    
-	    private void handleKeyInput(KeyCode code){
-			switch(code){
-				case T: 
-					update();
-					System.out.println("dog");
+	    private void handleStepForward(String code){
+	    	   switch(code){
+				case "Step Forward": 
+					update(simulation.getCells());
+					animation.stop();
 				break;
 			default: break;
 			}
 		}
+	    
+	    public static void main(String[] args) {
+	        launch(args);
+	    }
 			
 	}
 	
