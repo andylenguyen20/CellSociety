@@ -24,10 +24,6 @@ public class Visualizer extends Application {
 	private double mySpeed;
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
-	private int rows = 10;
-	private int columns = 10;
-	double gridWidth = sceneWidth / rows;
-	double gridHeight = sceneHeight / columns;
 	private int r = 0;
 	private int c = 0;
 
@@ -40,7 +36,7 @@ public class Visualizer extends Application {
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
-	        GridPane grid = new GridPane();
+	        GridPane gridPane = new GridPane();
 
 	        simulationMenu = new ComboBox<String>();
 	        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
@@ -53,25 +49,28 @@ public class Visualizer extends Application {
 	        
 	        
 	       
-	        grid.add(new Label("Simulation: "), 0, 0);
-	        grid.add(simulationMenu, 1, 0);
-	        grid.add(new Label("Command: "), 2, 0);
-	        grid.add(commandsBox, 3, 0);
+	        gridPane.add(new Label("Simulation: "), 0, 0);
+	        gridPane.add(simulationMenu, 1, 0);
+	        gridPane.add(new Label("Command: "), 2, 0);
+	        gridPane.add(commandsBox, 3, 0);
 	
+	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
+	        double cellHeight = sceneHeight / simulation.getCells().length;
+	        
 	        for (Cell[] cells : simulation.getCells()) {
-	        	
+	        	r++;
 	        		for (Cell cell : cells) {
-	        			
-	        			cell.setWidth(gridWidth);
-	        			cell.setHeight(gridHeight);
+	        			c++;
+	        			cell.setWidth(cellWidth);
+	        			cell.setHeight(cellHeight);
 	        			cell.setFill(cell.getColors());
-	        			cell.setX(sceneWidth / columns * c);
-	    				cell.setY(sceneHeight / rows * r);
+	        			cell.setX(sceneWidth / cellWidth * c);
+	    				cell.setY(sceneHeight / cellHeight * r);
 	        			root.getChildren().add(cell);
 	        		}
 	        }
 	       
-	        root.getChildren().add(grid);
+	        root.getChildren().add(gridPane);
 
 	        stage.setScene(scene);
 	        stage.show();
@@ -85,11 +84,11 @@ public class Visualizer extends Application {
 	    
 	    
 	    private void step(double elapsedTime) {
-	    		pause();
-	    		play();
-	    		speedUp();
-	    		slowDown();
-	    		update();
+	    	pause();
+	    	play();
+	    	speedUp();
+	    	slowDown();
+	    	update();
 	    }
 	    
 	    private void update() {
