@@ -12,7 +12,7 @@ public class SimulationObjectManager {
 			case "Wator":
 				return new WatorCell(initialState);
 		default:
-			throw new BadSimulationException("Bad simulation type");		
+			throw new BadSimulationException("Bad simulation type while getting cell");		
 		}
 	}
 	public static Grid getSpecificGrid(String simulationType, int width, int height){
@@ -26,7 +26,7 @@ public class SimulationObjectManager {
 			case "Wator":
 				return new WatorGrid(width, height);
 		default:
-			throw new BadSimulationException("Bad simulation type");		
+			throw new BadSimulationException("Bad simulation type while getting grid");		
 		}
 	}
 }

@@ -12,7 +12,6 @@ public class Simulation {
 	
 	private SimulationXMLParser simXMLParser;
 	private Grid grid;
-	private double mySpeed;
 	private String myTitle;
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
@@ -26,9 +25,9 @@ public class Simulation {
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
 		myType = simXMLParser.getType();
+		System.out.println(myType);
 		Dimension gridDimensions = simXMLParser.getGridDimensions();
 		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
-		mySpeed = simXMLParser.getSpeed();
 		myTitle = simXMLParser.getTitle();
 		setUpCells();
 	}
@@ -48,12 +47,12 @@ public class Simulation {
 			int state = initialCellInfo.get(point);
 			cells[point.x][point.y] = new GameOfLifeCell(state);
 			
-			cells[point.x][point.y] = SimulationObjectManager.getSpecificCell(myTitle, state);
+			cells[point.x][point.y] = SimulationObjectManager.getSpecificCell(myType, state);
 		}
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells[i].length; j++){
 				if(cells[i][j] == null){
-					cells[i][j] = SimulationObjectManager.getSpecificCell(myTitle, Cell.DEFAULT_STATE);
+					cells[i][j] = SimulationObjectManager.getSpecificCell(myType, Cell.DEFAULT_STATE);
 				}
 			}
 		}

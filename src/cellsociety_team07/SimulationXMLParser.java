@@ -36,15 +36,10 @@ public class SimulationXMLParser {
 	
 	public Dimension getGridDimensions(){
 		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
-		System.out.println("hi");
-		Element dimensions = (Element) gridTag.getElementsByTagName("dimension");
+		Element dimensions = (Element) gridTag.getElementsByTagName("dimension").item(0);
 		int width = this.getTagValue(dimensions, "width");
 		int height = this.getTagValue(dimensions, "height");
 		return new Dimension(width, height);
-	}
-	public int getSpeed(){
-		Element simulation = (Element) document.getElementsByTagName("simulation").item(0);
-		return this.getTagValue(simulation, "speed");
 	}
 	public String getTitle(){
 		Element title = (Element) document.getElementsByTagName("title").item(0);
