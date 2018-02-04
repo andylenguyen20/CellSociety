@@ -3,6 +3,7 @@ package cellsociety_team07;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.ComboBox;
@@ -13,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
 
-public class Visualizer extends Application {
+public class Visualizer extends Application{
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -30,17 +31,20 @@ public class Visualizer extends Application {
 	    public void start(Stage stage) {
 	    	
 	    	
-	    	simulation = new Simulation("xml/gol_simulation.xml");
+	    		simulation = new Simulation("xml/gol_simulation.xml");
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
 	        GridPane grid = new GridPane();
 
 	        simulationMenu = new ComboBox<String>();
+	        
 	        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
 	        
 	        commandsBox = new ComboBox<String>();
-	        commandsBox.getItems().addAll("Pause", "Play","Skip forward", "Slow Down", "Speed Up");   
+	        commandsBox.getItems().addAll("Play", "Pause","Skip forward", "Slow Down", "Speed Up");  
+	        
+	        
 
 	        simulationMenu.setValue("Choose Simulation");
 	        commandsBox.setValue("Choose Command");
@@ -85,12 +89,41 @@ public class Visualizer extends Application {
 	    
 	    
 	    private void step(double elapsedTime) {
-	    		pause();
-	    		play();
-	    		speedUp();
-	    		slowDown();
-	    	    update(simulation.getCells());
+	    		commandsBox.setOnAction((e) -> {
+	             handleCommand(e);
+	        });
+	    		
+	    		simulationMenu.setOnAction((e) -> {
+		             handleSim(e);
+		    });
 	    }
+	    
+	    private void handleCommand(Event e) {
+			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();
+			if ( selectedAction.equals("Pause"))
+    				animation.stop();
+			if ( selectedAction.equals("Play"))
+				animation.play();
+			if ( selectedAction.equals("Speed Up"))
+				setSpeed(getSpeed()*1.2);
+			if ( selectedAction.equals("Slow Down"))
+				setSpeed(getSpeed()*0.8);
+		}
+	    
+	    private void handleSim(Event e) {
+				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
+				if ( selectedAction.equals("Game of Life"))
+	    				//do something
+				if ( selectedAction.equals("Segregation"))
+					//
+				if (selectedAction.equals("Predator/Prey"))
+					//
+				if ( selectedAction.equals("Fire"))
+					//
+					
+			}
+	    
+	    
 	    
 	    
 	    private void update(Cell[][] cell) {
@@ -116,40 +149,16 @@ public class Visualizer extends Application {
 	    private double getSpeed() {
 	    		return mySpeed;
 	    }
-		
-	    
-	    private void pause() {
-	    		if ( getCommand().equals("pause"))
-	    			animation.stop();
-	    		}
-	    
-	    private void play() {
-	    	if ( getCommand().equals("play"))
-	    		animation.play();
-	    }
 	    
 	    private String getSimulation() {
 	    		return simulationMenu.getValue().toString();
 	    	}
-	    
-	    private String getCommand() {
-	    		return commandsBox.getValue().toString();
-	    }
-	    
-	    private void speedUp() {
-	    		if ( getCommand() =="Speed Up")
-	    			setSpeed(getSpeed()*1.2);
-	    	}
-	    
-	    private void slowDown() {
-	    		if ( getCommand() =="Slow Down")
-	    			setSpeed(getSpeed()*0.8);
-    		}
-	    
-	    
+	   
 	    
 	    public static void main(String[] args) {
 	        launch(args);
 	    }
+			
 	}
+	
 
