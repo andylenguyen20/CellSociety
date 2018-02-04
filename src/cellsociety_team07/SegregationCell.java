@@ -24,14 +24,7 @@ public class SegregationCell extends Cell{
 
 	@Override
 	public void applyRules() {
-//<<<<<<< HEAD
-//		int same = 0; // number of cells of same type surrounding this cell
-//		int total = this.getNeighbors().size(); // total number of neighbors
-//		for (Cell neigh:this.getNeighbors()) {
-//			if (neigh.getCurrentState() == this.getCurrentState())
-//				same++;
-//		}
-//=======
+
 		int numLiveNeighbors = 0;
 		int numSimilar = 0;
 		for (Cell cell:super.getNeighbors()) {

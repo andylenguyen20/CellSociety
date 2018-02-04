@@ -123,7 +123,7 @@ public class Visualizer extends Application{
 	
 	   private void step(double elapsedTime) {
 	    	
-	    		update();
+	     		update();
 	   
 	     	commandsBox.setOnAction((e) -> {
 		             handleCommand(e);

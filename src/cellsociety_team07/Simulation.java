@@ -32,9 +32,7 @@ public class Simulation {
 		setUpCells();
 	}
 
-	private void update(){
-		System.out.println("updating");
-	}
+
 	
 	public String getTitle(){
 		return myTitle;
