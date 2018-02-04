@@ -16,6 +16,7 @@ public class FireCell extends Cell{
 	
 	public FireCell(int initialState) {
 		super(initialState);
+		super.setColors(colors);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -38,12 +39,6 @@ public class FireCell extends Cell{
 				super.setNextState(BURNING);
 		}
 		// if currState = empty, nothing happens
-	}
-
-	@Override
-	// Return color corresponding to current state
-	public Paint getColors() {
-		return colors[super.getCurrentState()];
 	}
 
 }
