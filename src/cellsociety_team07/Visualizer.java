@@ -26,6 +26,9 @@ public class Visualizer extends Application{
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
 
+	private int r = 0;
+	private int c = 0;
+
 	  
 	    @Override 
 	    public void start(Stage stage) {
@@ -35,7 +38,7 @@ public class Visualizer extends Application{
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
-	        GridPane grid = new GridPane();
+	        GridPane gridPane = new GridPane();
 
 	        simulationMenu = new ComboBox<String>();
 	        
@@ -51,10 +54,10 @@ public class Visualizer extends Application{
 	        
 	        
 	       
-	        grid.add(new Label("Simulation: "), 0, 0);
-	        grid.add(simulationMenu, 1, 0);
-	        grid.add(new Label("Command: "), 2, 0);
-	        grid.add(commandsBox, 3, 0);
+	        gridPane.add(new Label("Simulation: "), 0, 0);
+	        gridPane.add(simulationMenu, 1, 0);
+	        gridPane.add(new Label("Command: "), 2, 0);
+	        gridPane.add(commandsBox, 3, 0);
 	        
 	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
 	        double cellHeight = sceneHeight / simulation.getCells().length;
@@ -75,7 +78,7 @@ public class Visualizer extends Application{
 	        		}
 	        }
 	       
-	        root.getChildren().add(grid);
+	        root.getChildren().add(gridPane);
 
 	        stage.setScene(scene);
 	        stage.show();
@@ -89,7 +92,8 @@ public class Visualizer extends Application{
 	    
 	    
 	    private void step(double elapsedTime) {
-	    		commandsBox.setOnAction((e) -> {
+	    	update(simulation.getCells());
+    		commandsBox.setOnAction((e) -> {
 	             handleCommand(e);
 	        });
 	    		
@@ -118,7 +122,9 @@ public class Visualizer extends Application{
 					//
 				if (selectedAction.equals("Predator/Prey"))
 					//
-				if ( selectedAction.equals("Fire"))
+				if ( selectedAction.equals("Fire")){
+					
+				}
 					//
 					
 			}

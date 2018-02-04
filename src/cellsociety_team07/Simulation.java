@@ -51,10 +51,12 @@ public class Simulation {
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells[i].length; j++){
 				if(cells[i][j] == null){
+					System.out.println("hi");
 					cells[i][j] = SimulationObjectManager.getSpecificCell(myType, Cell.DEFAULT_STATE);
 				}
 			}
 		}
+		grid.setCellNeighbors();
 	}
 	
 	public Cell[][] getCells(){
