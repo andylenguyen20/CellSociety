@@ -10,10 +10,7 @@ public class GameOfLifeCell extends Cell{
 	
 	public GameOfLifeCell(int initialState) {
 		super(initialState);
-	}
-	
-	public Paint getColors() {
-		return colors[this.getCurrentState()];	
+		super.setColors(colors);
 	}
 
 	public void applyRules(){
