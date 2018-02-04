@@ -65,8 +65,8 @@ public class Visualizer extends Application {
 	        			cell.setHeight(cellHeight);
 	        			cell.setFill(cell.getColors());
 	        			cell.setStroke(Color.WHITE);
-	        			cell.setX(cellWidth * i + 45);
-	    				cell.setY(cellHeight * j + 55);
+	        			cell.setX(cellWidth * j + 45);
+	    				cell.setY(cellHeight * i + 55);
 	        			root.getChildren().add(cell);
 	        		}
 	        }
@@ -89,15 +89,25 @@ public class Visualizer extends Application {
 	    		play();
 	    		speedUp();
 	    		slowDown();
-	    		//update();
+	    	    update(simulation.getCells());
 	    }
 	    
 	    
-	    private void update(Cell cell) {
-	    		cell.applyRules();
-	    		cell.setFill(cell.getColors());
-	    		
-	    	}
+	    private void update(Cell[][] cell) {
+	    	 for(int i = 0; i < simulation.getCells().length; i++){
+					for(int j = 0; j < simulation.getCells()[i].length; j++){
+						Cell c = simulation.getCells() [i][j];
+						c.applyRules();
+					}
+	    	 }
+	    	 for(int i = 0; i < simulation.getCells().length; i++){
+					for(int j = 0; j < simulation.getCells()[i].length; j++){
+						Cell c = simulation.getCells() [i][j];
+						c.update();
+						c.setFill(c.getColors());
+					}
+	    	 		}
+	    		}
 
 	    private void setSpeed(double speed){
 			mySpeed = speed;
