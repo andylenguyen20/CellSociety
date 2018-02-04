@@ -20,6 +20,7 @@ public class FireCell extends Cell{
 
 	@Override
 	public void applyRules() {
+		// if currState = burning, it will be empty (burnt) next frame
 		if (super.getCurrentState() == BURNING) {
 			super.setNextState(EMPTY);
 			return;
@@ -30,11 +31,12 @@ public class FireCell extends Cell{
 			if (tree.getCurrentState() == BURNING)
 				risk = true;
 		}
-		if (risk) {
+		if (risk) { // if there are burning neighbors, generate random # to dictate if tree catches fire
 			double prob = Math.random();
 			if (prob <= probCatch)
 				super.setNextState(BURNING);
 		}
+		// if currState = empty, nothing happens
 	}
 
 	@Override
