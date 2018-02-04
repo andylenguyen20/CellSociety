@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
 public abstract class Cell extends Rectangle {
 	public static final int DEFAULT_STATE = 0;
@@ -17,12 +16,6 @@ public abstract class Cell extends Rectangle {
 		currState = initialState;
 	}
 	
-	/*
-	 * A method that allows the cell to know what rules it abides by in the CA simulation and returns a next state given these rules.
-	 */
-	public void setRules(){
-		
-	}
 	/*
 	 * A method that updates the Cell’s state to the next state.
 	 */

@@ -13,11 +13,7 @@ public class GameOfLifeCell extends Cell{
 	}
 	
 	public Paint getColors() {
-		if (this.getCurrentState()==1) {
-			return colors[1];
-		}
-		return colors[0];
-	
+		return colors[this.getCurrentState()];	
 	}
 
 	public void applyRules(){
@@ -25,9 +21,9 @@ public class GameOfLifeCell extends Cell{
 		for (Cell neigh:super.getNeighbors()) {
 			alive += neigh.getCurrentState();
 		}
-		if(alive >= 1 && alive <3){
+		if(alive >= 1 && alive <3 && this.getCurrentState() == ALIVE){
 			super.setNextState(ALIVE);
-		}else{
+		} else{
 			super.setNextState(DEAD);
 		}
 	}
