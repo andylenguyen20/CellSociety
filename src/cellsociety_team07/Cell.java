@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import javafx.scene.shape.Rectangle;
 
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
 public abstract class Cell extends Rectangle {
 	public static final int DEFAULT_STATE = 0;
 	private ArrayList<Cell> neighbors;
 	private int currState, nextState;
+	private static Paint[] colors;
 	
 	//private Rule rule = new GameOfLifeRule();
 	
@@ -17,12 +17,6 @@ public abstract class Cell extends Rectangle {
 		currState = initialState;
 	}
 	
-	/*
-	 * A method that allows the cell to know what rules it abides by in the CA simulation and returns a next state given these rules.
-	 */
-	public void setRules(){
-		
-	}
 	/*
 	 * A method that updates the Cell’s state to the next state.
 	 */
@@ -43,11 +37,14 @@ public abstract class Cell extends Rectangle {
 		nextState = state;
 	}
 	
-	public abstract Paint getColors();
-	/*
-	public void applyRules(){
-		nextState = rule.getNextState(neighbors, currState);
-	}*/
+	public Paint getColors() {
+		return colors[getCurrentState()];
+	}
+	
+	public void setColors(Paint[] arr) {
+		colors = arr;
+	}
+
 	public abstract void applyRules();
 }
 

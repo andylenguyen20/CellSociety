@@ -16,6 +16,7 @@ public abstract class Grid{
 	 * @param
 	 */
 	public Grid() {
+		neighFinder = new NeighborFinder();
 		
 	}
 	

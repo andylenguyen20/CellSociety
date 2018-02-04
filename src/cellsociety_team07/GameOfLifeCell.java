@@ -1,5 +1,5 @@
 package cellsociety_team07;
-import com.sun.javafx.geom.Shape;
+import javafx.scene.shape.Rectangle;
 
 import javafx.scene.paint.*;
 
@@ -10,14 +10,7 @@ public class GameOfLifeCell extends Cell{
 	
 	public GameOfLifeCell(int initialState) {
 		super(initialState);
-	}
-	
-	public Paint getColors() {
-		if (this.getCurrentState()==1) {
-			return colors[1];
-		}
-		return colors[0];
-	
+		super.setColors(colors);
 	}
 
 	public void applyRules(){
@@ -25,9 +18,9 @@ public class GameOfLifeCell extends Cell{
 		for (Cell neigh:super.getNeighbors()) {
 			alive += neigh.getCurrentState();
 		}
-		if(alive >= 1 && alive <3){
+		if(alive >= 1 && alive <3 && this.getCurrentState() == ALIVE){
 			super.setNextState(ALIVE);
-		}else{
+		} else{
 			super.setNextState(DEAD);
 		}
 	}
