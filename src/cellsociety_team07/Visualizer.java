@@ -25,17 +25,17 @@ public class Visualizer extends Application{
 	private double mySpeed;
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
+	private Stage stg;
 
 	  
 	    @Override 
 	    public void start(Stage stage) {
-	    	
-	    	
+	    		stg = stage;
 	    		simulation = new Simulation("xml/gol_simulation.xml");
-	        stage.setTitle("CA Simulation");
+	        stg.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
-	        GridPane grid = new GridPane();
+	        GridPane gridPane = new GridPane();
 
 	        simulationMenu = new ComboBox<String>();
 	        
@@ -51,10 +51,10 @@ public class Visualizer extends Application{
 	        
 	        
 	       
-	        grid.add(new Label("Simulation: "), 0, 0);
-	        grid.add(simulationMenu, 1, 0);
-	        grid.add(new Label("Command: "), 2, 0);
-	        grid.add(commandsBox, 3, 0);
+	        gridPane.add(new Label("Simulation: "), 0, 0);
+	        gridPane.add(simulationMenu, 1, 0);
+	        gridPane.add(new Label("Command: "), 2, 0);
+	        gridPane.add(commandsBox, 3, 0);
 	        
 	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
 	        double cellHeight = sceneHeight / simulation.getCells().length;
@@ -75,10 +75,10 @@ public class Visualizer extends Application{
 	        		}
 	        }
 	       
-	        root.getChildren().add(grid);
+	        root.getChildren().add(gridPane);
 
-	        stage.setScene(scene);
-	        stage.show();
+	        stg.setScene(scene);
+	        stg.show();
 	        
 	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 			animation = new Timeline();
@@ -89,13 +89,15 @@ public class Visualizer extends Application{
 	    
 	    
 	    private void step(double elapsedTime) {
+	    		update(simulation.getCells());
+	    		
 	    		commandsBox.setOnAction((e) -> {
 	             handleCommand(e);
 	        });
-	    		
-	    		simulationMenu.setOnAction((e) -> {
-		             handleSim(e);
-		    });
+//	    		
+//	    		simulationMenu.setOnAction((e) -> {
+//		             handleSim(e);
+//		    });
 	    }
 	    
 	    private void handleCommand(Event e) {
@@ -110,18 +112,28 @@ public class Visualizer extends Application{
 				setSpeed(getSpeed()*0.8);
 		}
 	    
-	    private void handleSim(Event e) {
-				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
-				if ( selectedAction.equals("Game of Life"))
-	    				//do something
-				if ( selectedAction.equals("Segregation"))
-					//
-				if (selectedAction.equals("Predator/Prey"))
-					//
-				if ( selectedAction.equals("Fire"))
-					//
-					
-			}
+//	    private void handleSim(Event e) {
+//				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
+//				if ( selectedAction.equals("Game of Life"))
+//	    				//do something
+//				if ( selectedAction.equals("Segregation"))
+//					//
+//				if (selectedAction.equals("Predator/Prey"))
+//					//
+//				if ( selectedAction.equals("Fire"))
+//					//
+//					
+//			}
+	    
+//	    private void newSim(String sim) {
+//	    		 simulation = new Simulation(sim);
+//	    		 Scene scene = new Scene(new Group(), 500, 500);
+//	    		 stg.setScene(scene);
+//	    		 stg.show();
+//	    	}
+	    	
+	    		
+
 	    
 	    
 	    
