@@ -7,7 +7,6 @@ import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.KeyCode;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -26,16 +25,32 @@ public class Visualizer extends Application{
 	private double sceneHeight = 400;
 	private Stage stg;
 	private GridPane gridPane;
-	
+	private String currentSim = "xml/gol_simulation.xml";
+	private Scene myScene;
 
-	    @Override 
+	    
+	    @Override
 	    public void start(Stage stage) {
 	    	stg = stage;
-	    	simulation = new Simulation("xml/segregation_simulation.xml");
-	        stg.setTitle("CA Simulation");
+	    		
+	    	stg.setTitle("CA Simulation");
 	        
-	        Scene scene = new Scene(new Group(), 500, 500);
-	        Group root = (Group)scene.getRoot();
+
+	        myScene = setUpGame(500,500);
+	        stg.setScene(myScene);
+	        stg.show();
+	
+	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
+			animation = new Timeline();
+			animation.setCycleCount(Timeline.INDEFINITE);
+			animation.getKeyFrames().add(frame);
+			animation.play();
+	    }
+	    
+	    private Scene setUpGame(int height, int background) {
+	    		Group root = new Group();
+	    		Scene scene = new Scene(root, height, background);		
+	    		setSimulation(currentSim);
 	        setUpGridPane();
 	        root.getChildren().add(gridPane);
 	        
@@ -54,15 +69,9 @@ public class Visualizer extends Application{
 	        			root.getChildren().add(cell);
 	        		}
 	        }
+	        return scene;
 
-	        stg.setScene(scene);
-	        stg.show();
-	
-	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
-			animation = new Timeline();
-			animation.setCycleCount(Timeline.INDEFINITE);
-			animation.getKeyFrames().add(frame);
-			animation.play();
+	    	
 	    }
 	    
 	    
@@ -93,8 +102,7 @@ public class Visualizer extends Application{
 	    
 	
 	        private void step(double elapsedTime) {
-	    	
-	    		update();
+	    			update();
 	   
 	     		commandsBox.setOnAction((e) -> {
 		             handleCommand(e);
@@ -127,53 +135,40 @@ public class Visualizer extends Application{
 	    
 	    private void handleSimulation(Event e) {
 				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
-				if ( selectedAction.equals("Game of Life"))
-	    				newSim("xml/gol_simulation.xml");
+				if ( selectedAction.equals("Game of Life")) 
+					newSim("xml/gol_simulation.xml");
+				
 				if ( selectedAction.equals("Segregation"))
 					newSim("xml/segregation_simulation.xml");
+				
 				if (selectedAction.equals("Predator/Prey"))
 					newSim("xml/wator_simulation.xml");
-				if ( selectedAction.equals("Fire"))
+				
+				if ( selectedAction.equals("Fire")) 
 					newSim("xml/fire_simulation.xml");
-					
-			}
+				}
 	    
 	    private void update(){
-	    	Grid grid = simulation.getGrid();
-	    	grid.prepareNextState();
-	    	grid.update();
-	    	for(Cell[] cells : grid.getCells()){
-	    		for(Cell cell : cells){
-	    			cell.setFill(cell.getColors());
+	    		Grid grid = simulation.getGrid();
+	    		grid.prepareNextState();
+	    		grid.update();
+	    		for(Cell[] cells : grid.getCells()){
+	    			for(Cell cell : cells)
+	    				cell.setFill(cell.getColors());
+	    		 	}
 	    		}
-	    	}
-	    }
-	    
-	    /*
-	    private void update(Cell[][] cell) {
-	    	
-	    	 for(int i = 0; i < simulation.getCells().length; i++){
-					for(int j = 0; j < simulation.getCells()[i].length; j++){
-						Cell c = simulation.getCells() [i][j];
-						c.applyRules();
-					}
-	    	 }
-	    	 for(int i = 0; i < simulation.getCells().length; i++){
-				for(int j = 0; j < simulation.getCells()[i].length; j++){
-					Cell c = simulation.getCells() [i][j];
-					c.update();
-					c.setFill(c.getColors());
-				}
-	    	 }
-	    	 
-	    }
-	    */
+
 	    private void newSim(String sim) {
-	    		 simulation = new Simulation(sim);
-	    		 Scene scene = new Scene(new Group(), 500, 500);
-	    		 stg.setScene(scene);
-	    		 stg.show();
+	    		currentSim = sim;
+	    		Scene scene = setUpGame(500, 500);
+	    		stg.setScene(scene);
+	    		stg.show();
+	    		defaultRateAndPlay(1.0);
 	    	}
+	    
+	    private void setSimulation(String s) {
+	    		simulation = new Simulation(s);
+	    } 
 	   
 	    
 	    private void defaultRateAndPlay(double rate) {

@@ -1,5 +1,6 @@
 package cellsociety_team07;
 
+
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class SegregationCell extends Cell{
 		super(initialState, props);
 		super.setColors(colors);
 		toBeMoved = false;
+
 	}
 
 	public void applyRules(CellMover cm){
@@ -26,10 +28,6 @@ public class SegregationCell extends Cell{
 			Cell replacement = cm.getRandomEmptyCell(EMPTY);
 			replacement.setNextState(super.getCurrentState());
 			super.setNextState(EMPTY);
-			System.out.println("moved");
-			System.out.println(super.getCurrentState());
-		}else{
-			super.setNextState(super.getCurrentState());
 		}
 	}
 	
@@ -39,6 +37,7 @@ public class SegregationCell extends Cell{
 			toBeMoved = false;
 			return;
 		}
+
 		int numLiveNeighbors = 0;
 		int numSimilar = 0;
 		for (Cell cell:super.getNeighbors()) {
@@ -65,5 +64,6 @@ public class SegregationCell extends Cell{
 	}
 	public boolean isEmpty(){
 		return this.getCurrentState() == EMPTY;
+
 	}
 }
