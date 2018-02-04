@@ -9,7 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
 
@@ -24,18 +24,12 @@ public class Visualizer extends Application {
 	private double mySpeed;
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
-	private int rows = 10;
-	private int columns = 10;
-	double gridWidth = sceneWidth / rows;
-	double gridHeight = sceneHeight / columns;
-	private int r = 0;
-	private int c = 0;
 
-	
-	
 	  
 	    @Override 
 	    public void start(Stage stage) {
+	    	
+	    	
 	    	simulation = new Simulation("xml/gol_simulation.xml");
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
@@ -57,16 +51,22 @@ public class Visualizer extends Application {
 	        grid.add(simulationMenu, 1, 0);
 	        grid.add(new Label("Command: "), 2, 0);
 	        grid.add(commandsBox, 3, 0);
+	        
+	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
+	        double cellHeight = sceneHeight / simulation.getCells().length;
 	
-	        for (Cell[] cells : simulation.getCells()) {
-	        	
-	        		for (Cell cell : cells) {
+	        
+	        
+	        for(int i = 0; i < simulation.getCells().length; i++){
+				for(int j = 0; j < simulation.getCells()[i].length; j++){
+					Cell cell = simulation.getCells() [i][j];
 	        			
-	        			cell.setWidth(gridWidth);
-	        			cell.setHeight(gridHeight);
+	        			cell.setWidth(cellWidth);
+	        			cell.setHeight(cellHeight);
 	        			cell.setFill(cell.getColors());
-	        			cell.setX(sceneWidth / columns * c);
-	    				cell.setY(sceneHeight / rows * r);
+	        			cell.setStroke(Color.WHITE);
+	        			cell.setX(cellWidth * i + 45);
+	    				cell.setY(cellHeight * j + 55);
 	        			root.getChildren().add(cell);
 	        		}
 	        }
@@ -92,6 +92,7 @@ public class Visualizer extends Application {
 	    		//update();
 	    }
 	    
+	    
 	    private void update(Cell cell) {
 	    		cell.applyRules();
 	    		cell.setFill(cell.getColors());
@@ -108,12 +109,12 @@ public class Visualizer extends Application {
 		
 	    
 	    private void pause() {
-	    		if ( getCommand()=="pause")
+	    		if ( getCommand().equals("pause"))
 	    			animation.stop();
 	    		}
 	    
 	    private void play() {
-	    	if ( getCommand()=="play")
+	    	if ( getCommand().equals("play"))
 	    		animation.play();
 	    }
 	    
