@@ -29,7 +29,6 @@ public class Simulation {
 		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
 		myTitle = simXMLParser.getTitle();
 		setUpCells();
-		
 	}
 
 	private void update(){
