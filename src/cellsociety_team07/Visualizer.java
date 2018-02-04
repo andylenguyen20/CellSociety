@@ -36,7 +36,7 @@ public class Visualizer extends Application {
 	  
 	    @Override 
 	    public void start(Stage stage) {
-	    		simulation = new Simulation("xml/gol_simulation.xml");
+	    	simulation = new Simulation("xml/gol_simulation.xml");
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
