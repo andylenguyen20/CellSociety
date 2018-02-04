@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -37,6 +38,9 @@ public class Visualizer extends Application{
 	    		simulation = new Simulation("xml/gol_simulation.xml");
 	        stage.setTitle("CA Simulation");
 	        Scene scene = new Scene(new Group(), 500, 500);
+	        scene.setOnKeyPressed(e -> {
+				handleKeyInput(e.getCode());
+			});
 	        Group root = (Group)scene.getRoot();
 	        GridPane gridPane = new GridPane();
 
@@ -92,6 +96,7 @@ public class Visualizer extends Application{
 	    
 	    
 	    private void step(double elapsedTime) {
+	    	/*
 	    	update(simulation.getCells());
     		commandsBox.setOnAction((e) -> {
 	             handleCommand(e);
@@ -100,6 +105,7 @@ public class Visualizer extends Application{
 	    		simulationMenu.setOnAction((e) -> {
 		             handleSim(e);
 		    });
+		    */
 	    }
 	    
 	    private void handleCommand(Event e) {
@@ -129,9 +135,6 @@ public class Visualizer extends Application{
 					
 			}
 	    
-	    
-	    
-	    
 	    private void update(Cell[][] cell) {
 	    	 for(int i = 0; i < simulation.getCells().length; i++){
 					for(int j = 0; j < simulation.getCells()[i].length; j++){
@@ -140,13 +143,13 @@ public class Visualizer extends Application{
 					}
 	    	 }
 	    	 for(int i = 0; i < simulation.getCells().length; i++){
-					for(int j = 0; j < simulation.getCells()[i].length; j++){
-						Cell c = simulation.getCells() [i][j];
-						c.update();
-						c.setFill(c.getColors());
-					}
-	    	 		}
-	    		}
+				for(int j = 0; j < simulation.getCells()[i].length; j++){
+					Cell c = simulation.getCells() [i][j];
+					c.update();
+					c.setFill(c.getColors());
+				}
+	    	 }
+	    }
 
 	    private void setSpeed(double speed){
 			mySpeed = speed;
@@ -164,6 +167,16 @@ public class Visualizer extends Application{
 	    public static void main(String[] args) {
 	        launch(args);
 	    }
+	    
+	    private void handleKeyInput(KeyCode code){
+			switch(code){
+				case T: 
+					update(simulation.getCells());
+					System.out.println("dog");
+				break;
+			default: break;
+			}
+		}
 			
 	}
 	
