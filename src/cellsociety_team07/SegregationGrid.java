@@ -11,49 +11,27 @@ public class SegregationGrid extends Grid implements CellMover{
 	}
 	@Override
 	public void prepareNextState(){
-		super.prepareNextState();
-		/*
-		SegregationCell[][] segregationGrid = (SegregationCell[][]) super.getCells();
-		for(int row = 0; row < segregationGrid.length; row++){
-			for(int col = 0; col < segregationGrid.length; col++){
-				SegregationCell currCell = segregationGrid[row][col];
-				if(currCell.wantsToMove()){
-					currCell.move(this);
-				}
-			}
-		}*/
-	}
-	private void moveCell(SegregationCell[][] segregationGrid, Cell currentCell){
-		for(int row = 0; row < segregationGrid.length; row++){
-			for(int col = 0; col < segregationGrid[0].length; col++){
-				if(segregationGrid[row][col].isEmpty()){
-					segregationGrid[row][col].setNextState(currentCell.getCurrentState());
-					currentCell.setNextState(0);
-				}
-			}
-		}
-	}
-	public void moveCell(int currState){
-		
-	}
-	@Override
-	public ArrayList<Point> getEmptyLocations(int emptyState) {
-		ArrayList<Point> emptyLocations = new ArrayList<Point>();
 		Cell[][] grid = super.getCells();
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid.length; col++){
-				Cell currCell = grid[row][col];
-				if(currCell.getCurrentState() == emptyState){
-					emptyLocations.add(new Point(row, col));
-				}
+				SegregationCell currCell = (SegregationCell) grid[row][col];
+				currCell.applyRules(this);
 			}
 		}
-		return emptyLocations;
 	}
 	
 	@Override
-	public void switchCellStates(Cell movingCell, Point moveLocation, int replacementState) {
-		
+	public Cell getRandomEmptyCell(int emptyState) {
+		ArrayList<Cell> emptyCells = new ArrayList<Cell>();
+		Cell[][] grid = super.getCells();
+		for(int row = 0; row < grid.length; row++){
+			for(int col = 0; col < grid[0].length; col++){
+				Cell currCell = grid[row][col];
+				if(currCell.getCurrentState() == emptyState && currCell.getNextState() == emptyState){
+					emptyCells.add(currCell);
+				}
+			}
+		}
+		return emptyCells.get((int) (Math.random() * emptyCells.size()));
 	}
-
 }

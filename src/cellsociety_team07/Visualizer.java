@@ -31,7 +31,7 @@ public class Visualizer extends Application{
 	    @Override 
 	    public void start(Stage stage) {
 	    	stg = stage;
-	    	simulation = new Simulation("xml/fire_simulation.xml");
+	    	simulation = new Simulation("xml/segregation_simulation.xml");
 	        stg.setTitle("CA Simulation");
 	        
 	        Scene scene = new Scene(new Group(), 500, 500);
@@ -94,7 +94,7 @@ public class Visualizer extends Application{
 	
 	        private void step(double elapsedTime) {
 	    	
-	    		update(simulation.getCells());
+	    		update();
 	   
 	     		commandsBox.setOnAction((e) -> {
 		             handleCommand(e);
@@ -105,22 +105,6 @@ public class Visualizer extends Application{
 		    });
 		    
 	    }
-
-		private void update(Cell[][] cell) {
-		    	 for(int i = 0; i < simulation.getCells().length; i++){
-						for(int j = 0; j < simulation.getCells()[i].length; j++){
-							Cell c = simulation.getCells() [i][j];
-							c.applyRules();
-						}
-		    	 }
-		    	 for(int i = 0; i < simulation.getCells().length; i++){
-					for(int j = 0; j < simulation.getCells()[i].length; j++){
-						Cell c = simulation.getCells() [i][j];
-						c.update();
-						c.setFill(c.getColors());
-					}
-		    	 	}
-		    }
 	        
 	    private void handleCommand(Event e) {
 			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();
@@ -200,7 +184,7 @@ public class Visualizer extends Application{
 	    private void handleStepForward(String code){
 	    	   switch(code){
 				case "Step Forward": 
-					update(simulation.getCells());
+					update();
 					animation.stop();
 				break;
 			default: break;

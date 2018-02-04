@@ -11,17 +11,34 @@ public class SegregationCell extends Cell{
 	public static final int RACE1 = 1; // first race inside of the cell
 	public static final int RACE2 = 2; // second race inside of the cell
 	public static final int SIMILARITY_REQ = 0;
-	private boolean isSatisfied;
+	private boolean toBeMoved;
 	public static final Paint[] colors = {Color.AZURE, Color.RED, Color.BLUE}; // Array of Colors
 	
 	public SegregationCell(int initialState, double[] props) {
 		super(initialState, props);
 		super.setColors(colors);
-		isSatisfied = true;
+		toBeMoved = false;
 	}
 
+	public void applyRules(CellMover cm){
+		this.applyRules();
+		if(toBeMoved){
+			Cell replacement = cm.getRandomEmptyCell(EMPTY);
+			replacement.setNextState(super.getCurrentState());
+			super.setNextState(EMPTY);
+			System.out.println("moved");
+			System.out.println(super.getCurrentState());
+		}else{
+			super.setNextState(super.getCurrentState());
+		}
+	}
+	
 	@Override
 	public void applyRules() {
+		if(this.getCurrentState() == EMPTY){
+			toBeMoved = false;
+			return;
+		}
 		int numLiveNeighbors = 0;
 		int numSimilar = 0;
 		for (Cell cell:super.getNeighbors()) {
@@ -32,14 +49,19 @@ public class SegregationCell extends Cell{
 				numSimilar++;
 			}
 		}
+		if(numLiveNeighbors == 0){
+			toBeMoved = false;
+		}
+		double similarityRatio = (double) numSimilar / numLiveNeighbors;
+		if(similarityRatio < super.getProps()[SIMILARITY_REQ]){
+			toBeMoved = true;
+		}else{
+			toBeMoved = false;
+		}
 	}
-	public void move(CellMover cm){
-		ArrayList<Point> emptyLocations = cm.getEmptyLocations(EMPTY);
-		Point myChoice = emptyLocations.get((int) Math.random() * emptyLocations.size());
-		
-	}
-	public boolean isSatisifed(){
-		return isSatisfied;
+	
+	public boolean toBeMoved(){
+		return toBeMoved;
 	}
 	public boolean isEmpty(){
 		return this.getCurrentState() == EMPTY;

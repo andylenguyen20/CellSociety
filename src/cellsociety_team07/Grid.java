@@ -61,6 +61,7 @@ public abstract class Grid{
 	}
 	
 	public void prepareNextState(){
+		System.out.println("wasdaf");
 		for(Cell[] cellArray : cells){
 			for(Cell cell : cellArray){
 				cell.applyRules();
