@@ -3,6 +3,7 @@ package cellsociety_team07;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -51,22 +52,32 @@ public class SimulationXMLParser {
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
 	}
-	public HashMap<Point,Integer> getInitialCellInfo(){
-		HashMap<Point, Integer> cellMap = new HashMap<Point, Integer>();
+	public HashMap<Point, Integer> getInitialCellInfo(){
+		HashMap<Point, Integer> initialCellInfo = new HashMap<Point, Integer>();
 		NodeList cellTags = document.getElementsByTagName("cell");
 		for(int i = 0; i < cellTags.getLength(); i++){
 			Element cell = (Element) cellTags.item(i);
 			int row = this.getTagValue(cell, "row");
 			int col = this.getTagValue(cell, "col");
 			int state = this.getTagValue(cell, "state");
-			cellMap.put(new Point(row, col), state);
+			initialCellInfo.put(new Point(row, col), state);
 		}
-		return cellMap;
+		return initialCellInfo;
 	}
 	public String getType(){
 		Element type = (Element) document.getElementsByTagName("type").item(0);
 		return type.getTextContent();
 	}
+	
+	public double[] getSimulationParams(){
+		NodeList parameters = document.getElementsByTagName("param");
+		double[] params = new double[parameters.getLength()];
+		for(int i = 0; i < params.length; i++){
+			params[i] = Double.parseDouble(parameters.item(i).getTextContent());
+		}
+		return params;
+	}
+	
 	private int getTagValue(Element directParent, String tagName){
 		return Integer.parseInt(directParent.getElementsByTagName(tagName).item(0).getTextContent());
 	}

@@ -60,6 +60,13 @@ public abstract class Grid{
 		return cells;
 	}
 	
+	public void prepareNextState(){
+		for(Cell[] cellArray : cells){
+			for(Cell cell : cellArray){
+				cell.applyRules();
+			}
+		}
+	}
 	
 	/*
 	 * A method that updates the Grid’s state to the next state.

@@ -31,7 +31,7 @@ public class Visualizer extends Application{
 	    @Override 
 	    public void start(Stage stage) {
 	    		stg = stage;
-	    		simulation = new Simulation("xml/gol_simulation.xml");
+	    		simulation = new Simulation("xml/fire_simulation.xml");
 	        stg.setTitle("CA Simulation");
 	        
 	        Scene scene = new Scene(new Group(), 500, 500);
@@ -130,7 +130,20 @@ public class Visualizer extends Application{
 					
 			}
 	    
+	    private void update(){
+	    	Grid grid = simulation.getGrid();
+	    	grid.prepareNextState();
+	    	grid.update();
+	    	for(Cell[] cells : grid.getCells()){
+	    		for(Cell cell : cells){
+	    			cell.setFill(cell.getColors());
+	    		}
+	    	}
+	    }
+	    
+	    /*
 	    private void update(Cell[][] cell) {
+	    	
 	    	 for(int i = 0; i < simulation.getCells().length; i++){
 					for(int j = 0; j < simulation.getCells()[i].length; j++){
 						Cell c = simulation.getCells() [i][j];
@@ -144,7 +157,9 @@ public class Visualizer extends Application{
 					c.setFill(c.getColors());
 				}
 	    	 }
+	    	 
 	    }
+	    */
 	    private void newSim(String sim) {
 	    		 simulation = new Simulation(sim);
 	    		 Scene scene = new Scene(new Group(), 500, 500);
@@ -168,7 +183,7 @@ public class Visualizer extends Application{
 	    private void handleKeyInput(KeyCode code){
 			switch(code){
 				case T: 
-					update(simulation.getCells());
+					update();
 					System.out.println("dog");
 				break;
 			default: break;
