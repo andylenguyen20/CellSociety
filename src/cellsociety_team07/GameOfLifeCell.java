@@ -21,9 +21,9 @@ public class GameOfLifeCell extends Cell{
 		for (Cell neigh:super.getNeighbors()) {
 			alive += neigh.getCurrentState();
 		}
-		if(alive >= 1 && alive <3){
+		if(alive >= 1 && alive <3 && this.getCurrentState() == ALIVE){
 			super.setNextState(ALIVE);
-		}else{
+		} else{
 			super.setNextState(DEAD);
 		}
 	}

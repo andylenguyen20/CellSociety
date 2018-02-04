@@ -2,7 +2,6 @@ package cellsociety_team07;
 
 
 import javafx.scene.paint.*;
-import java.math.*;
 import javafx.scene.paint.Paint;
 
 
@@ -12,7 +11,9 @@ public class FireCell extends Cell{
 	public static final int TREE = 1; // living tree
 	public static final int BURNING = 2; // tree on fire
 	private double probCatch; // probability that tree will catch on fire
-	public static final Paint[] colors = {Color.BLACK, Color.GREEN, Color.RED};
+	public static final Paint[] colors = {Color.BLACK, Color.GREEN, Color.RED}; // Array of Colors
+	
+	
 	public FireCell(int initialState) {
 		super(initialState);
 		// TODO Auto-generated constructor stub
@@ -40,6 +41,7 @@ public class FireCell extends Cell{
 	}
 
 	@Override
+	// Return color corresponding to current state
 	public Paint getColors() {
 		return colors[super.getCurrentState()];
 	}
