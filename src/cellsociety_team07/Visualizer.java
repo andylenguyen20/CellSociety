@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -22,38 +23,29 @@ public class Visualizer extends Application{
 	private Simulation simulation;
 	private ComboBox<String> simulationMenu;
     private ComboBox<String> commandsBox;
-	private double mySpeed;
+	private double mySpeed=30;
 	private double sceneWidth = 400;
 	private double sceneHeight = 400;
 	private Stage stg;
 
-	private int r = 0;
-	private int c = 0;
-
-	  
 	    @Override 
 	    public void start(Stage stage) {
 	    		stg = stage;
 	    		simulation = new Simulation("xml/gol_simulation.xml");
 	        stg.setTitle("CA Simulation");
+	        
 	        Scene scene = new Scene(new Group(), 500, 500);
 	        Group root = (Group)scene.getRoot();
 	        GridPane gridPane = new GridPane();
 
 	        simulationMenu = new ComboBox<String>();
-	        
 	        simulationMenu.getItems().addAll("Game of Life","Segregation","Predator/Prey","Fire");
+	        simulationMenu.setValue("Choose Simulation");
 	        
 	        commandsBox = new ComboBox<String>();
 	        commandsBox.getItems().addAll("Play", "Pause","Skip forward", "Slow Down", "Speed Up");  
-	        
-	        
-
-	        simulationMenu.setValue("Choose Simulation");
 	        commandsBox.setValue("Choose Command");
 	        
-	        
-	       
 	        gridPane.add(new Label("Simulation: "), 0, 0);
 	        gridPane.add(simulationMenu, 1, 0);
 	        gridPane.add(new Label("Command: "), 2, 0);
@@ -62,12 +54,9 @@ public class Visualizer extends Application{
 	        double cellWidth = sceneWidth / simulation.getCells()[0].length;
 	        double cellHeight = sceneHeight / simulation.getCells().length;
 	
-	        
-	        
 	        for(int i = 0; i < simulation.getCells().length; i++){
 				for(int j = 0; j < simulation.getCells()[i].length; j++){
 					Cell cell = simulation.getCells() [i][j];
-	        			
 	        			cell.setWidth(cellWidth);
 	        			cell.setHeight(cellHeight);
 	        			cell.setFill(cell.getColors());
@@ -81,6 +70,7 @@ public class Visualizer extends Application{
 	        root.getChildren().add(gridPane);
 
 	        stg.setScene(scene);
+	        //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 	        stg.show();
 	        
 	        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
@@ -96,17 +86,28 @@ public class Visualizer extends Application{
 	    		
 	     		commandsBox.setOnAction((e) -> {
 		             handleCommand(e);
-		        });
-//		    		
+		        });		    		
 	    			
-	    			
-	    		}
+	    			simulationMenu.setOnAction((e) -> {
+		             handleSimulation(e);
+		    });
+	    }
 	    
-	   
-//	    		simulationMenu.setOnAction((e) -> {
-//		             handleSim(e);
-//		    });
-	    //}
+	    private void update(Cell[][] cell) {
+    	 	for(int i = 0; i < simulation.getCells().length; i++){
+				for(int j = 0; j < simulation.getCells()[i].length; j++){
+					Cell c = simulation.getCells() [i][j];
+					c.applyRules();
+					}
+    	 		}
+    	 	for(int i = 0; i < simulation.getCells().length; i++){
+				for(int j = 0; j < simulation.getCells()[i].length; j++){
+					Cell c = simulation.getCells() [i][j];
+					c.update();
+					c.setFill(c.getColors());
+					}
+    	 			}
+    			}
 	    
 	    private void handleCommand(Event e) {
 			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();
@@ -120,61 +121,28 @@ public class Visualizer extends Application{
 				setSpeed(getSpeed()*0.8);
 		}
 	    
-//	    private void handleSim(Event e) {
-//				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
-//				if ( selectedAction.equals("Game of Life"))
-//	    				//do something
-//				if ( selectedAction.equals("Segregation"))
-//					//
-//				if (selectedAction.equals("Predator/Prey"))
-//					//
-//				if ( selectedAction.equals("Fire"))
-//					//
-//					
-//			}
-	    
-//	    private void newSim(String sim) {
-//	    		 simulation = new Simulation(sim);
-//	    		 Scene scene = new Scene(new Group(), 500, 500);
-//	    		 stg.setScene(scene);
-//	    		 stg.show();
-//	    	}
-	    	
-	    		
-
-	    private void handleSim(Event e) {
+	    private void handleSimulation(Event e) {
 				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
 				if ( selectedAction.equals("Game of Life"))
-	    				//do something
+	    				newSim("xml/gol_simulation.xml");
 				if ( selectedAction.equals("Segregation"))
-					//
+					newSim("xml/segregation_simulation.xml");
 				if (selectedAction.equals("Predator/Prey"))
-					//
-				if ( selectedAction.equals("Fire")){
-					
-				}
-					//
+					newSim("xml/wator_simulation.xml");
+				if ( selectedAction.equals("Fire"))
+					newSim("xml/fire_simulation.xml");
 					
 			}
 	    
+	    private void newSim(String sim) {
+	    		 simulation = new Simulation(sim);
+	    		 Scene scene = new Scene(new Group(), 500, 500);
+	    		 stg.setScene(scene);
+	    		 stg.show();
+	    	}
 	    
-	    
-	    
-	    private void update(Cell[][] cell) {
-	    	 for(int i = 0; i < simulation.getCells().length; i++){
-					for(int j = 0; j < simulation.getCells()[i].length; j++){
-						Cell c = simulation.getCells() [i][j];
-						c.applyRules();
-					}
-	    	 }
-	    	 for(int i = 0; i < simulation.getCells().length; i++){
-					for(int j = 0; j < simulation.getCells()[i].length; j++){
-						Cell c = simulation.getCells() [i][j];
-						c.update();
-						c.setFill(c.getColors());
-					}
-	    	 		}
-	    		}
+	
+	    	
 
 	    private void setSpeed(double speed){
 			mySpeed = speed;
@@ -183,11 +151,6 @@ public class Visualizer extends Application{
 	    private double getSpeed() {
 	    		return mySpeed;
 	    }
-	    
-	    private String getSimulation() {
-	    		return simulationMenu.getValue().toString();
-	    	}
-	   
 	    
 	    public static void main(String[] args) {
 	        launch(args);
