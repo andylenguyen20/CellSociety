@@ -1,8 +1,6 @@
 package cellsociety_team07;
 
-import java.awt.Point;
-import java.util.ArrayList;
-
 public interface CellMover {
-	Cell getRandomEmptyCell(int emptyState);
+	void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten);
+	Cell getRandomEmptyCell(int emptyState, Cell cell);
 }

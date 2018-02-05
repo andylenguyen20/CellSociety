@@ -58,6 +58,7 @@ public class SharkCell extends WatorCell{
 		}
 	}
 
+
 	// Decrease energy every turn
 	public void decEnergy() {
 		energy--;
@@ -69,6 +70,11 @@ public class SharkCell extends WatorCell{
 	
 	public boolean toBeMoved() {
 		return toBeMoved;
+	}
+	@Override
+	public void update() {
+		super.setCurrentState(super.getNextState());	
+
 	}
 	
 }

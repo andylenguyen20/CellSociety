@@ -16,9 +16,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
 public class Visualizer extends Application {
-	public static final int MY_SPEED = 10;
-	public static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private static final int MY_SPEED = 10;
+	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private Timeline animation;
 	private Simulation simulation;
 	private ComboBox<String> simulationMenu;
@@ -31,6 +31,8 @@ public class Visualizer extends Application {
 	private Scene myScene;
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
+	
+	private MenuCreator menuCreator;
 
 	@Override
 	public void start(Stage stage) {
@@ -96,6 +98,8 @@ public class Visualizer extends Application {
 		commandsBox.getItems().addAll(getResources(myResources_C, "PlayCommand"),
 				getResources(myResources_C, "StopCommand"), getResources(myResources_C, "SlowerCommand"),
 				getResources(myResources_C, "FasterCommand"));
+		
+		//menuCreator.createDropDown();
 		addToGridPane();
 
 	}
@@ -118,7 +122,6 @@ public class Visualizer extends Application {
 	}
 
 	private void step(double elapsedTime) {
-
 		update();
 
 		commandsBox.setOnAction((e) -> {
