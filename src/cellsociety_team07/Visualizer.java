@@ -31,7 +31,6 @@ public class Visualizer extends Application {
 	private Scene myScene;
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
-	private MenuCreator menuCreator;
 
 	@Override
 	public void start(Stage stage) {

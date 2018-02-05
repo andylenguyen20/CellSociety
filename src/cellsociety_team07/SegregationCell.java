@@ -60,14 +60,6 @@ public class SegregationCell extends Cell{
 		}
 	}
 	
-	public boolean toBeMoved(){
-		return toBeMoved;
-	}
-	public boolean isEmpty(){
-		return this.getCurrentState() == EMPTY;
-
-	}
-
 	@Override
 	public void update() {
 		super.setCurrentState(super.getNextState());	
