@@ -22,7 +22,7 @@ public class SegregationGrid extends Grid implements CellMover{
 	}
 	
 	@Override
-	public Cell getRandomEmptyCell(int emptyState, Cell cell) {
+	public Cell getCellOfType(int emptyState, Cell cell) {
 		ArrayList<Cell> emptyCells = new ArrayList<Cell>();
 		Cell[][] grid = super.getCells();
 		for(int row = 0; row < grid.length; row++){

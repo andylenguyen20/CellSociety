@@ -14,4 +14,5 @@ public abstract class WatorCell extends Cell{
 		super.setColors(colors);
 	}
 
+	public abstract void update(CellMover cm);
 }

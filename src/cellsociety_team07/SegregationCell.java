@@ -25,7 +25,7 @@ public class SegregationCell extends Cell{
 	public void applyRules(CellMover cm){
 		this.applyRules();
 		if(toBeMoved){
-			Cell replacement = cm.getRandomEmptyCell(EMPTY, this);
+			Cell replacement = cm.getCellOfType(EMPTY, this);
 			replacement.setNextState(super.getCurrentState());
 			super.setNextState(EMPTY);
 		}
@@ -60,14 +60,6 @@ public class SegregationCell extends Cell{
 		}
 	}
 	
-	public boolean toBeMoved(){
-		return toBeMoved;
-	}
-	public boolean isEmpty(){
-		return this.getCurrentState() == EMPTY;
-
-	}
-
 	@Override
 	public void update() {
 		super.setCurrentState(super.getNextState());	
