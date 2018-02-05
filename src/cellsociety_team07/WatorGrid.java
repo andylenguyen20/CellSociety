@@ -7,6 +7,7 @@ public class WatorGrid extends Grid implements CellMover{
 	public static final Point[] NEIGHBOR_OFFSETS = new Point[]{new Point(-1,0), new Point(1,0), new Point(0,-1), new Point(0,1)};
 	public WatorGrid(int width, int height){
 		super(width, height);
+		setNeighborFinder(new UnboundedNeighborFinder(NEIGHBOR_OFFSETS));
 	}
 	@Override
 	public void update(){
@@ -17,6 +18,18 @@ public class WatorGrid extends Grid implements CellMover{
 				currCell.update(this);
 			}
 		}
+		super.setCellNeighbors();
+	}
+	@Override
+	public void prepareNextState(){
+		Cell[][] grid = super.getCells();
+		for(int row = 0; row < grid.length; row++){
+			for(int col = 0; col < grid.length; col++){
+				WatorCell currCell = (WatorCell) grid[row][col];
+				currCell.applyRules(this);
+			}
+		}
+		super.setCellNeighbors();
 	}
 	
 	
@@ -24,7 +37,7 @@ public class WatorGrid extends Grid implements CellMover{
 	public Cell getCellOfType(int desiredState, Cell cell) {
 		ArrayList<Cell> potentialCells = new ArrayList<Cell>();
 		for(Cell neighbor : cell.getNeighbors()){
-			if(neighbor.getCurrentState() == desiredState){
+			if(neighbor.getCurrentState() == desiredState && neighbor.getNextState() == desiredState){
 				potentialCells.add(neighbor);
 			}
 		}

@@ -172,6 +172,7 @@ public class Visualizer extends Application {
 
 		if (selectedAction.equals("Predator/Prey"))
 			newSim("xml/wator_simulation.xml");
+			animation.stop();
 
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");

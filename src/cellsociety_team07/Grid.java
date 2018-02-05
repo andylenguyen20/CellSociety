@@ -15,10 +15,6 @@ public abstract class Grid{
 	/*
 	 * @param
 	 */
-	public Grid() {
-		setCellNeighbors();
-	}
-	
 	public Grid(int width, int height){
 		cells = new Cell[width][height];
 
