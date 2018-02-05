@@ -4,9 +4,9 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class NeighborFinder {
-	private Point[] offsetIgnore;
-	public NeighborFinder(Point[] offsetIgnore){
-		this.offsetIgnore = offsetIgnore;
+	private Point[] neighborOffsets;
+	public NeighborFinder(Point[] neighborOffsets){
+		this.neighborOffsets = neighborOffsets;
 	}
 	public ArrayList<Cell> getCellNeighborhood(Cell[][] cells, int row, int col){
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
@@ -14,10 +14,9 @@ public class NeighborFinder {
 			for(int colOffset = -1; colOffset <= 1; colOffset++){
 				int neighRow = row + rowOffset;
 				int neighCol = col + colOffset;
-				if(ignorableOffset(rowOffset, colOffset) || outOfBounds(cells, neighRow, neighCol)){
-					continue;
+				if(isNeighborOffset(rowOffset, colOffset) && !outOfBounds(cells, neighRow, neighCol)){
+					neighbors.add(cells[neighRow][neighCol]);
 				}
-				neighbors.add(cells[neighRow][neighCol]);
 			}
 		}
 		return neighbors;
@@ -28,8 +27,8 @@ public class NeighborFinder {
 		}
 		return false;
 	}
-	private boolean ignorableOffset(int rowOffset, int colOffset){
-		for(Point p : offsetIgnore){
+	private boolean isNeighborOffset(int rowOffset, int colOffset){
+		for(Point p : neighborOffsets){
 			if(p.x == rowOffset && p.y == colOffset){
 				return true;
 			}

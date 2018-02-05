@@ -4,10 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class SegregationGrid extends Grid implements CellMover{
-	public static final Point[] IGNORE = new Point[]{new Point(0,0)};
+	public static final Point[] NEIGHBOR_OFFSETS = new Point[]{new Point(-1,-1), new Point(-1,0),new Point(-1,1), new Point(0,-1), 
+																new Point(0,1), new Point(1,-1), new Point(1,0), new Point(1,1)};
 	public SegregationGrid(int width, int height){
 		super(width, height);
-		super.setNeighborFinder(new NeighborFinder(IGNORE));
+		super.setNeighborFinder(new NeighborFinder(NEIGHBOR_OFFSETS));
 	}
 	@Override
 	public void prepareNextState(){
