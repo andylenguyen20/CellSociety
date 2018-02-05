@@ -25,7 +25,7 @@ public class Visualizer extends Application {
 	private double sceneHeight = 400;
 	protected Stage stg;
 	protected GridPane gridPane;
-	protected String currentSim = "xml/gol_simulation.xml";
+	protected String currentSim;
 	protected Scene myScene;
 	protected ResourceBundle myResources_C;
 	protected ResourceBundle myResources_S;
@@ -39,7 +39,7 @@ public class Visualizer extends Application {
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		myScene = setUpGame(500, 500);
+		myScene = setUpGame(500, 500, "xml/fire_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
 		commandHandler = new CommandHandler();
@@ -50,17 +50,15 @@ public class Visualizer extends Application {
 		animation.play();
 	}
 
-	protected Scene setUpGame(int height, int background) {
+	protected Scene setUpGame(int height, int background, String sim) {
 		Group root = new Group();
 		Scene scene = new Scene(root, height, background);
-		setSimulation(currentSim);
 		
+		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(gridPane);
-
 		double cellWidth = sceneWidth / simulation.getCells()[0].length;
 		double cellHeight = sceneHeight / simulation.getCells().length;
-
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
 				Cell cell = simulation.getCells()[i][j];
@@ -75,11 +73,9 @@ public class Visualizer extends Application {
 		}
 
 		return scene;
-
 	}
 
 	private void setUpGridPane() {
-		
 		gridPane = new GridPane();	
 		menuCreator = new MenuCreator();
 		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
@@ -89,23 +85,18 @@ public class Visualizer extends Application {
 		gridPane.add(menuCreator.getSimulationMenu(myResources_S), 1, 0);
 		gridPane.add(new Label(menuCreator.getResources(myResources_C, "LabelCommand")), 2, 0);
 		gridPane.add(menuCreator.getCommandsBox(myResources_C), 3, 0);
-		
 		menuCreator.stepButton().setOnAction((e) -> {
-			
-		commandHandler.handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
-		
+			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
 		});
 	}
 
 	private void step(double elapsedTime) {
 		update();
-
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand(e, animation, menuCreator);
 		});
-		
 		menuCreator.simulations().setOnAction((e) -> {
-			handleSimulation(e);
+			handleSimulation(e) ;
 		});
 	}
 	
@@ -145,12 +136,12 @@ public class Visualizer extends Application {
 	private void setSimulation(String s) {
 		simulation = new Simulation(s);
 	}
-	
+//	
 	protected void newSim(String sim) {
-		currentSim = sim;
-		Scene scene = setUpGame(500, 500);
-		stg.setScene(scene);
+		myScene = setUpGame(500, 500, sim);
+		stg.setScene(myScene);
 		stg.show();
+	
 		commandHandler.defaultRateAndPlay(1.0, animation);
 	}
 	
