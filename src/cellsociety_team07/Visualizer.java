@@ -31,7 +31,6 @@ public class Visualizer extends Application {
 	private Scene myScene;
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
-	
 	private MenuCreator menuCreator;
 
 	@Override
@@ -98,7 +97,7 @@ public class Visualizer extends Application {
 		commandsBox.getItems().addAll(getResources(myResources_C, "PlayCommand"),
 				getResources(myResources_C, "StopCommand"), getResources(myResources_C, "SlowerCommand"),
 				getResources(myResources_C, "FasterCommand"));
-		
+		//menuCreator = new MenuCreator();
 		//menuCreator.createDropDown();
 		addToGridPane();
 
