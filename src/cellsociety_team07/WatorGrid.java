@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class WatorGrid extends Grid implements CellMover{
-	public static final Point[] NEIGHBOR_OFFSETS = new Point[]{new Point(-1,-1), new Point(-1,1), new Point(1,-1), new Point(1,1)};
+	public static final Point[] NEIGHBOR_OFFSETS = new Point[]{new Point(-1,0), new Point(1,0), new Point(0,-1), new Point(0,1)};
 	public WatorGrid(int width, int height){
 		super(width, height);
 	}
@@ -13,7 +13,7 @@ public class WatorGrid extends Grid implements CellMover{
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public Cell getRandomEmptyCell(int desiredState, Cell cell) {
+	public Cell getCellOfType(int desiredState, Cell cell) {
 		ArrayList<Cell> potentialCells = new ArrayList<Cell>();
 		for(Cell neighbor : cell.getNeighbors()){
 			if(neighbor.getCurrentState() == desiredState){
