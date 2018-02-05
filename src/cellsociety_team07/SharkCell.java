@@ -21,7 +21,6 @@ public class SharkCell extends WatorCell{
 		reproductionTime = props[REPRODUCTION_CHRONON];
 	}
 
-	
 	@Override
 	public void applyRules() {
 		// decrease energy
@@ -73,9 +72,9 @@ public class SharkCell extends WatorCell{
 		Cell openCell;
 		if(toBeMoved){
 			if (fishNeighbor) {
-				openCell = cm.getRandomEmptyCell(FISH, this);
+				openCell = cm.getCellOfType(FISH, this);
 			} else {
-				openCell = cm.getRandomEmptyCell(WATER, this);
+				openCell = cm.getCellOfType(WATER, this);
 			}
 			if (toReproduce) {
 				replacement = new SharkCell(SHARK, super.getProps());
