@@ -70,7 +70,9 @@ public class SharkCell extends WatorCell{
 	public void update(CellMover cm) {
 		Cell replacement;
 		Cell openCell;
-		if(toBeMoved){
+		if(energy <= 0) {
+			this.setNextState(WATER);
+		} else if(toBeMoved){
 			if (fishNeighbor) {
 				openCell = cm.getCellOfType(FISH, this);
 			} else {
