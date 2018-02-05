@@ -64,7 +64,7 @@ public class Visualizer extends Application {
 				Cell cell = simulation.getCells()[i][j];
 				cell.setWidth(cellWidth);
 				cell.setHeight(cellHeight);
-				cell.setFill(cell.getColors());
+				cell.setFill(cell.getColor());
 				cell.setStroke(Color.WHITE);
 				cell.setX(cellWidth * j + 45);
 				cell.setY(cellHeight * i + 55);
@@ -143,7 +143,7 @@ public class Visualizer extends Application {
 		grid.update();
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
-				cell.setFill(cell.getColors());
+				cell.setFill(cell.getColor());
 		}
 	}
 
