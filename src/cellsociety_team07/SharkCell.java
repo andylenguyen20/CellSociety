@@ -21,21 +21,21 @@ public class SharkCell extends WatorCell{
 		reproductionTime = props[REPRODUCTION_CHRONON];
 	}
 
-	public void applyRules(CellMover cm){
-		this.applyRules();
-		if(toBeMoved){
-			super.setNextState(0);
-			Cell replacement;
-			if (fishNeighbor) {
-				replacement = cm.getRandomEmptyCell(FISH, super.getProps());
-			} else {
-				replacement = cm.getRandomEmptyCell(WATER, super.getProps());
-			}
-				replacement.setNextState(super.getCurrentState());
-				if (toReproduce)
-					super.setNextState(super.getCurrentState());
-		}
-	}
+//	public void applyRules(CellMover cm){
+//		this.applyRules();
+//		if(toBeMoved){
+//			super.setNextState(0);
+//			Cell replacement;
+//			if (fishNeighbor) {
+//				replacement = cm.getRandomEmptyCell(FISH, super.getProps());
+//			} else {
+//				replacement = cm.getRandomEmptyCell(WATER, super.getProps());
+//			}
+//				replacement.setNextState(super.getCurrentState());
+//				if (toReproduce)
+//					super.setNextState(super.getCurrentState());
+//		}
+//	}
 	
 	@Override
 	public void applyRules() {
