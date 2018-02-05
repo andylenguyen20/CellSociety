@@ -1,8 +1,5 @@
 package cellsociety_team07;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -31,8 +28,6 @@ public class Simulation {
 		setUpCells();
 	}
 
-
-	
 	public String getTitle(){
 		return myTitle;
 	}

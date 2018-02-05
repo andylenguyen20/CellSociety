@@ -7,4 +7,10 @@ public class EmptyWaterCell extends WatorCell{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void applyRules() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
