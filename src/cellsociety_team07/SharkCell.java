@@ -20,7 +20,7 @@ public class SharkCell extends WatorCell{
 		reproductionCounter = 0;
 		reproductionTime = props[REPRODUCTION_CHRONON];
 	}
-	
+
 	@Override
 	public void applyRules() {
 		// decrease energy
