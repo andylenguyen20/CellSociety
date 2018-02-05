@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 
-public class MenuCreator {
+public class MenuCreator extends Visualizer {
 	
 	protected ResourceBundle myResources_C;
 	protected ResourceBundle myResources_S;
