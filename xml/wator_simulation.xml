@@ -22,11 +22,13 @@
 			<col>9</col>
 			<state>2</state>
 		</cell>
+		<!--
 		<cell type = "Fish">
 			<row>12</row>
 			<col>4</col>
 			<state>1</state>
 		</cell>
+		-->
 		<cell type = "Shark">
 			<row>13</row>
 			<col>4</col>
