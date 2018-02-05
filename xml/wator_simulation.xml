@@ -4,29 +4,33 @@
 	<title>Wator Simulation</title>
 	<author>Andy Nguyen</author>
 	<grid>
+		<prop id = "FishCrononReproduce">3</prop>
+		<prop id = "SharkCrononReproduce">3</prop>
+		<prop id = "SharkStartingEnergy">2</prop>
+		<prop id = "EnergyForEatingFish">4</prop>
 		<dimension>
 			<width>20</width>
 			<height>20</height>
 		</dimension>
-		<cell>
+		<cell type = "Fish">
 			<row>10</row>
 			<col>5</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "Shark">
 			<row>10</row>
 			<col>9</col>
-			<state>1</state>
+			<state>2</state>
 		</cell>
-		<cell>
+		<cell type = "Fish">
 			<row>12</row>
 			<col>4</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "Shark">
 			<row>13</row>
 			<col>4</col>
-			<state>1</state>
+			<state>2</state>
 		</cell>
 	</grid>
 	

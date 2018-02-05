@@ -8,27 +8,27 @@
 			<width>20</width>
 			<height>20</height>
 		</dimension>
-		<cell>
+		<cell type = "GameOfLife">
 			<row>0</row>
 			<col>1</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "GameOfLife">
 			<row>1</row>
 			<col>2</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "GameOfLife">
 			<row>2</row>
 			<col>0</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "GameOfLife">
 			<row>2</row>
 			<col>1</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "GameOfLife">
 			<row>2</row>
 			<col>2</col>
 			<state>1</state>

@@ -52,17 +52,21 @@ public class SimulationXMLParser {
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
 	}
-	public HashMap<Point, Integer> getInitialCellInfo(){
-		HashMap<Point, Integer> initialCellInfo = new HashMap<Point, Integer>();
+	public ArrayList<InitialCellProperties> getInitialCellInfo(){
+		ArrayList<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
 		NodeList cellTags = document.getElementsByTagName("cell");
 		for(int i = 0; i < cellTags.getLength(); i++){
 			Element cell = (Element) cellTags.item(i);
 			int row = this.getTagValue(cell, "row");
 			int col = this.getTagValue(cell, "col");
 			int state = this.getTagValue(cell, "state");
-			initialCellInfo.put(new Point(row, col), state);
+			String cellType = this.getCellType(cell);
+			initialCellPropList.add(new InitialCellProperties(row, col, state, cellType));
 		}
-		return initialCellInfo;
+		return initialCellPropList;
+	}
+	public String getCellType(Element cell){
+		return cell.getAttribute("type");
 	}
 	public String getType(){
 		Element type = (Element) document.getElementsByTagName("type").item(0);

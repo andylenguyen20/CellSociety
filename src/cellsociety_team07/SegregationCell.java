@@ -53,6 +53,7 @@ public class SegregationCell extends Cell{
 		}
 		double similarityRatio = (double) numSimilar / numLiveNeighbors;
 		if(similarityRatio < super.getProps()[SIMILARITY_REQ]){
+			System.out.println(similarityRatio);
 			toBeMoved = true;
 		}else{
 			toBeMoved = false;

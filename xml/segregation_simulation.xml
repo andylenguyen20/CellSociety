@@ -6,33 +6,38 @@
 	<param id = "similarityReq">0.5</param>
 	<grid>
 		<dimension>
-			<width>20</width>
-			<height>20</height>
+			<width>5</width>
+			<height>5</height>
 		</dimension>
-		<cell>
+		<cell type = "Segregation">
 			<row>0</row>
 			<col>1</col>
 			<state>2</state>
 		</cell>
-		<cell>
+		<cell type = "Segregation">
 			<row>1</row>
 			<col>2</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "Segregation">
 			<row>2</row>
 			<col>0</col>
 			<state>2</state>
 		</cell>
-		<cell>
+		<cell type = "Segregation">
 			<row>2</row>
 			<col>1</col>
 			<state>1</state>
 		</cell>
-		<cell>
+		<cell type = "Segregation">
 			<row>2</row>
 			<col>2</col>
 			<state>1</state>
+		</cell>
+		<cell type = "Segregation">
+			<row>3</row>
+			<col>3</col>
+			<state>2</state>
 		</cell>
 	</grid>
 	

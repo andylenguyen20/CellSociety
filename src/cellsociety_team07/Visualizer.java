@@ -158,6 +158,7 @@ public class Visualizer extends Application{
 				String selectedAction = simulationMenu.getSelectionModel().getSelectedItem();
 				if ( selectedAction.equals("Game of Life")) 
 					newSim("xml/gol_simulation.xml");
+					animation.stop();
 				
 				if ( selectedAction.equals("Segregation"))
 					newSim("xml/segregation_simulation.xml");
@@ -194,7 +195,7 @@ public class Visualizer extends Application{
 	    
 	    private void defaultRateAndPlay(double rate) {
 	    		animation.setRate(rate);
-	    		animation.play();
+	    		
 	    }
 	    
 	    private void handleStepForward(String code){

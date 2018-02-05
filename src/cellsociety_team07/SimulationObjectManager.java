@@ -1,16 +1,34 @@
 package cellsociety_team07;
 
 public class SimulationObjectManager {
-	public static Cell getSpecificCell(String simulationType, int state, double[] cellProps){
+	public static Cell getDefaultCell(String simulationType, double[] cellProps){
 		switch(simulationType){
+		case "Fire": 
+			return new FireCell(Cell.DEFAULT_STATE, cellProps);
+		case "GameOfLife":
+			return new GameOfLifeCell(Cell.DEFAULT_STATE, cellProps);
+		case "Segregation":
+			return new SegregationCell(Cell.DEFAULT_STATE, cellProps);
+		case "Wator":
+			return new EmptyWaterCell(Cell.DEFAULT_STATE, cellProps);
+	default:
+		throw new BadSimulationException("Bad simulation type while getting default cell");		
+	}
+	}
+	public static Cell getSpecificCell(String cellType, int state, double[] cellProps){
+		switch(cellType){
 			case "Fire": 
 				return new FireCell(state, cellProps);
 			case "GameOfLife":
 				return new GameOfLifeCell(state, cellProps);
 			case "Segregation":
 				return new SegregationCell(state, cellProps);
-			case "Wator":
-				return new WatorCell(state, cellProps);
+			case "Fish":
+				return new FishCell(state, cellProps);
+			case "Shark":
+				return new SharkCell(state, cellProps);
+			case "EmptyWater":
+				return new EmptyWaterCell(state, cellProps);
 		default:
 			throw new BadSimulationException("Bad simulation type while getting cell");		
 		}

@@ -2,7 +2,7 @@ package cellsociety_team07;
 
 import javafx.scene.paint.Paint;
 
-public class WatorCell extends Cell{
+public abstract class WatorCell extends Cell{
 
 	public WatorCell(int state, double[] props) {
 		super(state, props);
