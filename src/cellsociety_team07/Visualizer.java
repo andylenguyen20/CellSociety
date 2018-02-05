@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.control.ComboBox;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -31,6 +30,7 @@ public class Visualizer extends Application {
 	private Scene myScene;
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
+	//private MenuCreator menuCreator;
 
 	@Override
 	public void start(Stage stage) {
@@ -96,14 +96,18 @@ public class Visualizer extends Application {
 		commandsBox.getItems().addAll(getResources(myResources_C, "PlayCommand"),
 				getResources(myResources_C, "StopCommand"), getResources(myResources_C, "SlowerCommand"),
 				getResources(myResources_C, "FasterCommand"));
+		
+		addToGridPane();
 		//menuCreator = new MenuCreator();
 		//menuCreator.createDropDown();
-		addToGridPane();
+		
 
 	}
 
+
 	private void addToGridPane() {
 		Button stepForward = new Button(getResources(myResources_C, "StepForwardCommand"));
+		
 		gridPane.add(stepForward, 1, 3);
 		gridPane.add(new Label(getResources(myResources_S, "LabelCommand")), 0, 0);
 		gridPane.add(simulationMenu, 1, 0);
@@ -112,6 +116,7 @@ public class Visualizer extends Application {
 		stepForward.setOnAction((e) -> {
 			handleStepForward(getResources(myResources_C, "StepForwardCommand"));
 		});
+
 
 	}
 
@@ -177,7 +182,7 @@ public class Visualizer extends Application {
 			newSim("xml/fire_simulation.xml");
 	}
 	
-	private void handleStepForward(String code) {
+	protected void handleStepForward(String code) {
 		switch (code) {
 		case "Step Forward":
 			update();

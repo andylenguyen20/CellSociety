@@ -17,4 +17,5 @@ public abstract class WatorCell extends Cell{
 	}
 
 	public abstract void update(CellMover cm);
+
 }

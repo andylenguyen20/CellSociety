@@ -26,6 +26,8 @@ public class FishCell extends WatorCell{
 			cm.moveCellInGrid(this, replacement, openCell);
 		}
 	}
+	
+	
 	@Override
 	public void update() {
 		super.setCurrentState(super.getNextState());	
