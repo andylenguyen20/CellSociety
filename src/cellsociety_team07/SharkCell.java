@@ -8,6 +8,8 @@ public class SharkCell extends WatorCell{
 	private double reproductionTime;
 	private boolean fishNeighbor;
 	private boolean toReproduce;
+	private Cell openCell;
+	private Cell replacement;
 	public static final int REPRODUCTION_CHRONON = 1;
 	public static final int STARTING_ENERGY = 2;
 	
@@ -66,8 +68,12 @@ public class SharkCell extends WatorCell{
 	}
 	
 	public void update(CellMover cm) {
-		Cell replacement;
-		Cell openCell;
+		update();
+		cm.moveCellInGrid(this, replacement, openCell);
+	}
+	
+	public void applyRules(CellMover cm) {
+		this.applyRules();
 		if(energy <= 0) {
 			this.setNextState(WATER);
 		} else if(toBeMoved){
@@ -81,7 +87,6 @@ public class SharkCell extends WatorCell{
 			} else {
 				replacement = new FishCell(WATER, super.getProps());
 			}
-			cm.moveCellInGrid(this, replacement, openCell);
 		}
 	}
 	
