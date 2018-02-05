@@ -13,4 +13,9 @@ public class SharkCell extends WatorCell{
 		
 	}
 
+	@Override
+	public void update() {
+		super.setCurrentState(super.getNextState());	
+	}
+	
 }

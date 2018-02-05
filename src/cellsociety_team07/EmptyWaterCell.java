@@ -12,5 +12,10 @@ public class EmptyWaterCell extends WatorCell{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void update() {
+		super.setCurrentState(super.getNextState());	
+	}
 
 }

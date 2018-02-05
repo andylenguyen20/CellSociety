@@ -20,6 +20,10 @@ public class FireCell extends Cell{
 		super.setColors(colors);
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public void update() {
+		super.setCurrentState(super.getNextState());	
+	}
 
 	@Override
 	public void applyRules() {

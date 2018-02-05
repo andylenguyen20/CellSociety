@@ -21,7 +21,7 @@ public class SegregationGrid extends Grid implements CellMover{
 	}
 	
 	@Override
-	public Cell getRandomEmptyCell(int emptyState) {
+	public Cell getRandomEmptyCell(int emptyState, Cell cell) {
 		ArrayList<Cell> emptyCells = new ArrayList<Cell>();
 		Cell[][] grid = super.getCells();
 		for(int row = 0; row < grid.length; row++){
@@ -33,5 +33,10 @@ public class SegregationGrid extends Grid implements CellMover{
 			}
 		}
 		return emptyCells.get((int) (Math.random() * emptyCells.size()));
+	}
+	@Override
+	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
+		// TODO Auto-generated method stub
+		
 	}
 }

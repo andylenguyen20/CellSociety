@@ -13,6 +13,11 @@ public class GameOfLifeCell extends Cell{
 		super.setColors(colors);
 	}
 
+	@Override
+	public void update() {
+		super.setCurrentState(super.getNextState());	
+	}
+	
 	public void applyRules(){
 		int alive = 0;
 		for (Cell neigh:super.getNeighbors()) {

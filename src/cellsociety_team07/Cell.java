@@ -23,9 +23,7 @@ public abstract class Cell extends Rectangle {
 	/*
 	 * A method that updates the Cell’s state to the next state.
 	 */
-	public void update(){
-		currState = nextState;
-	}
+	public abstract void update();
 
 	public void setNeighbors(ArrayList<Cell> neigh){
 		neighbors = neigh;
@@ -35,6 +33,9 @@ public abstract class Cell extends Rectangle {
 	}
 	public int getCurrentState(){
 		return currState;
+	}
+	public void setCurrentState(int state){
+		currState = state;
 	}
 	public int getNextState(){
 		return nextState;
