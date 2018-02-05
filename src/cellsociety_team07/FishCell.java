@@ -22,7 +22,7 @@ public class FishCell extends WatorCell{
 			}else{
 				replacement = new EmptyWaterCell(WATER, super.getProps());
 			}
-			Cell openCell = cm.getRandomEmptyCell(WATER, this);
+			Cell openCell = cm.getCellOfType(WATER, this);
 			cm.moveCellInGrid(this, replacement, openCell);
 		}
 	}
@@ -50,9 +50,4 @@ public class FishCell extends WatorCell{
 			toReproduce = false;
 		}
 	}
-	
-	public boolean toBeMoved(){
-		return toBeMoved;
-	}
-
 }
