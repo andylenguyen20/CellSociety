@@ -21,13 +21,13 @@ public class NeighborFinder {
 		}
 		return neighbors;
 	}
-	private boolean outOfBounds(Cell[][] cells, int row, int col){
+	protected boolean outOfBounds(Cell[][] cells, int row, int col){
 		if(row >= cells.length || row < 0 || col >= cells[0].length || col < 0){
 			return true;
 		}
 		return false;
 	}
-	private boolean isNeighborOffset(int rowOffset, int colOffset){
+	public boolean isNeighborOffset(int rowOffset, int colOffset){
 		for(Point p : neighborOffsets){
 			if(p.x == rowOffset && p.y == colOffset){
 				return true;
