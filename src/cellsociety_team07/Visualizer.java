@@ -36,9 +36,9 @@ public class Visualizer extends Application{
 	    
 	    @Override
 	    public void start(Stage stage) {
-	    		stg = stage;
+	    	stg = stage;
 	    		
-	    		stg.setTitle("CA Simulation");
+	    	stg.setTitle("CA Simulation");
 	        
 
 	        myScene = setUpGame(500,500);
@@ -123,7 +123,7 @@ public class Visualizer extends Application{
 	
 	   private void step(double elapsedTime) {
 	    	
-	    		update();
+	     update();
 	   
 	     	commandsBox.setOnAction((e) -> {
 		             handleCommand(e);
@@ -134,7 +134,6 @@ public class Visualizer extends Application{
 		    });
 		    
 	    }
-
 	        
 	    private void handleCommand(Event e) {
 			String selectedAction = commandsBox.getSelectionModel().getSelectedItem();

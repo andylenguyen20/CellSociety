@@ -17,6 +17,7 @@ public abstract class Cell extends Rectangle {
 	public Cell(int initialState, double[] props){
 		this.currState = initialState;
 		this.props = props;
+		this.nextState = initialState;
 	}
 	
 	/*
@@ -34,6 +35,9 @@ public abstract class Cell extends Rectangle {
 	}
 	public int getCurrentState(){
 		return currState;
+	}
+	public int getNextState(){
+		return nextState;
 	}
 	public void setNextState(int state){
 		nextState = state;

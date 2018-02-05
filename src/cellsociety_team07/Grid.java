@@ -44,7 +44,6 @@ public abstract class Grid{
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells.length; j++){
 				cells[i][j].setNeighbors(neighFinder.getCellNeighborhood(cells, i, j));
-				System.out.println("hi");
 			}
 		}
 	}
