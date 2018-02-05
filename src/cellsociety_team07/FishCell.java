@@ -20,7 +20,7 @@ public class FishCell extends WatorCell{
 			if(toReproduce){
 				replacement = new FishCell(FISH, super.getProps());
 			}else{
-				replacement = new EmptyWaterCell(WATER, super.getProps());
+				replacement = new FishCell(WATER, super.getProps());
 			}
 			Cell openCell = cm.getCellOfType(WATER, this);
 			cm.moveCellInGrid(this, replacement, openCell);

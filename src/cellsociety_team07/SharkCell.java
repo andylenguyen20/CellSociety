@@ -14,13 +14,11 @@ public class SharkCell extends WatorCell{
 
 	public SharkCell(int state, double[] props) {
 		super(state, props);
-		super.setColors(colors);
 		toBeMoved = false;
 		energy = props[STARTING_ENERGY];
 		reproductionCounter = 0;
 		reproductionTime = props[REPRODUCTION_CHRONON];
 	}
-
 	@Override
 	public void applyRules() {
 		// decrease energy

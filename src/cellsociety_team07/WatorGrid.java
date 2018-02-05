@@ -9,9 +9,17 @@ public class WatorGrid extends Grid implements CellMover{
 		super(width, height);
 	}
 	@Override
-	public void setCellNeighbors() {
-		// TODO Auto-generated method stub
+	public void update(){
+		Cell[][] grid = super.getCells();
+		for(int row = 0; row < grid.length; row++){
+			for(int col = 0; col < grid.length; col++){
+				WatorCell currCell = (WatorCell) grid[row][col];
+				currCell.update(this);
+			}
+		}
 	}
+	
+	
 	@Override
 	public Cell getCellOfType(int desiredState, Cell cell) {
 		ArrayList<Cell> potentialCells = new ArrayList<Cell>();

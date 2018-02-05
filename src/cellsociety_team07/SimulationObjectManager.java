@@ -10,7 +10,7 @@ public class SimulationObjectManager {
 		case "Segregation":
 			return new SegregationCell(Cell.DEFAULT_STATE, cellProps);
 		case "Wator":
-			return new EmptyWaterCell(Cell.DEFAULT_STATE, cellProps);
+			return new FishCell(Cell.DEFAULT_STATE, cellProps);
 	default:
 		throw new BadSimulationException("Bad simulation type while getting default cell");		
 	}
@@ -27,8 +27,6 @@ public class SimulationObjectManager {
 				return new FishCell(state, cellProps);
 			case "Shark":
 				return new SharkCell(state, cellProps);
-			case "EmptyWater":
-				return new EmptyWaterCell(state, cellProps);
 		default:
 			throw new BadSimulationException("Bad simulation type while getting cell");		
 		}
