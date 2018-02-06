@@ -6,6 +6,7 @@ import javafx.event.Event;
 public class CommandHandler extends Visualizer {
 	protected Grid grid;
 	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
+		
 		String selectedAction = m.commands().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Pause")) {
 			a.stop();

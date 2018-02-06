@@ -3,11 +3,12 @@ package cellsociety_team07;
 import java.util.ResourceBundle;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public class MenuCreator extends Visualizer {
 	
-	public GridPane gridPane() {
+	public GridPane getGridPane() {
 		return gridPane;
 	}
 	

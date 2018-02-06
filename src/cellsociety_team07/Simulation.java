@@ -6,19 +6,18 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+
 public class Simulation {
 	
 	private SimulationXMLParser simXMLParser;
 	private Grid grid;
 	private String myTitle;
-	private double sceneWidth = 400;
-	private double sceneHeight = 400;
-	private int rows = 10;
-	private int columns = 10;
-	double gridWidth = sceneWidth / rows;
-	double gridHeight = sceneHeight / columns;
-	
 	private String myType;
+	protected double sceneWidth = 400;
+	protected double sceneHeight = 400;
 	
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
@@ -56,6 +55,15 @@ public class Simulation {
 			}
 		}
 		grid.setCellNeighbors();
+	}
+	
+	public void cellToVisualize(Cell cell) {
+		double cellWidth = sceneWidth / getCells()[0].length;
+		double cellHeight = sceneHeight / getCells().length;
+		cell.setWidth(cellWidth);
+		cell.setHeight(cellHeight);
+		cell.setFill(cell.getColor());
+		cell.setStroke(Color.WHITE);
 	}
 	
 	public Grid getGrid(){

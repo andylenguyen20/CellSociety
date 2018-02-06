@@ -11,7 +11,9 @@ import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 
@@ -23,11 +25,11 @@ public class Visualizer extends Application {
 	protected Simulation simulation;
 	protected ComboBox<String> simulationMenu;
 	protected ComboBox<String> commandsBox;
-	private double sceneWidth = 400;
-	private double sceneHeight = 400;
+	protected double sceneWidth = 400;
+	protected double sceneHeight = 400;
 	protected Stage stg;
 	protected GridPane gridPane;
-	protected String currentSim = "xml/gol_simulation.xml";
+	protected String currentSim;
 	protected Scene myScene;
 	protected ResourceBundle myResources_C;
 	protected ResourceBundle myResources_S;
@@ -36,21 +38,16 @@ public class Visualizer extends Application {
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
 	Group root;
-	double cellWidth;
-	double cellHeight;
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		myScene = setUpGame(500, 500);
-		
-		myScene.setOnKeyPressed(e -> {
-			handleKeyInput(e.getCode());
-		});
-		
+		myScene = setUpGame(500, 500, "xml/fire_simulation.xml" );
+
 		stg.setScene(myScene);
 		stg.show();
 		commandHandler = new CommandHandler();
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -58,36 +55,20 @@ public class Visualizer extends Application {
 		animation.play();
 	}
 
-	protected Scene setUpGame(int height, int background) {
+
+	protected Scene setUpGame(int height, int background, String sim) {
 		root = new Group();
 		Scene scene = new Scene(root, height, background);
-		setSimulation(currentSim);
 		
+		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(gridPane);
-
-		cellWidth = sceneWidth / simulation.getCells()[0].length;
-		cellHeight = sceneHeight / simulation.getCells().length;
-
-		for (int i = 0; i < simulation.getCells().length; i++) {
-			for (int j = 0; j < simulation.getCells()[i].length; j++) {
-				Cell cell = simulation.getCells()[i][j];
-				cell.setWidth(cellWidth);
-				cell.setHeight(cellHeight);
-				cell.setFill(cell.getColor());
-				cell.setStroke(Color.WHITE);
-				cell.setX(cellWidth * j + 45);
-				cell.setY(cellHeight * i + 55);
-				root.getChildren().add(cell);
-			}
-		}
+		drawFreshGrid();
 
 		return scene;
-
 	}
 
 	private void setUpGridPane() {
-		
 		gridPane = new GridPane();	
 		menuCreator = new MenuCreator();
 		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
@@ -99,9 +80,7 @@ public class Visualizer extends Application {
 		gridPane.add(menuCreator.getCommandsBox(myResources_C), 3, 0);
 		
 		menuCreator.stepButton().setOnAction((e) -> {
-			
-		commandHandler.handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
-		
+			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
 		});
 	}
 
@@ -111,9 +90,8 @@ public class Visualizer extends Application {
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand(e, animation, menuCreator);
 		});
-		
 		menuCreator.simulations().setOnAction((e) -> {
-			handleSimulation(e);
+			handleSimulation(e) ;
 		});
 	}
 	
@@ -125,15 +103,15 @@ public class Visualizer extends Application {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
 		}
+		drawFreshGrid();
+	}
+	private void drawFreshGrid(){
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
 				Cell cell = simulation.getCells()[i][j];
-				cell.setWidth(cellWidth);
-				cell.setHeight(cellHeight);
-				cell.setFill(cell.getColor());
-				cell.setStroke(Color.WHITE);
-				cell.setX(cellWidth * j + 45);
-				cell.setY(cellHeight * i + 55);
+				simulation.cellToVisualize(cell);
+				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
+				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
 				root.getChildren().add(cell);
 			}
 		}
@@ -145,12 +123,20 @@ public class Visualizer extends Application {
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
-			animation.stop();
-		if (selectedAction.equals("Predator/Prey"))
+
+		if (selectedAction.equals("Predator/Prey")) {
 			newSim("xml/wator_simulation.xml");
 			animation.stop();
+		}
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");
+		}
+	
+	protected void newSim(String sim) {
+		myScene = setUpGame(500, 500, sim);
+		stg.setScene(myScene);
+		stg.show();
+		commandHandler.defaultRateAndPlay(1.0, animation);
 	}
 	
 	protected void handleStepForward(String code) {
@@ -175,14 +161,6 @@ public class Visualizer extends Application {
 
 	private void setSimulation(String s) {
 		simulation = new Simulation(s);
-	}
-	
-	protected void newSim(String sim) {
-		currentSim = sim;
-		Scene scene = setUpGame(500, 500);
-		stg.setScene(scene);
-		stg.show();
-		commandHandler.defaultRateAndPlay(1.0, animation);
 	}
 	
 	public static void main(String[] args) {
