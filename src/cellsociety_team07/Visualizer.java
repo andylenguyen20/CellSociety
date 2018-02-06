@@ -67,7 +67,7 @@ public class Visualizer extends Application {
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
 				Cell cell = simulation.getCells()[i][j];
-				cellDrawer.visualizeCell(cell,simulation);
+				cellDrawer.visualizeCell(cell,simulation, sceneWidth, sceneHeight);
 			    cellDrawer.getCell().setX(sceneWidth / simulation.getCells()[0].length * j + 45);
                 cellDrawer.getCell().setY(sceneHeight / simulation.getCells().length * i + 55);
 				root.getChildren().add(cell);
