@@ -62,10 +62,31 @@ public class FishCell extends WatorCell{
 				numOpenSpotsAvailable++;
 			}
 		}
-		return (numOpenSpotsAvailable > 0) && !this.willBeEaten();
+<<<<<<< HEAD
+		return (numOpenSpotsAvailable > 0) && !this.willBeEaten() && this.isWaterCell();
+	}
+	
+	private boolean isWaterCell() {
+		return this.getCurrentState()==WATER;
 	}
 	
 	private boolean willBeEaten(){
-		return this.getNextState() == WATER;
+		return this.getNextState() == WATER ;
+=======
+		return (numOpenSpotsAvailable > 0) && !this.willBeEaten() && !this.isWaterCell();
+	}
+	
+	private boolean isWaterCell(){
+		return this.getCurrentState() == WATER;
+	}
+	
+	private boolean willBeEaten(){
+		//return this.getNextState() == WATER;
+		return this.getNextState() == SHARK;
+	}
+	
+	public int getChronons(){
+		return this.numChrononsAlive;
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 	}
 }
