@@ -37,13 +37,8 @@ public class Visualizer extends Application {
 	protected MenuCreator menuCreator;
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
-<<<<<<< HEAD
-	protected Group root;
-	
-
-=======
 	Group root;
->>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
+	
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
@@ -64,17 +59,14 @@ public class Visualizer extends Application {
 
 
 	protected Scene setUpGame(int height, int background, String sim) {
-<<<<<<< HEAD
-		root  = new Group();
-=======
+
 		root = new Group();
->>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 		Scene scene = new Scene(root, height, background);
 		
 		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(gridPane);
-<<<<<<< HEAD
+
 	
 		drawFreshGrid();
 
@@ -92,13 +84,8 @@ public class Visualizer extends Application {
 				
 			}
 		}
-		
-=======
-		drawFreshGrid();
-
-		return scene;
->>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 	}
+		
 
 	private void setUpGridPane() {
 		gridPane = new GridPane();	
@@ -134,22 +121,7 @@ public class Visualizer extends Application {
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
-<<<<<<< HEAD
-				
-=======
-		}
-		drawFreshGrid();
-	}
-	private void drawFreshGrid(){
-		for (int i = 0; i < simulation.getCells().length; i++) {
-			for (int j = 0; j < simulation.getCells()[i].length; j++) {
-				Cell cell = simulation.getCells()[i][j];
-				simulation.cellToVisualize(cell);
-				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
-				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
-				root.getChildren().add(cell);
-			}
->>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
+
 		}
 		drawFreshGrid();
 	}
