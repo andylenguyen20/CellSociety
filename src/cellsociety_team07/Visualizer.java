@@ -10,7 +10,6 @@ import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.control.*;
 
 public class Visualizer extends Application {
@@ -21,8 +20,8 @@ public class Visualizer extends Application {
 	protected Simulation simulation;
 	protected ComboBox<String> simulationMenu;
 	protected ComboBox<String> commandsBox;
-	private double sceneWidth = 400;
-	private double sceneHeight = 400;
+	protected double sceneWidth = 400;
+	protected double sceneHeight = 400;
 	protected Stage stg;
 	protected GridPane gridPane;
 	protected String currentSim;
@@ -43,6 +42,7 @@ public class Visualizer extends Application {
 		stg.setScene(myScene);
 		stg.show();
 		commandHandler = new CommandHandler();
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -57,17 +57,13 @@ public class Visualizer extends Application {
 		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(gridPane);
-		double cellWidth = sceneWidth / simulation.getCells()[0].length;
-		double cellHeight = sceneHeight / simulation.getCells().length;
+	
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
 				Cell cell = simulation.getCells()[i][j];
-				cell.setWidth(cellWidth);
-				cell.setHeight(cellHeight);
-				cell.setFill(cell.getColor());
-				cell.setStroke(Color.WHITE);
-				cell.setX(cellWidth * j + 45);
-				cell.setY(cellHeight * i + 55);
+				simulation.cellToVisualize(cell);
+				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
+				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
 				root.getChildren().add(cell);
 			}
 		}
@@ -85,6 +81,7 @@ public class Visualizer extends Application {
 		gridPane.add(menuCreator.getSimulationMenu(myResources_S), 1, 0);
 		gridPane.add(new Label(menuCreator.getResources(myResources_C, "LabelCommand")), 2, 0);
 		gridPane.add(menuCreator.getCommandsBox(myResources_C), 3, 0);
+		
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
 		});
@@ -92,6 +89,7 @@ public class Visualizer extends Application {
 
 	private void step(double elapsedTime) {
 		update();
+
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand(e, animation, menuCreator);
 		});
@@ -101,6 +99,7 @@ public class Visualizer extends Application {
 	}
 	
 	protected void update() {
+
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
 		grid.update();
@@ -116,10 +115,20 @@ public class Visualizer extends Application {
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
-		if (selectedAction.equals("Predator/Prey"))
+		if (selectedAction.equals("Predator/Prey")) {
 			newSim("xml/wator_simulation.xml");
+			animation.stop();
+		}
+			
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");
+		}
+	
+	protected void newSim(String sim) {
+		myScene = setUpGame(500, 500, sim);
+		stg.setScene(myScene);
+		stg.show();
+		commandHandler.defaultRateAndPlay(1.0, animation);
 	}
 	
 	protected void handleStepForward(String code) {
@@ -135,14 +144,6 @@ public class Visualizer extends Application {
 
 	private void setSimulation(String s) {
 		simulation = new Simulation(s);
-	}
-//	
-	protected void newSim(String sim) {
-		myScene = setUpGame(500, 500, sim);
-		stg.setScene(myScene);
-		stg.show();
-	
-		commandHandler.defaultRateAndPlay(1.0, animation);
 	}
 	
 	public static void main(String[] args) {
