@@ -1,14 +1,8 @@
 package cellsociety_team07;
 
-
 import java.awt.Dimension;
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 public class Simulation {
 	
@@ -63,11 +57,8 @@ public class Simulation {
 		cell.setWidth(cellWidth);
 		cell.setHeight(cellHeight);
 		cell.setFill(cell.getColor());
-		
 		cell.setStroke(Color.WHITE);
-		Text text = new Text("");
-		StackPane stack = new StackPane();
-		stack.getChildren().addAll(cell, text);
+		
 
 	}
 	
