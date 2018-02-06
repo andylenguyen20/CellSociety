@@ -13,9 +13,11 @@ public class PredatorPreyCell extends Cell {
 	/* Fields */
 	private boolean toReproduce; // Determines if fish/shark should reproduce next turn
 	private boolean toBeMoved; // Determines if fish/shark should move next turn
+	private boolean toBeEaten; // if fish, determines if it will be eaten
 	private double energy; // Life energy; sharks only
 	private double reproductionCounter; // number of cycles fish/shark has gone without reproducing
 	private double reproductionTime; // time limit at which point fish/shark can reproduce, dependent on props
+	private PredatorPreyCell next; // if toBeMoved is true, next points to cell to be swapped with
 	public static final int FISH = 0; // Fish state
 	public static final int SHARK = 1; // Shark state
 	public static final int WATER = 2; // Water state
@@ -39,14 +41,47 @@ public class PredatorPreyCell extends Cell {
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		super.setCurrentState(super.getNextState());
 	}
 
 	@Override
 	public void applyRules() {
-		// TODO Auto-generated method stub
+		// Update Fields
+		decEnergy();
+		reproductionCounter++;
+		if (energy <= 0)
+			this.setNextState(WATER);
+		if (reproductionCounter == reproductionTime)
+			toReproduce = true;
+		// Check movement/reproduction conditions
+		for (Cell cell:getNeighbors()) {
+			if (getCurrentState() == SHARK) {
+				
+			} else if (getCurrentState() == FISH) { // If fish, check for open water
+				if (cell.getCurrentState() == WATER) {
+					toBeMoved = true;
+				}
+			}
+		}
 
+	}
+	
+	public void decEnergy() {
+		if (this.getCurrentState() == SHARK) {
+			energy--;
+		}
+	}
+	
+	public boolean toBeMoved() {
+		return toBeMoved;
+	}
+	
+	public boolean toReproduce() {
+		return toReproduce;
+	}
+	
+	public void sharkMove() {
+		
 	}
 
 }
