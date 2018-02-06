@@ -8,18 +8,6 @@ import javafx.scene.layout.GridPane;
 
 public class MenuCreator extends Visualizer {
 	
-	public GridPane getGridPane() {
-		return gridPane;
-	}
-	
-	protected ResourceBundle getResourceS() {
-		return myResources_S;
-	}
-	
-	protected ResourceBundle getResourceC() {
-		return myResources_C;
-	}
-	
 	protected String getResources(ResourceBundle rb, String s) {
 		return rb.getString(s);
 	}

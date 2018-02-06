@@ -1,7 +1,6 @@
- package cellsociety_team07;
+package cellsociety_team07;
 
 import java.util.ResourceBundle;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -10,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.GridPane; 
 import javafx.scene.control.*;
 
 public class Visualizer extends Application {
@@ -34,19 +33,17 @@ public class Visualizer extends Application {
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
 	protected Group root;
+	protected CellsToVisualize cellDrawer;
+	protected GridPaneAssembler paneAssembler;
 	
-
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
 		myScene = setUpGame(500, 500, "xml/fire_simulation.xml" );
-
 		stg.setScene(myScene);
 		stg.show();
-		
 		commandHandler = new CommandHandler();
-		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -56,28 +53,24 @@ public class Visualizer extends Application {
 
 
 	protected Scene setUpGame(int height, int background, String sim) {
-		root  = new Group();
 		root = new Group();
 		Scene scene = new Scene(root, height, background);
-		
 		setSimulation(sim);
 		setUpGridPane();
-		root.getChildren().add(gridPane);
-	
+		root.getChildren().add(paneAssembler.getGridPane());
 		drawFreshGrid();
-
 		return scene;
 	}
 	
 	private void drawFreshGrid() {
+		cellDrawer = new CellsToVisualize();
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
 				Cell cell = simulation.getCells()[i][j];
-				simulation.cellToVisualize(cell);
-				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
-				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
+				cellDrawer.visualizeCell(cell,simulation);
+			    cellDrawer.getCell().setX(sceneWidth / simulation.getCells()[0].length * j + 45);
+                cellDrawer.getCell().setY(sceneHeight / simulation.getCells().length * i + 55);
 				root.getChildren().add(cell);
-				
 			}
 		}
 	}
@@ -85,22 +78,15 @@ public class Visualizer extends Application {
 	private void setUpGridPane() {
 		gridPane = new GridPane();	
 		menuCreator = new MenuCreator();
-		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
-		myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
-		gridPane.add(menuCreator.makeButton(myResources_C), 1, 3);
-		gridPane.add(new Label(menuCreator.getResources(myResources_S, "LabelCommand")), 0, 0);
-		gridPane.add(menuCreator.getSimulationMenu(myResources_S), 1, 0);
-		gridPane.add(new Label(menuCreator.getResources(myResources_C, "LabelCommand")), 2, 0);
-		gridPane.add(menuCreator.getCommandsBox(myResources_C), 3, 0);
-		
+		paneAssembler = new GridPaneAssembler();
+		paneAssembler.assembleGridPane(gridPane, menuCreator);
 		menuCreator.stepButton().setOnAction((e) -> {
-			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
+			handleStepForward(menuCreator.getResources(paneAssembler.getResourceC(), "StepForwardCommand"));			
 		});
 	}
 
 	private void step(double elapsedTime) {
 		update();
-
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand(e, animation, menuCreator);
 		});
@@ -116,22 +102,18 @@ public class Visualizer extends Application {
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
-				
-		}
+			}
 		drawFreshGrid();
-	}
+	  }
 	
-
 	private void handleSimulation(Event e) {
 		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Game of Life")) 
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
-		if (selectedAction.equals("Predator/Prey")) {
+		if (selectedAction.equals("Predator/Prey")) 
 			newSim("xml/wator_simulation.xml");
-			animation.stop();
-		}
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");
 		}
@@ -153,7 +135,6 @@ public class Visualizer extends Application {
 			break;
 		}
 	}
-
 
 	private void setSimulation(String s) {
 		simulation = new Simulation(s);
