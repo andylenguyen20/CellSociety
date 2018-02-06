@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+	<type>Segregation</type>
+	<title>Segregation Simulation</title>
+	<author>Andy Nguyen</author>
+	<param id="similarityReq">0.5</param>
+	<grid>
+		<dimension>
+			<width>20</width>
+			<height>20</height>
+		</dimension>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>0</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>1</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>2</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>4</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>5</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>6</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>7</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>8</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>9</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>10</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>15</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>16</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>17</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>18</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>0</row>
+			<col>19</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>1</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>2</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>4</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>5</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>6</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>7</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>8</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>9</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>10</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>11</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>12</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>13</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>14</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>15</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>16</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>17</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>18</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>1</row>
+			<col>19</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>1</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>2</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>4</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>5</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>11</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>12</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>13</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>14</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>15</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>16</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>17</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>18</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>2</row>
+			<col>19</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>3</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>3</row>
+			<col>1</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>3</row>
+			<col>2</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>3</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>3</row>
+			<col>4</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>11</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>12</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>13</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>14</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>15</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>16</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>17</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>18</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>4</row>
+			<col>19</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>8</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>9</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>10</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>11</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>12</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>13</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>14</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>15</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>16</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>5</row>
+			<col>17</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>6</row>
+			<col>3</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>11</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>12</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>13</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>14</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>15</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>16</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>17</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>18</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>14</row>
+			<col>19</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>1</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>2</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>4</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>5</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>6</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>7</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>8</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>9</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>15</row>
+			<col>10</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>16</row>
+			<col>14</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>16</row>
+			<col>15</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>16</row>
+			<col>16</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>16</row>
+			<col>17</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>16</row>
+			<col>18</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>16</row>
+			<col>19</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>1</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>2</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>4</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>5</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>6</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>7</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>8</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>9</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>10</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>11</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>12</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>13</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>14</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>15</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>16</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>17</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>18</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>17</row>
+			<col>19</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>0</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>1</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>2</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>3</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>4</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>5</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>6</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>7</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>8</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>9</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>10</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>11</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>12</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>13</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>14</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>15</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>16</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>17</col>
+			<state>2</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>18</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>18</row>
+			<col>19</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>19</row>
+			<col>0</col>
+			<state>1</state>
+		</cell>
+		<cell type="Segregation">
+			<row>19</row>
+			<col>1</col>
+			<state>1</state>
+		</cell>
+	</grid>
+
+</simulation>

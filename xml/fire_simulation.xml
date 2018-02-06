@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-	<type>GameOfLife</type>
-	<title>Game Of Life Simulation</title>
+	<type>Fire</type>
+	<title>Fire Simulation</title>
 	<author>Andy Nguyen</author>
+	<param id = "probCatch">0.5</param>
 	<grid>
 		<dimension>
 			<width>20</width>
 			<height>20</height>
 		</dimension>
-		<cell type = "GameOfLife">
+		<cell type = "Fire">
 			<row>0</row>
 			<col>1</col>
 			<state>1</state>
 		</cell>
-		<cell type = "GameOfLife">
+		<cell type = "Fire">
 			<row>1</row>
 			<col>2</col>
-			<state>1</state>
+			<state>2</state>
 		</cell>
-		<cell type = "GameOfLife">
+		<cell type = "Fire">
 			<row>2</row>
 			<col>0</col>
-			<state>1</state>
+			<state>2</state>
 		</cell>
-		<cell type = "GameOfLife">
+		<cell type = "Fire">
 			<row>2</row>
 			<col>1</col>
 			<state>1</state>
 		</cell>
-		<cell type = "GameOfLife">
+		<cell type = "Fire">
 			<row>2</row>
 			<col>2</col>
 			<state>1</state>

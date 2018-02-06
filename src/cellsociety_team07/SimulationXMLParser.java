@@ -1,19 +1,27 @@
 package cellsociety_team07;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class SimulationXMLParser {
 	private Document document;
 	public SimulationXMLParser(String fileName){
 		document = readInFile(fileName);
 	}
+	/*
+	 * getDocumentElement()
+	 * taken from https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+	 */
 	private Document readInFile(String fileName){
 		Document doc = null;
 		try {
@@ -27,18 +35,54 @@ public class SimulationXMLParser {
 		return doc;
 	}
 	
-	
-	
 	public Dimension getGridDimensions(){
 		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
-		Element dimensions = (Element) gridTag.getElementsByTagName("dimension");
-		int width = Integer.parseInt(dimensions.getElementsByTagName("width").item(0).getTextContent());
-		int height = Integer.parseInt(dimensions.getElementsByTagName("height").item(0).getTextContent());
-		Dimension dim = new Dimension();
+		Element dimensions = (Element) gridTag.getElementsByTagName("dimension").item(0);
+		int width = this.getTagValue(dimensions, "width");
+		int height = this.getTagValue(dimensions, "height");
 		return new Dimension(width, height);
 	}
-	public int getSpeed(String attributeName){
-		Element root = (Element) document.getElementsByTagName("simulation").item(0);
-		return Integer.parseInt(root.getAttribute("speed"));
+	public int getSpeed(){
+		Element simulation = (Element) document.getElementsByTagName("simulation").item(0);
+		return this.getTagValue(simulation, "speed");
+	}
+	
+	
+	public String getTitle(){
+		Element title = (Element) document.getElementsByTagName("title").item(0);
+		return title.getTextContent();
+	}
+	public ArrayList<InitialCellProperties> getInitialCellInfo(){
+		ArrayList<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
+		NodeList cellTags = document.getElementsByTagName("cell");
+		for(int i = 0; i < cellTags.getLength(); i++){
+			Element cell = (Element) cellTags.item(i);
+			int row = this.getTagValue(cell, "row");
+			int col = this.getTagValue(cell, "col");
+			int state = this.getTagValue(cell, "state");
+			String cellType = this.getCellType(cell);
+			initialCellPropList.add(new InitialCellProperties(row, col, state, cellType));
+		}
+		return initialCellPropList;
+	}
+	public String getCellType(Element cell){
+		return cell.getAttribute("type");
+	}
+	public String getType(){
+		Element type = (Element) document.getElementsByTagName("type").item(0);
+		return type.getTextContent();
+	}
+	
+	public double[] getSimulationParams(){
+		NodeList parameters = document.getElementsByTagName("param");
+		double[] params = new double[parameters.getLength()];
+		for(int i = 0; i < params.length; i++){
+			params[i] = Double.parseDouble(parameters.item(i).getTextContent());
+		}
+		return params;
+	}
+	
+	private int getTagValue(Element directParent, String tagName){
+		return Integer.parseInt(directParent.getElementsByTagName(tagName).item(0).getTextContent());
 	}
 }

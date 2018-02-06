@@ -1,76 +1,72 @@
 package cellsociety_team07;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-
-import java.io.File;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import javafx.scene.paint.Color;
 
 public class Simulation {
 	
 	private SimulationXMLParser simXMLParser;
-	
-	private double mySpeed;
-	private String myTitle;
 	private Grid grid;
+	private String myTitle;
+	private String myType;
+	protected double sceneWidth = 400;
+	protected double sceneHeight = 400;
+	
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
-		initializeComponents();
-		start();
+		myTitle = simXMLParser.getTitle();
+		myType = simXMLParser.getType();
+		setUpGrid();
+		setUpCells();
 	}
-	
-	public void start(){
-		System.out.println(mySpeed);
-		KeyFrame frame = new KeyFrame(Duration.millis(mySpeed),
-                e-> update());
-		/*Timeline timeline = new Timeline(frame);
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();*/
-		System.out.println(frame.getTime().toSeconds());
-        Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-	}
-	
-	private void update(){
-		System.out.println("hi");
-	}
+
 	public String getTitle(){
 		return myTitle;
 	}
-	public void setSpeed(int speed){
-		mySpeed = speed;
+	
+	private void setUpGrid(){
+		Dimension gridDimensions = simXMLParser.getGridDimensions();
+		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
 	}
-	private Grid setUpGrid(Document document){
-		Element gridTag = (Element) document.getElementsByTagName("grid").item(0);
-		int width = Integer.parseInt(gridTag.getAttribute("width"));
-		int height = Integer.parseInt(gridTag.getAttribute("height"));
-		return new Grid(width, height);
-	}
-	//getDocumentElement()
-	/*
-	 * taken from https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
-	 */
-	private Document readInFile(String fileName){
-		Document doc = null;
-		try {
-			File fXmlFile = new File(fileName);
-			DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
-		} catch (Exception e) {
-			e.printStackTrace();
+
+	private void setUpCells(){
+		ArrayList<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
+		double[] simulationParams = simXMLParser.getSimulationParams();
+		Cell[][] cells = grid.getCells();
+		for(InitialCellProperties initProps : initialCellPropList){
+			int row = initProps.getLocation().x;
+			int col = initProps.getLocation().y;
+			int state = initProps.getState();
+			String cellType = initProps.getCellType();
+			cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
 		}
-		return doc;
+		for(int i = 0; i < cells.length; i++){
+			for(int j = 0; j < cells[i].length; j++){
+				if(cells[i][j] == null){
+					cells[i][j] = SimulationObjectManager.getDefaultCell(myType, simulationParams);
+				}
+			}
+		}
+		grid.setCellNeighbors();
 	}
-	private void initializeComponents(){
-		grid = new Grid(simXMLParser.getGridDimensions().width, simXMLParser.getGridDimensions().height);
-		mySpeed = simXMLParser.getSpeed("speed");
+	
+	public void cellToVisualize(Cell cell) {
+		double cellWidth = sceneWidth / getCells()[0].length;
+		double cellHeight = sceneHeight / getCells().length;
+		cell.setWidth(cellWidth);
+		cell.setHeight(cellHeight);
+		cell.setFill(cell.getColor());
+		cell.setStroke(Color.WHITE);
+		
+
+	}
+	
+	public Grid getGrid(){
+		return grid;
+	}
+	
+	public Cell[][] getCells(){
+		return grid.getCells();
 	}
 }

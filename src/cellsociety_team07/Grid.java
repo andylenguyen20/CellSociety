@@ -2,22 +2,22 @@ package cellsociety_team07;
 import java.util.HashMap;
 import java.awt.Point;
 
-public class Grid {
+public abstract class Grid{
 
 	/************************** FIELDS *************************/
-	
-	HashMap<Point,Cell> grid; // maps x,y coordinates of a cell on screen to the Cell object itself
-	
+	private NeighborFinder neighFinder;
+	private HashMap<Point,Cell> grid; // maps x,y coordinates of a cell on screen to the Cell object itself
+	private Cell[][] cells;
 	
 	/********************** CONSTRUCTOR ************************/
 	
 	/*
 	 * @param
 	 */
-	public Grid() {
-		
+	public Grid(int width, int height){
+		cells = new Cell[width][height];
+
 	}
-	
 	
 	/********************** METHODS ****************************/
 	
@@ -32,16 +32,19 @@ public class Grid {
 //		return cellList;
 //	}
 	
-	private Cell[][] cells;
-	public Grid(int width, int height){
-		cells = new Cell[width][height];
-	}
-	
 	/*
 	 * sets cell neighbors
 	 */
 	public void setCellNeighbors(){
-		
+		for(int i = 0; i < cells.length; i++){
+			for(int j = 0; j < cells.length; j++){
+				cells[i][j].setNeighbors(neighFinder.getCellNeighborhood(cells, i, j));
+			}
+		}
+	}
+	
+	public void setNeighborFinder(NeighborFinder neighFinder){
+		this.neighFinder = neighFinder;
 	}
 	
 	/*
@@ -51,18 +54,12 @@ public class Grid {
 		return cells;
 	}
 	
-	/*
-	 * sets the rules for each individual cell.
-	 */
-	private void setCellRules(){
-		
-	}
-	
-	/*
-	 * getRules from an XML document
-	 */
-	private void getRules(){
-		
+	public void prepareNextState(){
+		for(Cell[] cellArray : cells){
+			for(Cell cell : cellArray){
+				cell.applyRules();
+			}
+		}
 	}
 	
 	/*
