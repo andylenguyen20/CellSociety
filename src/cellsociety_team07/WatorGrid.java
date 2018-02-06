@@ -29,7 +29,6 @@ public class WatorGrid extends Grid implements CellMover{
 				currCell.applyRules(this);
 			}
 		}
-		super.setCellNeighbors();
 	}
 	
 	

@@ -1,6 +1,7 @@
  package cellsociety_team07;
 
 import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
@@ -33,13 +35,19 @@ public class Visualizer extends Application {
 	protected MenuCreator menuCreator;
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
-	
-
+	Group root;
+	double cellWidth;
+	double cellHeight;
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
 		myScene = setUpGame(500, 500);
+		
+		myScene.setOnKeyPressed(e -> {
+			handleKeyInput(e.getCode());
+		});
+		
 		stg.setScene(myScene);
 		stg.show();
 		commandHandler = new CommandHandler();
@@ -51,15 +59,15 @@ public class Visualizer extends Application {
 	}
 
 	protected Scene setUpGame(int height, int background) {
-		Group root = new Group();
+		root = new Group();
 		Scene scene = new Scene(root, height, background);
 		setSimulation(currentSim);
 		
 		setUpGridPane();
 		root.getChildren().add(gridPane);
 
-		double cellWidth = sceneWidth / simulation.getCells()[0].length;
-		double cellHeight = sceneHeight / simulation.getCells().length;
+		cellWidth = sceneWidth / simulation.getCells()[0].length;
+		cellHeight = sceneHeight / simulation.getCells().length;
 
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
@@ -115,7 +123,19 @@ public class Visualizer extends Application {
 		grid.update();
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
+				root.getChildren().remove(cell);
+		}
+		for (int i = 0; i < simulation.getCells().length; i++) {
+			for (int j = 0; j < simulation.getCells()[i].length; j++) {
+				Cell cell = simulation.getCells()[i][j];
+				cell.setWidth(cellWidth);
+				cell.setHeight(cellHeight);
 				cell.setFill(cell.getColor());
+				cell.setStroke(Color.WHITE);
+				cell.setX(cellWidth * j + 45);
+				cell.setY(cellHeight * i + 55);
+				root.getChildren().add(cell);
+			}
 		}
 	}
 
@@ -125,8 +145,10 @@ public class Visualizer extends Application {
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
+			animation.stop();
 		if (selectedAction.equals("Predator/Prey"))
 			newSim("xml/wator_simulation.xml");
+			animation.stop();
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");
 	}
@@ -135,10 +157,19 @@ public class Visualizer extends Application {
 		switch (code) {
 		case "Step Forward":
 			update();
-			animation.stop();
+			//animation.stop();
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void handleKeyInput(KeyCode code){
+		switch(code){
+			case T: animation.play();
+			update(); 
+			animation.stop();break;
+		default: break;
 		}
 	}
 
