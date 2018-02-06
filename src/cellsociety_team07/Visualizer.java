@@ -1,6 +1,7 @@
  package cellsociety_team07;
 
 import java.util.ResourceBundle;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -10,7 +11,11 @@ import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
@@ -32,14 +37,19 @@ public class Visualizer extends Application {
 	protected MenuCreator menuCreator;
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
+<<<<<<< HEAD
 	protected Group root;
 	
 
+=======
+	Group root;
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
 		myScene = setUpGame(500, 500, "xml/fire_simulation.xml" );
+
 		stg.setScene(myScene);
 		stg.show();
 		
@@ -52,13 +62,19 @@ public class Visualizer extends Application {
 		animation.play();
 	}
 
+
 	protected Scene setUpGame(int height, int background, String sim) {
+<<<<<<< HEAD
 		root  = new Group();
+=======
+		root = new Group();
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 		Scene scene = new Scene(root, height, background);
 		
 		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(gridPane);
+<<<<<<< HEAD
 	
 		drawFreshGrid();
 
@@ -77,6 +93,11 @@ public class Visualizer extends Application {
 			}
 		}
 		
+=======
+		drawFreshGrid();
+
+		return scene;
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 	}
 
 	private void setUpGridPane() {
@@ -107,14 +128,28 @@ public class Visualizer extends Application {
 	}
 	
 	protected void update() {
-
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
 		grid.update();
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
+<<<<<<< HEAD
 				
+=======
+		}
+		drawFreshGrid();
+	}
+	private void drawFreshGrid(){
+		for (int i = 0; i < simulation.getCells().length; i++) {
+			for (int j = 0; j < simulation.getCells()[i].length; j++) {
+				Cell cell = simulation.getCells()[i][j];
+				simulation.cellToVisualize(cell);
+				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
+				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
+				root.getChildren().add(cell);
+			}
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 		}
 		drawFreshGrid();
 	}
@@ -125,6 +160,7 @@ public class Visualizer extends Application {
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
+
 		if (selectedAction.equals("Predator/Prey")) {
 			System.out.println ("ehll");
 			newSim("xml/wator_simulation.xml");
@@ -145,10 +181,19 @@ public class Visualizer extends Application {
 		switch (code) {
 		case "Step Forward":
 			update();
-			animation.stop();
+			//animation.stop();
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void handleKeyInput(KeyCode code){
+		switch(code){
+			case T: animation.play();
+			update(); 
+			animation.stop();break;
+		default: break;
 		}
 	}
 

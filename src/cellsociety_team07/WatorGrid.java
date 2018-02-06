@@ -23,13 +23,23 @@ public class WatorGrid extends Grid implements CellMover{
 	@Override
 	public void prepareNextState(){
 		Cell[][] grid = super.getCells();
+		System.out.println("5,4 current state : " + grid[5][4].getCurrentState());
+		
+		System.out.println("4,4 current state : " + grid[4][4].getCurrentState());
+		
+		System.out.println("5,3 current state : " + grid[5][3].getCurrentState());
+		
+		System.out.println("5,4 next state : " + grid[5][4].getNextState());
+		
+		System.out.println("4,4 next state : " + grid[4][4].getNextState());
+		
+		System.out.println("5,3 next state : " + grid[5][3].getNextState());
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid[0].length; col++){
 				WatorCell currCell = (WatorCell) grid[row][col];
 				currCell.applyRules(this);
 			}
 		}
-		super.setCellNeighbors();
 	}
 	
 	
@@ -46,8 +56,11 @@ public class WatorGrid extends Grid implements CellMover{
 	}
 	@Override
 	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
+<<<<<<< HEAD
 		
 		System.out.println(movingCell instanceof FishCell);
+=======
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 		Cell[][] cells = super.getCells();
 		Point toBeOverwrittenCoord = null;
 		Point movingCellCoord = null;
@@ -57,14 +70,16 @@ public class WatorGrid extends Grid implements CellMover{
 					toBeOverwrittenCoord = new Point(row, col);
 				}
 				if(cells[row][col] == movingCell){
-					System.out.println("movingCellCoord " + row + "," + col);
 					movingCellCoord = new Point(row, col);
 				}
 			}
 		}
 		cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
 		cells[movingCellCoord.x][movingCellCoord.y] = movingCellReplacement;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 9373fe6960e735b4fe4a95105ba1153aca84fc23
 	}
 
 }
