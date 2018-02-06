@@ -32,6 +32,7 @@ public class Visualizer extends Application {
 	protected MenuCreator menuCreator;
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
+	protected Group root;
 	
 
 	@Override
@@ -41,6 +42,7 @@ public class Visualizer extends Application {
 		myScene = setUpGame(500, 500, "xml/fire_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
+		
 		commandHandler = new CommandHandler();
 		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
@@ -51,13 +53,19 @@ public class Visualizer extends Application {
 	}
 
 	protected Scene setUpGame(int height, int background, String sim) {
-		Group root = new Group();
+		root  = new Group();
 		Scene scene = new Scene(root, height, background);
 		
 		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(gridPane);
 	
+		drawFreshGrid();
+
+		return scene;
+	}
+	
+	private void drawFreshGrid() {
 		for (int i = 0; i < simulation.getCells().length; i++) {
 			for (int j = 0; j < simulation.getCells()[i].length; j++) {
 				Cell cell = simulation.getCells()[i][j];
@@ -65,10 +73,10 @@ public class Visualizer extends Application {
 				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
 				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
 				root.getChildren().add(cell);
+				
 			}
 		}
-
-		return scene;
+		
 	}
 
 	private void setUpGridPane() {
@@ -105,8 +113,10 @@ public class Visualizer extends Application {
 		grid.update();
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
-				cell.setFill(cell.getColor());
+				root.getChildren().remove(cell);
+				
 		}
+		drawFreshGrid();
 	}
 
 	private void handleSimulation(Event e) {
@@ -116,10 +126,10 @@ public class Visualizer extends Application {
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
 		if (selectedAction.equals("Predator/Prey")) {
+			System.out.println ("ehll");
 			newSim("xml/wator_simulation.xml");
 			animation.stop();
 		}
-			
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");
 		}
