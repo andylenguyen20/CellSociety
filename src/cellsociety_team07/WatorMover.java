@@ -5,8 +5,12 @@ import java.util.ArrayList;
 public class WatorMover implements CellMover {
 
 	@Override
+	/**
+	 * Swaps data in moving Cell and toBeOverwritten
+	 */
 	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
-		
+		toBeOverwritten = movingCell;
+		movingCell = movingCellReplacement;
 	}
 
 	@Override

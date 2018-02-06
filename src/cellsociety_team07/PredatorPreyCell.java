@@ -77,10 +77,13 @@ public class PredatorPreyCell extends Cell {
 	}
 	
 	public boolean toReproduce() {
-		return toReproduce;
+		return (reproductionCounter >= reproductionTime) && toBeMoved;
 	}
 	
-	public void sharkMove() {
+	/**
+	 * Used to set toBeMoved variable
+	 */
+	public boolean sharkMove() {
 		
 	}
 
