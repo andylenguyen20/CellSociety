@@ -44,7 +44,7 @@ public abstract class Cell extends Rectangle {
 		nextState = state;
 	}
 	
-	public Paint getColors() {
+	public Paint getColor() {
 		return colors[getCurrentState()];
 	}
 	

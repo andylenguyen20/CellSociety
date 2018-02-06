@@ -6,50 +6,66 @@ public class FishCell extends WatorCell{
 	private int numChrononsAlive;
 	private boolean toReproduce;
 	public static final int REPRODUCTION_CHRONON = 0;
+	private Cell replacement;
+	private Cell openCell;
 	
 	public FishCell(int initialState, double[] props) {
 		super(initialState, props);
-		super.setColors(colors);
 		toBeMoved = false;
 		numChrononsAlive = 0;
 	}
 	
 	public void update(CellMover cm){
+		this.update();
 		if(toBeMoved){
-			Cell replacement;
-			if(toReproduce){
-				replacement = new FishCell(FISH, super.getProps());
-			}else{
-				replacement = new FishCell(WATER, super.getProps());
-			}
-			Cell openCell = cm.getCellOfType(WATER, this);
 			cm.moveCellInGrid(this, replacement, openCell);
 		}
 	}
-	
-	
 	@Override
 	public void update() {
-		super.setCurrentState(super.getNextState());	
 		numChrononsAlive++;
 	}
 	@Override
+	public void applyRules(CellMover cm){
+		this.applyRules();
+		if(toBeMoved){
+			if(toReproduce){
+				replacement = new FishCell(FISH, super.getProps());
+				super.setNextState(FISH);
+				numChrononsAlive = 0;
+			}else{
+				replacement = new FishCell(WATER, super.getProps());
+				super.setNextState(WATER);
+			}
+			openCell = cm.getCellOfType(WATER, this);
+			openCell.setNextState(FISH);
+		}
+	}
+	
+	@Override
 	public void applyRules() {
-		int numOpenSpots = 0;
-		for (Cell cell:super.getNeighbors()) {
-			if (cell.getCurrentState() == WATER){
-				numOpenSpots++;
+		toBeMoved = this.canMove();
+		toReproduce = this.canReproduce();
+	}
+	
+	/*
+	 * must be called after canMove() in applyRules
+	 */
+	private boolean canReproduce(){
+		return toBeMoved && this.numChrononsAlive >= super.getProps()[REPRODUCTION_CHRONON];
+	}
+	
+	private boolean canMove(){
+		int numOpenSpotsAvailable = 0;
+		for (Cell neighbor:super.getNeighbors()) {
+			if (neighbor.getCurrentState() == WATER && neighbor.getNextState() == WATER){
+				numOpenSpotsAvailable++;
 			}
 		}
-		if(numOpenSpots > 0){
-			toBeMoved = true;
-		}else{
-			toBeMoved = false;
-		}
-		if(numChrononsAlive == super.getProps()[REPRODUCTION_CHRONON]){
-			toReproduce = true;
-		}else{
-			toReproduce = false;
-		}
+		return (numOpenSpotsAvailable > 0) && !this.willBeEaten();
+	}
+	
+	private boolean willBeEaten(){
+		return this.getNextState() == WATER;
 	}
 }
