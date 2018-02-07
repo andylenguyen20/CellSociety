@@ -6,8 +6,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class MenuCreator extends Visualizer {
+public class MenuCreator {
 	
+	private ComboBox<String> commandsBox;
+	private ComboBox<String> simulationMenu;
+	private Button stepForward;
+
 	protected String getResources(ResourceBundle rb, String s) {
 		return rb.getString(s);
 	}

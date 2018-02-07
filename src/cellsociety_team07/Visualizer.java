@@ -1,6 +1,5 @@
 package cellsociety_team07;
 
-import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -10,25 +9,18 @@ import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane; 
-import javafx.scene.control.*;
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
-	protected static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	protected Timeline animation;
 	protected Simulation simulation;
-	protected ComboBox<String> simulationMenu;
-	protected ComboBox<String> commandsBox;
 	protected double sceneWidth = 400;
 	protected double sceneHeight = 400;
 	protected Stage stg;
 	protected GridPane gridPane;
 	protected String currentSim;
 	protected Scene myScene;
-	protected ResourceBundle myResources_C;
-	protected ResourceBundle myResources_S;
-	protected Button stepForward;
 	protected MenuCreator menuCreator;
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
@@ -58,22 +50,18 @@ public class Visualizer extends Application {
 		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(paneAssembler.getGridPane());
+		
 		drawFreshGrid();
 		return scene;
 	}
 	
 	private void drawFreshGrid() {
 		cellDrawer = new CellsToVisualize();
-		for (int i = 0; i < simulation.getCells().length; i++) {
-			for (int j = 0; j < simulation.getCells()[i].length; j++) {
-				Cell cell = simulation.getCells()[i][j];
-				cellDrawer.visualizeCell(cell,simulation, sceneWidth, sceneHeight);
-			    cellDrawer.getCell().setX(sceneWidth / simulation.getCells()[0].length * j + 45);
-                cellDrawer.getCell().setY(sceneHeight / simulation.getCells().length * i + 55);
-				root.getChildren().add(cell);
-			}
-		}
+		cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
+		for (Cell c : cellDrawer.getCellsToVisualize())
+				root.getChildren().add(c);
 	}
+	
 
 	private void setUpGridPane() {
 		gridPane = new GridPane();	
