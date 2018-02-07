@@ -39,6 +39,12 @@ public class MenuCreator {
 		return stepForward;
 	}
 	
+	protected Label makeLabel(ResourceBundle r) {
+		Label label = new Label(getResources(r, "LabelCommand"));
+		return label;
+		
+	}
+	
 	protected ComboBox<String> commands (){
 		return commandsBox;
 	}
