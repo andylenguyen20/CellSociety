@@ -23,8 +23,8 @@ public class Visualizer extends Application {
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
 	protected Timeline animation;
 	protected Simulation simulation;
-	protected double sceneWidth = 500;
-	protected double sceneHeight = 500;
+	private static final int SCENE_WIDTH = 500;
+	private static final int SCENE_HEIGHT = 500;
 	protected Stage stg;
 	protected String currentSim;
 	protected Scene myScene;
@@ -37,9 +37,10 @@ public class Visualizer extends Application {
 	protected SliderCreator slider;
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
+
+	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private GraphCreator lineChart;
-	private BorderPane borderPane;
 	
 	@Override
 	public void start(Stage stage) {
@@ -70,9 +71,8 @@ public class Visualizer extends Application {
 		myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
 		slider = new SliderCreator();
 		lineChart = new GraphCreator();
-		
-		borderPane = new BorderPane();
-	    borderPane.setPrefSize(800, 800); 
+		BorderPane borderPane = new BorderPane();
+		borderPane.setPrefSize(800, 800); 
 	    borderPane.setTop(menuCreator.addHBox(myResources_C, myResources_S));
 		borderPane.setRight(slider.sliderInitializer());
 		borderPane.setBottom(lineChart.getLineChart());
@@ -99,7 +99,7 @@ public class Visualizer extends Application {
 	private void drawFreshGrid() {
 		Map<Paint,Integer> populations =  new HashMap<Paint, Integer>();
 		cellDrawer = new CellsToVisualize();
-		cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
+		cellDrawer.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT);
 		for (Cell c : cellDrawer.getCellsToVisualize()) {
 //			for( int i = 0 ; i < c.getColors().length; i++) {
 //				Paint color = c.getColor();
@@ -128,6 +128,7 @@ public class Visualizer extends Application {
 	
 
 	private void step(double elapsedTime) {
+	
 		update();
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
@@ -149,11 +150,11 @@ public class Visualizer extends Application {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
 			}
-		drawFreshGrid();
+		//drawFreshGrid();
 	  }
 	
 	private void handleSimulation(Event e) {
-		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
+		String selectedAction = MenuCreator.simulations().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Game of Life")) 
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))

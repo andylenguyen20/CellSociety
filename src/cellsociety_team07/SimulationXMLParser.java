@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,8 +53,8 @@ public class SimulationXMLParser {
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
 	}
-	public ArrayList<InitialCellProperties> getInitialCellInfo(){
-		ArrayList<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
+	public List<InitialCellProperties> getInitialCellInfo(){
+		List<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
 		NodeList cellTags = document.getElementsByTagName("cell");
 		for(int i = 0; i < cellTags.getLength(); i++){
 			Element cell = (Element) cellTags.item(i);

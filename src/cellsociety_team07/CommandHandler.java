@@ -3,7 +3,7 @@ package cellsociety_team07;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 
-public class CommandHandler {
+public class CommandHandler extends MenuCreator{
 
 	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
 		
