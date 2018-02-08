@@ -19,8 +19,8 @@ public class CellsToVisualize extends Visualizer {
 				cell.setHeight(cellHeight);
 				cell.setFill(cell.getColor());
 				cell.setStroke(Color.WHITE);
-			    cell.setX(width / sim.getCells()[0].length * j + 45);
-                cell.setY(height / sim.getCells().length * i + 55);
+			    cell.setX(width / sim.getCells()[0].length * j + 135);
+                cell.setY(height / sim.getCells().length * i + 115);
 			    cellsToVisualize.add(cell);
 			    
 			}

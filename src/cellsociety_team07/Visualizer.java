@@ -1,25 +1,31 @@
 package cellsociety_team07;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane; 
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
 	protected Timeline animation;
 	protected Simulation simulation;
-	protected double sceneWidth = 400;
-	protected double sceneHeight = 400;
+	protected double sceneWidth = 500;
+	protected double sceneHeight = 500;
 	protected Stage stg;
-	protected GridPane gridPane;
 	protected String currentSim;
 	protected Scene myScene;
 	protected MenuCreator menuCreator;
@@ -27,16 +33,29 @@ public class Visualizer extends Application {
 	protected CommandHandler commandHandler;
 	protected Group root;
 	protected CellsToVisualize cellDrawer;
-	protected GridPaneAssembler paneAssembler;
 	protected SimulationHandler simHandler;
 	protected SliderCreator slider;
+	private ResourceBundle myResources_C;
+	private ResourceBundle myResources_S;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private GraphCreator lineChart;
+	private BorderPane borderPane;
 	
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		myScene = setUpGame(500, 500, "xml/gol_simulation.xml" );
+		myScene = setUpGame(800, 800, "xml/gol_simulation.xml" );
 		stg.setScene(myScene);
+		
+		//for clicking and changing states of cells on grid
+//		stg.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//		    @Override
+//		    public void handle(MouseEvent mouseEvent) {
+//		        System.out.println("mouse click detected! " + mouseEvent.getSource());
+//		    }
+//		});
+
 		stg.show();
 		setAnimation(stg);
 	}
@@ -54,49 +73,77 @@ public class Visualizer extends Application {
 		root = new Group();
 		commandHandler = new CommandHandler();
 		simHandler = new SimulationHandler();
+		menuCreator = new MenuCreator();
+		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
+		myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
+		slider = new SliderCreator();
+		lineChart = new GraphCreator();
+		
+		borderPane = new BorderPane();
+	    borderPane.setPrefSize(800, 800); 
+	    borderPane.setTop(menuCreator.addHBox(myResources_C, myResources_S));
+		borderPane.setRight(slider.sliderInitializer());
+		borderPane.setBottom(lineChart.getLineChart());
+		borderPane.setStyle("-fx-padding: 10;" +
+
+	              	"-fx-border-style: solid inside;" +
+
+	                "-fx-border-width: 2;" +
+
+	                "-fx-border-insets: 5;" +
+
+	                "-fx-border-radius: 5;" +
+
+	                "-fx-border-color: blue;");
+
+		
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
-		setUpGridPane();
-		slider = new SliderCreator();
-        //root.getChildren().add(slider.sliderInitializer());
-		root.getChildren().add(paneAssembler.getGridPane());
 		drawFreshGrid();
+		root.getChildren().add(borderPane);
 		return scene;
 	}
 	
 	private void drawFreshGrid() {
+		Map<Paint,Integer> populations =  new HashMap<Paint, Integer>();
 		cellDrawer = new CellsToVisualize();
 		cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
-		for (Cell c : cellDrawer.getCellsToVisualize())
-				root.getChildren().add(c);
+		for (Cell c : cellDrawer.getCellsToVisualize()) {
+			for( int i = 0 ; i < c.getColors().length; i++) {
+				Paint color = c.getColor();
+				if (!populations.containsKey(c.getColor())) {
+					populations.put(color, 1);
+				}else {
+					populations.put(color, populations.get(color)+1 );
+					}
+				}
+		root.getChildren().add(c);
+		c.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        //c.setFill(Color.PINK);
+				c.setFill(c.getColors()[1]);
+
+		        animation.stop();
+		    } 
+		});
+		
+		}
 	}
 	
-	private void setUpGridPane() {
-		gridPane = new GridPane();	
-		menuCreator = new MenuCreator();
-		paneAssembler = new GridPaneAssembler();
-		slider = new SliderCreator();
-
-		paneAssembler.assembleGridPane(gridPane, menuCreator, slider);
-		menuCreator.stepButton().setOnAction((e) -> {
-			handleStepForward(menuCreator.getResources(paneAssembler.getResourceC(), "StepForwardCommand"));			
-		});
-	}
 
 	private void step(double elapsedTime) {
 		update();
-		
+		menuCreator.stepButton().setOnAction((e) -> {
+			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));			
+		});
+
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand( e, animation, menuCreator);
 		});
-//				menuCreator.simulations().setOnAction((e) -> {
-//			simHandler.handleSimulation( e, menuCreator, myScene, stg, animation);
-//		});
-//		
 		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ;
 		});
-
 	}
 	
 	protected void update() {
@@ -123,7 +170,7 @@ public class Visualizer extends Application {
 		}
 	
 	protected void newSim(String sim) {
-		myScene = setUpGame(500, 500, sim);
+		myScene = setUpGame(800, 800, sim);
 		stg.setScene(myScene);
 		stg.show();
 		commandHandler.defaultRateAndPlay(1.0, animation);
