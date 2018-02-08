@@ -1,0 +1,17 @@
+# Refactoring Discussion
+
+Duplication Refactoring
+
+* We did not have a lot of duplication to fix. We had 7 cases of duplication but none of them spanned more than three lines. 
+    Some of the duplication was code added in for testing / debugging. 
+    
+Checklist Refactoring
+
+* In terms of flexibility, we mainly had issues with using ArrayList instead of List, which we fixed. Additionally, there were a lot of magic numbers in the front-end
+  code because we were playing around with coordinates on the screen . However, we fixed those issues through constants.
+  
+General Refactoring
+
+* The refactoring tool told us to change things like ArrayList<String> to ArrayList<>() but we decided to keep them in for communication and clarity.
+* We made the MenuCreator class static so that it can be called upon without using an object.
+* We have not updated the XMLParser class because there are big changes to be made.
