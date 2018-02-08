@@ -48,14 +48,6 @@ public class Visualizer extends Application {
 		stg.setTitle("CA Simulation");
 		myScene = setUpGame(800, 800, "xml/gol_simulation.xml" );
 		stg.setScene(myScene);
-		
-		//for clicking and changing states of cells on grid
-//		stg.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//		    @Override
-//		    public void handle(MouseEvent mouseEvent) {
-//		        System.out.println("mouse click detected! " + mouseEvent.getSource());
-//		    }
-//		});
 
 		stg.show();
 		setAnimation(stg);
@@ -110,22 +102,25 @@ public class Visualizer extends Application {
 		cellDrawer = new CellsToVisualize();
 		cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
 		for (Cell c : cellDrawer.getCellsToVisualize()) {
-			for( int i = 0 ; i < c.getColors().length; i++) {
-				Paint color = c.getColor();
-				if (!populations.containsKey(c.getColor())) {
-					populations.put(color, 1);
-				}else {
-					populations.put(color, populations.get(color)+1 );
-					}
-				}
+//			for( int i = 0 ; i < c.getColors().length; i++) {
+//				Paint color = c.getColor();
+//				if (!populations.containsKey(c.getColor())) {
+//					populations.put(color, 1);
+//				}else {
+//					populations.put(color, populations.get(color)+1 );
+//					}
+//				}
 		root.getChildren().add(c);
 		c.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
 		    public void handle(MouseEvent mouseEvent) {
-		        //c.setFill(Color.PINK);
+		        cellDrawer.getCellsToVisualize().remove(c);
+		    		root.getChildren().remove(c);
 				c.setFill(c.getColors()[1]);
+				cellDrawer.getCellsToVisualize().add(c);
+				root.getChildren().add(c);
 
-		        animation.stop();
+		        //animation.stop();
 		    } 
 		});
 		
