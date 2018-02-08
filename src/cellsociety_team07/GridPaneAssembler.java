@@ -9,7 +9,7 @@ public class GridPaneAssembler{
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
 	private MenuCreator menuCreator;
-	protected static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 
 	public void assembleGridPane(GridPane g, MenuCreator m) {
 		gridPane = g;

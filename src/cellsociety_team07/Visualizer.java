@@ -27,15 +27,21 @@ public class Visualizer extends Application {
 	protected Group root;
 	protected CellsToVisualize cellDrawer;
 	protected GridPaneAssembler paneAssembler;
+	protected SimulationHandler simHandler;
 	
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		myScene = setUpGame(500, 500, "xml/fire_simulation.xml" );
+		myScene = setUpGame(500, 500, "xml/gol_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
 		commandHandler = new CommandHandler();
+		simHandler = new SimulationHandler();
+		setAnimation(stg);
+	}
+	
+	public void setAnimation(Stage s) {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -50,7 +56,6 @@ public class Visualizer extends Application {
 		setSimulation(sim);
 		setUpGridPane();
 		root.getChildren().add(paneAssembler.getGridPane());
-		
 		drawFreshGrid();
 		return scene;
 	}
@@ -62,7 +67,6 @@ public class Visualizer extends Application {
 				root.getChildren().add(c);
 	}
 	
-
 	private void setUpGridPane() {
 		gridPane = new GridPane();	
 		menuCreator = new MenuCreator();
@@ -75,12 +79,20 @@ public class Visualizer extends Application {
 
 	private void step(double elapsedTime) {
 		update();
+		
 		menuCreator.commands().setOnAction((e) -> {
-			commandHandler.handleCommand(e, animation, menuCreator);
+			commandHandler.handleCommand( e, animation, menuCreator);
 		});
+		
+//		menuCreator.simulations().setOnAction((e) -> {
+//			simHandler.handleSimulation(menuCreator.simulations().getSelectionModel().getSelectedItem(), e, 
+//									   menuCreator, myScene, stg, animation);
+//		});
+		
 		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ;
 		});
+
 	}
 	
 	protected void update() {

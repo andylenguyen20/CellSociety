@@ -4,7 +4,7 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 
 public class CommandHandler {
-	
+
 	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
 		
 		String selectedAction = m.commands().getSelectionModel().getSelectedItem();
