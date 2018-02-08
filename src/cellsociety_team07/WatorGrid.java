@@ -56,7 +56,6 @@ public class WatorGrid extends Grid implements CellMover{
 	}
 	@Override
 	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
-		System.out.println(movingCell instanceof FishCell);
 		Cell[][] cells = super.getCells();
 		Point toBeOverwrittenCoord = null;
 		Point movingCellCoord = null;
@@ -64,13 +63,20 @@ public class WatorGrid extends Grid implements CellMover{
 			for(int col = 0; col < cells[0].length; col++){
 				if(cells[row][col] == toBeOverwritten){
 					toBeOverwrittenCoord = new Point(row, col);
+					System.out.println ("is it null");
+
+					
+					
 				}
 				if(cells[row][col] == movingCell){
 					movingCellCoord = new Point(row, col);
 				}
 			}
 		}
+		
+		System.out.println (toBeOverwrittenCoord ==null);
 		cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
+		System.out.println (toBeOverwrittenCoord ==null);
 		cells[movingCellCoord.x][movingCellCoord.y] = movingCellReplacement;
 
 	}

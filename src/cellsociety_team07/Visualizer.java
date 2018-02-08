@@ -11,11 +11,7 @@ import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
@@ -37,7 +33,8 @@ public class Visualizer extends Application {
 	protected MenuCreator menuCreator;
 	protected String selectedAction;
 	protected CommandHandler commandHandler;
-	Group root;
+
+	protected Group root;
 	
 	@Override
 	public void start(Stage stage) {
@@ -125,6 +122,7 @@ public class Visualizer extends Application {
 		}
 		drawFreshGrid();
 	}
+	
 
 	private void handleSimulation(Event e) {
 		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
@@ -132,9 +130,7 @@ public class Visualizer extends Application {
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
-
 		if (selectedAction.equals("Predator/Prey")) {
-			System.out.println ("ehll");
 			newSim("xml/wator_simulation.xml");
 			animation.stop();
 		}
@@ -153,21 +149,13 @@ public class Visualizer extends Application {
 		switch (code) {
 		case "Step Forward":
 			update();
-			//animation.stop();
+		    animation.stop();
 			break;
 		default:
 			break;
 		}
 	}
-	
-	private void handleKeyInput(KeyCode code){
-		switch(code){
-			case T: animation.play();
-			update(); 
-			animation.stop();break;
-		default: break;
-		}
-	}
+
 
 	private void setSimulation(String s) {
 		simulation = new Simulation(s);
