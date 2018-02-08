@@ -1,80 +1,69 @@
 package cellsociety_team07;
 
+import java.util.ArrayList;
 
 public class FishCell extends WatorCell{
-	private boolean toBeMoved;
-	private int numChrononsAlive;
-	private boolean toReproduce;
 	public static final int REPRODUCTION_CHRONON = 0;
-	private Cell replacement;
-	private Cell openCell;
 	
 	public FishCell(int initialState, double[] props) {
 		super(initialState, props);
-		toBeMoved = false;
-		numChrononsAlive = 0;
 	}
 	
-	public void update(CellMover cm){
-		this.update();
-		if(toBeMoved){
-			cm.moveCellInGrid(this, replacement, openCell);
-		}
-	}
-	@Override
-	public void update() {
-		numChrononsAlive++;
-	}
-	@Override
-	public void applyRules(CellMover cm){
-		this.applyRules();
-		if(toBeMoved){
-			if(toReproduce){
-				replacement = new FishCell(FISH, super.getProps());
-				super.setNextState(FISH);
-				numChrononsAlive = 0;
-			}else{
-				replacement = new FishCell(WATER, super.getProps());
-				super.setNextState(WATER);
-			}
-			openCell = cm.getCellOfType(WATER, this);
-			openCell.setNextState(FISH);
-		}
-	}
 	
+	@Override
+	public void update(){
+		if(this.isWaterCell()){
+			return;
+		}
+		super.setChronons(super.getChronons() + 1);
+	}
 	@Override
 	public void applyRules() {
-		toBeMoved = this.canMove();
-		toReproduce = this.canReproduce();
+		if(this.isWaterCell()){
+			return;
+		}
+		if(this.canMove()){
+			FishCell openCell = (FishCell) getRandomOpenSpot();
+			openCell.setNextCellState(this);
+			if(this.canReproduce()){
+				this.setNextCellState(new FishCell(FISH, super.getProps()));
+				super.setChronons(0);
+			}else{
+				this.setNextCellState(new FishCell(WATER, super.getProps()));
+			}
+		}else if(!this.willBeEaten()){
+			this.setNextCellState(this);
+		}
+	}
+	private Cell getRandomOpenSpot(){
+		ArrayList<Cell> openSpots = new ArrayList<>();
+		for (Cell neighbor:super.getNeighbors()) {
+			WatorCell neigh = (WatorCell) neighbor;
+			if (neigh.getCurrentState() == WATER && neigh.getNextCellState().getCurrentState() == WATER){
+				openSpots.add(neighbor);
+			}
+		}
+		//return openSpots.get(0);
+		return openSpots.get((int) (Math.random() * openSpots.size()));
 	}
 	
-	/*
-	 * must be called after canMove() in applyRules
-	 */
-	private boolean canReproduce(){
-		return toBeMoved && this.numChrononsAlive >= super.getProps()[REPRODUCTION_CHRONON];
+	public boolean canReproduce(){
+		return super.getChronons() >= super.getProps()[REPRODUCTION_CHRONON];
 	}
 	
-	private boolean canMove(){
+	@Override
+	public boolean canMove(){
 		int numOpenSpotsAvailable = 0;
 		for (Cell neighbor:super.getNeighbors()) {
-			if (neighbor.getCurrentState() == WATER && neighbor.getNextState() == WATER){
+			WatorCell neigh = (WatorCell) neighbor;
+			if (neigh.getCurrentState() == WATER && neigh.getNextCellState().getCurrentState() == WATER){
 				numOpenSpotsAvailable++;
 			}
 		}
 		return (numOpenSpotsAvailable > 0) && !this.willBeEaten() && !this.isWaterCell();
 	}
 	
-	private boolean isWaterCell(){
-		return this.getCurrentState() == WATER;
-	}
-	
 	private boolean willBeEaten(){
-		//return this.getNextState() == WATER;
-		return this.getNextState() == SHARK;
-	}
-	
-	public int getChronons(){
-		return this.numChrononsAlive;
+		return this.getNextCellState().getCurrentState() == SHARK;
 	}
 }

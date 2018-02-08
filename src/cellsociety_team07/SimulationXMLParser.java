@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,6 +31,17 @@ public class SimulationXMLParser {
 			doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 		} catch (Exception e) {
+			/*
+			 * 
+			 * 
+			 * 
+			 * 
+			 * FIX THIS!!!!
+			 * 
+			 * 
+			 * 
+			 * 
+			 */
 			e.printStackTrace();
 		}
 		return doc;
@@ -42,18 +54,14 @@ public class SimulationXMLParser {
 		int height = this.getTagValue(dimensions, "height");
 		return new Dimension(width, height);
 	}
-	public int getSpeed(){
-		Element simulation = (Element) document.getElementsByTagName("simulation").item(0);
-		return this.getTagValue(simulation, "speed");
-	}
 	
 	
 	public String getTitle(){
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
 	}
-	public ArrayList<InitialCellProperties> getInitialCellInfo(){
-		ArrayList<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
+	public List<InitialCellProperties> getInitialCellInfo(){
+		List<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
 		NodeList cellTags = document.getElementsByTagName("cell");
 		for(int i = 0; i < cellTags.getLength(); i++){
 			Element cell = (Element) cellTags.item(i);

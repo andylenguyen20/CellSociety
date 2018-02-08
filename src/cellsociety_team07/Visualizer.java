@@ -97,12 +97,12 @@ public class Visualizer extends Application {
 	
 	protected void update() {
 		Grid grid = simulation.getGrid();
-		grid.prepareNextState();
-		grid.update();
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
 		}
+		grid.prepareNextState();
+		grid.update();
 		drawFreshGrid();
 	}
 	private void drawFreshGrid(){
@@ -112,6 +112,13 @@ public class Visualizer extends Application {
 				simulation.cellToVisualize(cell);
 				cell.setX(sceneWidth / simulation.getCells()[0].length * j + 45);
 				cell.setY(sceneHeight / simulation.getCells().length * i + 55);
+				
+				if(cell instanceof FishCell){
+					System.out.println("fish fault");
+				}
+				if(cell instanceof SharkCell){
+					System.out.println("shark fault");
+				}
 				root.getChildren().add(cell);
 			}
 		}
@@ -126,7 +133,6 @@ public class Visualizer extends Application {
 
 		if (selectedAction.equals("Predator/Prey")) {
 			newSim("xml/wator_simulation.xml");
-			animation.stop();
 		}
 		if (selectedAction.equals("Fire"))
 			newSim("xml/fire_simulation.xml");

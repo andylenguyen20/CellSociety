@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -37,7 +38,7 @@ public class Simulation {
 	}
 
 	private void setUpCells(){
-		ArrayList<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
+		List<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
 		double[] simulationParams = simXMLParser.getSimulationParams();
 		Cell[][] cells = grid.getCells();
 		for(InitialCellProperties initProps : initialCellPropList){
