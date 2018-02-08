@@ -58,7 +58,7 @@ public class Visualizer extends Application {
 		setSimulation(sim);
 		setUpGridPane();
 		slider = new SliderCreator();
-        root.getChildren().add(slider.sliderInitializer());
+        //root.getChildren().add(slider.sliderInitializer());
 		root.getChildren().add(paneAssembler.getGridPane());
 		drawFreshGrid();
 		return scene;
@@ -75,7 +75,9 @@ public class Visualizer extends Application {
 		gridPane = new GridPane();	
 		menuCreator = new MenuCreator();
 		paneAssembler = new GridPaneAssembler();
-		paneAssembler.assembleGridPane(gridPane, menuCreator);
+		slider = new SliderCreator();
+
+		paneAssembler.assembleGridPane(gridPane, menuCreator, slider);
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(paneAssembler.getResourceC(), "StepForwardCommand"));			
 		});

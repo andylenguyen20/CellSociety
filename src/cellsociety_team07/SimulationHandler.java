@@ -35,7 +35,7 @@ public class SimulationHandler{
 		stage = new Stage();
 		Visualizer vis = new Visualizer();
 
-		scene = vis.setUpGame(500, 500, sim, simulate, width, height );
+		scene = vis.setUpGame(500, 500, sim );
 
 		//stage.setScene(scene);
 		System.out.println("hellobitches");

@@ -12,7 +12,7 @@ public class SliderCreator extends GridPane{
 	private Slider slider;
 	private GridPane gPane;
 	
-	public GridPane sliderInitializer() {
+	public Slider sliderInitializer() {
 		gPane = new GridPane();	
 
 		
@@ -25,12 +25,12 @@ public class SliderCreator extends GridPane{
 		slider.setMajorTickUnit(50);
 		slider.setMinorTickCount(5);
 		slider.setBlockIncrement(10);
-		slider.setMaxWidth(1000);
+		slider.setMaxWidth(100);
 	
 		slider.setOrientation(Orientation.VERTICAL);
-		gPane.add(slider, 1, 1);
+		//gPane.add(slider, 1, 1);
 		
-		return gPane;
+		return slider;
 
 		
 	}

@@ -10,10 +10,12 @@ public class GridPaneAssembler{
 	private ResourceBundle myResources_S;
 	private MenuCreator menuCreator;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private SliderCreator slider;
 
-	public void assembleGridPane(GridPane g, MenuCreator m) {
+	public void assembleGridPane(GridPane g, MenuCreator m, SliderCreator s) {
 		gridPane = g;
 		menuCreator = m;
+		slider = s;
 		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
 		myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
 		g.add(menuCreator.makeButton(myResources_C), 1, 3);
@@ -21,6 +23,7 @@ public class GridPaneAssembler{
 		g.add(menuCreator.getSimulationMenu(myResources_S), 1, 0);
 		g.add(menuCreator.makeLabel(myResources_C), 2, 0);
 		g.add(menuCreator.getCommandsBox(myResources_C), 3, 0);
+		g.add(slider.sliderInitializer(), 10, 100);
 	}
 	
 	public GridPane getGridPane() {
