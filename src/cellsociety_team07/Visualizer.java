@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane; 
 
 public class Visualizer extends Application {
@@ -28,6 +29,7 @@ public class Visualizer extends Application {
 	protected CellsToVisualize cellDrawer;
 	protected GridPaneAssembler paneAssembler;
 	protected SimulationHandler simHandler;
+	protected SliderCreator slider;
 	
 	@Override
 	public void start(Stage stage) {
@@ -36,8 +38,6 @@ public class Visualizer extends Application {
 		myScene = setUpGame(500, 500, "xml/gol_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
-		commandHandler = new CommandHandler();
-		simHandler = new SimulationHandler();
 		setAnimation(stg);
 	}
 	
@@ -52,9 +52,13 @@ public class Visualizer extends Application {
 
 	protected Scene setUpGame(int height, int background, String sim) {
 		root = new Group();
+		commandHandler = new CommandHandler();
+		simHandler = new SimulationHandler();
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
 		setUpGridPane();
+		slider = new SliderCreator();
+        root.getChildren().add(slider.sliderInitializer());
 		root.getChildren().add(paneAssembler.getGridPane());
 		drawFreshGrid();
 		return scene;
@@ -83,12 +87,10 @@ public class Visualizer extends Application {
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand( e, animation, menuCreator);
 		});
-		
-//		menuCreator.simulations().setOnAction((e) -> {
-//			simHandler.handleSimulation(menuCreator.simulations().getSelectionModel().getSelectedItem(), e, 
-//									   menuCreator, myScene, stg, animation);
+//				menuCreator.simulations().setOnAction((e) -> {
+//			simHandler.handleSimulation( e, menuCreator, myScene, stg, animation);
 //		});
-		
+//		
 		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ;
 		});
