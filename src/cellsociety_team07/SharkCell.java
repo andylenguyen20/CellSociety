@@ -11,10 +11,9 @@ public class SharkCell extends WatorCell{
 	private Cell openCell;
 	private Cell replacement;
 	public static final int REPRODUCTION_CHRONON = 1;
-	public static final int STARTING_ENERGY = 2;
+	public static final int STARTING_ENERGY =2;
 	public static final int FISH_ENERGY = 3;
 	
-
 	public SharkCell(int state, double[] props) {
 		super(state, props);
 		toBeMoved = false;
@@ -22,6 +21,29 @@ public class SharkCell extends WatorCell{
 		reproductionCounter = 0;
 		reproductionTime = props[REPRODUCTION_CHRONON];
 	}
+
+	
+	public void update(CellMover cm) {
+		
+		this.update();
+		
+		decEnergy();
+		if(energy < 0) {
+			this.setCurrentState(WATER);
+		} else if(toBeMoved){
+			cm.moveCellInGrid(this, replacement, openCell);
+		}
+		
+	}
+	
+	@Override
+	public void update() {
+		
+		super.setCurrentState(super.getNextState());	
+		incReproduction();
+		
+	}
+	
 	@Override
 	public void applyRules() {
 		
@@ -44,13 +66,39 @@ public class SharkCell extends WatorCell{
 			}
 		}
 		
+
+	}
+	
+	public void applyRules(CellMover cm) {
+		
+		this.applyRules();
+		if(toBeMoved){
+			if (fishNeighbor) {
+				openCell = cm.getCellOfType(FISH, this);
+				
+				openCell.setNextState(WATER);
+
+				energy+=super.getProps()[FISH_ENERGY];
+			} else {
+				openCell = cm.getCellOfType(WATER, this);
+				openCell.setNextState(WATER);
+			}
+			if (toReproduce) {
+				replacement = new SharkCell(SHARK, super.getProps());
+				super.setNextState(SHARK);
+				reproductionCounter = 0;
+			} else {
+				replacement = new FishCell(WATER, super.getProps());
+				super.setNextState(SHARK);
+			}
+		}
+
 	}
 
 	public boolean toReproduce() {
 		return reproductionCounter >= reproductionTime;
 	}
 	
-	// Decrease energy every turn
 	public void decEnergy() {
 		energy--;
 	}
@@ -62,47 +110,10 @@ public class SharkCell extends WatorCell{
 	public boolean toBeMoved() {
 		return toBeMoved;
 	}
-	@Override
-	public void update() {
-		
-		super.setCurrentState(super.getNextState());	
-		incReproduction();
-		
-	}
 	
-	public void update(CellMover cm) {
-		
-		this.update();
-		// decrease energy
-		decEnergy();
-		if(energy <= 0) {
-			this.setNextState(WATER);
-		} else if(toBeMoved){
-			cm.moveCellInGrid(this, replacement, openCell);
-		}
-		
-	}
 	
-	public void applyRules(CellMover cm) {
-		
-		this.applyRules();
-		if(toBeMoved){
-			if (fishNeighbor) {
-				openCell = cm.getCellOfType(FISH, this);
-				openCell.setNextState(SHARK);
-				energy+=super.getProps()[FISH_ENERGY];
-			} else {
-				openCell = cm.getCellOfType(WATER, this);
-				openCell.setNextState(WATER);
-			}
-			if (toReproduce) {
-				replacement = new SharkCell(SHARK, super.getProps());
-				reproductionCounter = 0;
-			} else {
-				replacement = new FishCell(WATER, super.getProps());
-			}
-		}
-		
-	}
+
+	
+	
 	
 }

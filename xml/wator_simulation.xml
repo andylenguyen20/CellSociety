@@ -3,11 +3,10 @@
 	<type>Wator</type>
 	<title>Wator Simulation</title>
 	<author>Andy Nguyen</author>
-		<param id = "FishCrononReproduce">3</param>
-		<param id = "SharkCrononReproduce">3</param>
-		<param id = "SharkStartingEnergy">2</param>
-		<param id = "EnergyForEatingFish">4</param>
-
+	<param id = "FishCrononReproduce">3</param>
+	<param id = "SharkCrononReproduce">3</param>
+	<param id = "SharkStartingEnergy">5</param>
+	<param id = "EnergyForEatingFish">4</param>
 	<grid>
 		<dimension>
 			<width>20</width>

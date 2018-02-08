@@ -1,4 +1,4 @@
-package cellsociety_team07;
+ package cellsociety_team07;
 
 
 public class FishCell extends WatorCell{
@@ -8,7 +8,7 @@ public class FishCell extends WatorCell{
 	public static final int REPRODUCTION_CHRONON = 0;
 	private Cell replacement;
 	private Cell openCell;
-	
+
 	public FishCell(int initialState, double[] props) {
 		super(initialState, props);
 		toBeMoved = false;
@@ -43,7 +43,7 @@ public class FishCell extends WatorCell{
 	}
 	
 	@Override
-	public void applyRules() {
+	public void applyRules() { 
 		toBeMoved = this.canMove();
 		toReproduce = this.canReproduce();
 	}
@@ -66,13 +66,12 @@ public class FishCell extends WatorCell{
 		return (numOpenSpotsAvailable > 0) && !this.willBeEaten() && !this.isWaterCell();
 	}
 	
-
-	
-
-	
-
 	private boolean isWaterCell(){
 		return this.getCurrentState() == WATER;
+	}
+	
+	protected void setToBeMoved(boolean t) {
+		toBeMoved = t;
 	}
 	
 	private boolean willBeEaten(){
