@@ -1,25 +1,21 @@
 package cellsociety_team07;
 
 import java.util.ResourceBundle;
+
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
-public class MenuCreator extends Visualizer {
+public class MenuCreator {
 	
-	public GridPane getGridPane() {
-		return gridPane;
-	}
-	
-	protected ResourceBundle getResourceS() {
-		return myResources_S;
-	}
-	
-	protected ResourceBundle getResourceC() {
-		return myResources_C;
-	}
-	
+	private ComboBox<String> commandsBox;
+	private ComboBox<String> simulationMenu;
+	private Button stepForward;
+	private Button multipleSims;
+
 	protected String getResources(ResourceBundle rb, String s) {
 		return rb.getString(s);
 	}
@@ -42,11 +38,20 @@ public class MenuCreator extends Visualizer {
 		return simulationMenu;
 	}
 	
-	protected Button makeButton(ResourceBundle c) {
-		stepForward = new Button(getResources(c, "StepForwardCommand"));
-		return stepForward;
+	protected Button makeButton(Button button, ResourceBundle c, String string) {
+		button = new Button(getResources(c, string));
+		return button;
 	}
 	
+	public HBox addHBox(ResourceBundle com, ResourceBundle sim) {
+	    HBox hbox = new HBox();
+	    hbox.setPadding(new Insets(15, 12, 15, 12));
+	    hbox.setSpacing(10);
+	    hbox.setStyle("-fx-background-color: #336699;");
+	    hbox.getChildren().addAll(getSimulationMenu(sim),getCommandsBox(com),makeStepForward(com),makeButton(multipleSims, sim,"MultipleSimulationsCommand"));
+	    return hbox;
+	}
+
 	protected ComboBox<String> commands (){
 		return commandsBox;
 	}
@@ -55,6 +60,11 @@ public class MenuCreator extends Visualizer {
 		return simulationMenu;
 	}
 	
+	protected Button makeStepForward(ResourceBundle c) {
+		stepForward = new Button(getResources(c, "StepForwardCommand"));
+		return stepForward;
+	}
+
 	protected Button stepButton (){
 		return stepForward;
 	}

@@ -48,11 +48,14 @@ public abstract class Cell extends Rectangle {
 	public Paint getColor() {
 		return colors[getCurrentState()];
 	}
+	 public Paint[]getColors(){
+		 return colors;
+	 }
 	
 	public void setColors(Paint[] arr) {
 		colors = arr;
 	}
-	
+
 	public double[] getProps(){
 		return props;
 	}

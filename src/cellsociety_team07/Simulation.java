@@ -10,8 +10,7 @@ public class Simulation {
 	private Grid grid;
 	private String myTitle;
 	private String myType;
-	protected double sceneWidth = 400;
-	protected double sceneHeight = 400;
+	
 	
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
@@ -50,17 +49,7 @@ public class Simulation {
 		}
 		grid.setCellNeighbors();
 	}
-	
-	public void cellToVisualize(Cell cell) {
-		double cellWidth = sceneWidth / getCells()[0].length;
-		double cellHeight = sceneHeight / getCells().length;
-		cell.setWidth(cellWidth);
-		cell.setHeight(cellHeight);
-		cell.setFill(cell.getColor());
-		cell.setStroke(Color.WHITE);
-		
 
-	}
 	
 	public Grid getGrid(){
 		return grid;

@@ -23,17 +23,7 @@ public class WatorGrid extends Grid implements CellMover{
 	@Override
 	public void prepareNextState(){
 		Cell[][] grid = super.getCells();
-		System.out.println("5,4 current state : " + grid[5][4].getCurrentState());
 		
-		System.out.println("4,4 current state : " + grid[4][4].getCurrentState());
-		
-		System.out.println("5,3 current state : " + grid[5][3].getCurrentState());
-		
-		System.out.println("5,4 next state : " + grid[5][4].getNextState());
-		
-		System.out.println("4,4 next state : " + grid[4][4].getNextState());
-		
-		System.out.println("5,3 next state : " + grid[5][3].getNextState());
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid[0].length; col++){
 				WatorCell currCell = (WatorCell) grid[row][col];
@@ -51,32 +41,32 @@ public class WatorGrid extends Grid implements CellMover{
 				potentialCells.add(neighbor);
 			}
 		}
-		return potentialCells.get(0);
-		//return potentialCells.get((int) (Math.random() * potentialCells.size()));
+		return potentialCells.get((int) ( Math.random() *potentialCells.size()));
+		
 	}
 	@Override
 	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
 		Cell[][] cells = super.getCells();
-		Point toBeOverwrittenCoord = null;
-		Point movingCellCoord = null;
+		Point toBeOverwrittenCoord;
+		Point movingCellCoord=null;
 		for(int row = 0; row < cells.length; row++){
 			for(int col = 0; col < cells[0].length; col++){
 				if(cells[row][col] == toBeOverwritten){
 					toBeOverwrittenCoord = new Point(row, col);
-					System.out.println ("is it null");
-
-					
-					
+					cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
 				}
 				if(cells[row][col] == movingCell){
 					movingCellCoord = new Point(row, col);
+					
+					
+
 				}
 			}
 		}
 		
-		System.out.println (toBeOverwrittenCoord ==null);
-		cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
-		System.out.println (toBeOverwrittenCoord ==null);
+		
+		
+		//cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
 		cells[movingCellCoord.x][movingCellCoord.y] = movingCellReplacement;
 
 	}

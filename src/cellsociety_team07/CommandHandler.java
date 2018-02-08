@@ -3,8 +3,8 @@ package cellsociety_team07;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 
-public class CommandHandler extends Visualizer {
-	protected Grid grid;
+public class CommandHandler {
+
 	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
 		
 		String selectedAction = m.commands().getSelectionModel().getSelectedItem();
