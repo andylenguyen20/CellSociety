@@ -1,6 +1,7 @@
 package cellsociety_team07;
 
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
@@ -12,8 +13,13 @@ public class Simulation {
 	private String myType;
 	
 	
-	public Simulation(String fileName){
-		simXMLParser = new SimulationXMLParser(fileName);
+	public Simulation(String fileName) throws FileNotFoundException{
+		try {
+			simXMLParser = new SimulationXMLParser(fileName);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			throw new FileNotFoundException();
+		}
 		myTitle = simXMLParser.getTitle();
 		myType = simXMLParser.getType();
 		setUpGrid();
