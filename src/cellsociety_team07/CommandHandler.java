@@ -3,11 +3,11 @@ package cellsociety_team07;
 import javafx.animation.Timeline;
 import javafx.event.Event;
 
-public class CommandHandler extends MenuCreator{
+public class CommandHandler {
 
-	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
+	protected void handleCommand(Event e, Timeline a) {
 		
-		String selectedAction = m.commands().getSelectionModel().getSelectedItem();
+		String selectedAction = MenuCreator.commands().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Pause")) {
 			a.stop();
 		}
