@@ -1,5 +1,8 @@
 package cellsociety_team07;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -7,17 +10,18 @@ public abstract class Grid{
 
 	/************************** FIELDS *************************/
 	private NeighborFinder neighFinder;
-	private HashMap<Point,Cell> grid; // maps x,y coordinates of a cell on screen to the Cell object itself
-	private Cell[][] cells;
+	private Map<String, List<Cell>> vertexMap; // maps x,y coordinates of a cell on screen to the Cell object itself
+	private List<Cell> cells;
+	private Dimension gridDimensions;
 	
 	/********************** CONSTRUCTOR ************************/
 	
 	/*
 	 * @param
 	 */
-	public Grid(int width, int height){
-		cells = new Cell[width][height];
-
+	public Grid(List<Cell> cells, Dimension gridDimensions){
+		this.cells = cells;
+		this.gridDimensions = gridDimensions;
 	}
 	
 	/********************** METHODS ****************************/
@@ -37,10 +41,8 @@ public abstract class Grid{
 	 * sets cell neighbors
 	 */
 	public void setCellNeighbors(){
-		for(int i = 0; i < cells.length; i++){
-			for(int j = 0; j < cells.length; j++){
-				cells[i][j].setNeighbors(neighFinder.getCellNeighborhood(cells, i, j));
-			}
+		for(Cell cell : cells){
+			cell.setNeighbors(neighFinder.findNeighbors(cell, vertexMap));
 		}
 	}
 	
@@ -51,15 +53,13 @@ public abstract class Grid{
 	/*
 	 * gets its cells
 	 */
-	public Cell[][] getCells(){
+	public List<Cell> getCells(){
 		return cells;
 	}
 	
 	public void prepareNextState(){
-		for(Cell[] cellArray : cells){
-			for(Cell cell : cellArray){
-				cell.applyRules();
-			}
+		for(Cell cell : cells){
+			cell.applyRules();
 		}
 	}
 	
@@ -67,10 +67,8 @@ public abstract class Grid{
 	 * A method that updates the Grid’s state to the next state.
 	 */
 	public void update(){
-		for(Cell[] cellArray : cells){
-			for(Cell cell : cellArray){
-				cell.update();
-			}
+		for(Cell cell : cells){
+			cell.update();
 		}
 	}
 

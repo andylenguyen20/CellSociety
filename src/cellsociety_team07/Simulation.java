@@ -18,8 +18,8 @@ public class Simulation {
 		simXMLParser = new SimulationXMLParser(fileName);
 		myTitle = simXMLParser.getTitle();
 		myType = simXMLParser.getType();
-		setUpGrid();
-		setUpCells();
+		//setUpGrid();
+		//setUpCells();
 	}
 
 	public String getTitle(){
@@ -34,21 +34,22 @@ public class Simulation {
 	private void setUpCells(){
 		List<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
 		double[] simulationParams = simXMLParser.getSimulationParams();
-		Cell[][] cells = grid.getCells();
+		List<Cell> cells = grid.getCells();
 		for(InitialCellProperties initProps : initialCellPropList){
 			int row = initProps.getLocation().x;
 			int col = initProps.getLocation().y;
 			int state = initProps.getState();
 			String cellType = initProps.getCellType();
-			cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
+			//cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
 		}
-		for(int i = 0; i < cells.length; i++){
+		/*for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells[i].length; j++){
 				if(cells[i][j] == null){
 					cells[i][j] = SimulationObjectManager.getDefaultCell(myType, simulationParams);
 				}
 			}
 		}
+		*/
 		grid.setCellNeighbors();
 	}
 
@@ -57,7 +58,8 @@ public class Simulation {
 		return grid;
 	}
 	
-	public Cell[][] getCells(){
+	public List<Cell> getCells(){
+		Grid grid = GridFactory.generateGrid("Rectangle", new Dimension(20,20), "GameOfLife");
 		return grid.getCells();
 	}
 }

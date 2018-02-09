@@ -11,8 +11,8 @@ public abstract class WatorCell extends Cell{
 	public static final Paint[] colors = {Color.BLUE, Color.PINK, Color.GREY};
 
 
-	public WatorCell(int state, double[] props) {
-		super(state, props);
+	public WatorCell() {
+		super();
 		super.setColors(colors);
 	}
 

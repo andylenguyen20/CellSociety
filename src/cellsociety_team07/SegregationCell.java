@@ -15,8 +15,8 @@ public class SegregationCell extends Cell{
 	private boolean toBeMoved;
 	public static final Paint[] colors = {Color.AZURE, Color.RED, Color.BLUE}; // Array of Colors
 	
-	public SegregationCell(int initialState, double[] props) {
-		super(initialState, props);
+	public SegregationCell() {
+		super();
 		super.setColors(colors);
 		toBeMoved = false;
 

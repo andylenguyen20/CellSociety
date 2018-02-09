@@ -15,8 +15,8 @@ public class FireCell extends Cell{
 	public static final Paint[] colors = {Color.GREEN, Color.DARKGOLDENROD, Color.RED}; // Array of Colors
 	
 	
-	public FireCell(int initialState, double[] props) {
-		super(initialState, props);
+	public FireCell() {
+		super();
 		super.setColors(colors);
 		// TODO Auto-generated constructor stub
 	}

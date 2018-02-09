@@ -12,8 +12,8 @@ public class GameOfLifeCell extends Cell{
 	private static final int NEIGHBORS_FOR_RESPAWN=3;
 	
 	
-	public GameOfLifeCell(int state, double[] props) {
-		super(state, props);
+	public GameOfLifeCell() {
+		super();
 		super.setColors(colors);
 	}
 
