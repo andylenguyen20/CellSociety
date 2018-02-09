@@ -150,7 +150,7 @@ public class Visualizer extends Application {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
 			}
-		//drawFreshGrid();
+		drawFreshGrid();
 	  }
 	
 	private void handleSimulation(Event e) {
