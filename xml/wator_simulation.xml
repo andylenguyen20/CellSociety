@@ -7,6 +7,7 @@
 	<param id = "SharkCrononReproduce">3</param>
 	<param id = "SharkStartingEnergy">5</param>
 	<param id = "EnergyForEatingFish">4</param>
+	<shape id = "Triangle">1</shape>
 	<grid>
 		<dimension>
 			<width>20</width>

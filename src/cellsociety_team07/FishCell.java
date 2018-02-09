@@ -9,8 +9,8 @@ public class FishCell extends WatorCell{
 	private Cell replacement;
 	private Cell openCell;
 
-	public FishCell(int initialState, double[] props) {
-		super(initialState, props);
+	public FishCell() {
+		super();
 		toBeMoved = false;
 		numChrononsAlive = 0;
 	}
@@ -30,11 +30,11 @@ public class FishCell extends WatorCell{
 		this.applyRules();
 		if(toBeMoved){
 			if(toReproduce){
-				replacement = new FishCell(FISH, super.getProps());
+				replacement = new FishCell();
 				super.setNextState(FISH);
 				numChrononsAlive = 0;
 			}else{
-				replacement = new FishCell(WATER, super.getProps());
+				replacement = new FishCell();
 				super.setNextState(WATER);
 			}
 			openCell = cm.getCellOfType(WATER, this);
@@ -52,7 +52,7 @@ public class FishCell extends WatorCell{
 	 * must be called after canMove() in applyRules
 	 */
 	private boolean canReproduce(){
-		return toBeMoved && this.numChrononsAlive >= super.getProps()[REPRODUCTION_CHRONON];
+		return toBeMoved && this.numChrononsAlive >= super.getParams()[REPRODUCTION_CHRONON];
 	}
 	
 	private boolean canMove(){

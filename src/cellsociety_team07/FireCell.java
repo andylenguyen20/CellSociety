@@ -15,10 +15,9 @@ public class FireCell extends Cell{
 	public static final Paint[] colors = {Color.GREEN, Color.DARKGOLDENROD, Color.RED}; // Array of Colors
 	
 	
-	public FireCell(int initialState, double[] props) {
-		super(initialState, props);
+	public FireCell() {
+		super();
 		super.setColors(colors);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void update() {
@@ -43,7 +42,7 @@ public class FireCell extends Cell{
 		}
 		if (risk) { // if there are burning neighbors, generate random # to dictate if tree catches fire
 			double prob = Math.random();
-			if (prob <= super.getProps()[PROB_CATCH])
+			if (prob <= super.getParams()[PROB_CATCH])
 				super.setNextState(BURNING);
 		}
 		// if currState = empty, nothing happens

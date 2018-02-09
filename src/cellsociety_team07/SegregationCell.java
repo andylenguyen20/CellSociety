@@ -15,8 +15,8 @@ public class SegregationCell extends Cell{
 	private boolean toBeMoved;
 	public static final Paint[] colors = {Color.AZURE, Color.RED, Color.BLUE}; // Array of Colors
 	
-	public SegregationCell(int initialState, double[] props) {
-		super(initialState, props);
+	public SegregationCell() {
+		super();
 		super.setColors(colors);
 		toBeMoved = false;
 
@@ -52,7 +52,7 @@ public class SegregationCell extends Cell{
 			toBeMoved = false;
 		}
 		double similarityRatio = (double) numSimilar / numLiveNeighbors;
-		if(similarityRatio < super.getProps()[SIMILARITY_REQ]){
+		if(similarityRatio < super.getParams()[SIMILARITY_REQ]){
 			toBeMoved = true;
 		}else{
 			toBeMoved = false;

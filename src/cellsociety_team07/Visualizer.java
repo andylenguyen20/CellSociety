@@ -75,12 +75,12 @@ public class Visualizer extends Application {
 		root.getChildren().clear();
 		cellDrawer = new CellsToVisualize();
 		//cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
-		int numRows = 30;
+		int numRows = 20;
 		int numCols = 30;
 		cellDrawer.drawNewGrid(simulation, new Dimension(400, 400), new Dimension(numRows, numCols));
 		//root.getChildren().addAll(cellDrawer.getCellsToVisualize());
 		
-		for(ExperimentalCell cell : cellDrawer.getCellsToVisualize()){
+		for(Cell cell : cellDrawer.getCellsToVisualize()){
 			Polygon triangle = new Polygon();
 			for(Point2D.Double vertex : cell.getVertices()){
 				triangle.getPoints().add(vertex.getX() * (sceneWidth / numRows));
@@ -90,7 +90,6 @@ public class Visualizer extends Application {
 			triangle.setStroke(Color.WHITE);
 			root.getChildren().add(triangle);
 		}
-		System.out.println("hi");
 		/*
 		Polygon rect = new Polygon();
 		rect.getPoints().add(0.0);
@@ -141,16 +140,11 @@ public class Visualizer extends Application {
 	}
 	
 	protected void update() {
-		/*
+		
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
 		grid.update();
-		for (Cell[] cells : grid.getCells()) {
-			for (Cell cell : cells)
-				root.getChildren().remove(cell);
-			}
-			*/
-		for(ExperimentalCell ec : cellDrawer.getCellsToVisualize()){
+		for(Cell ec : cellDrawer.getCellsToVisualize()){
 			root.getChildren().remove(ec);
 		}
 		drawFreshGrid();

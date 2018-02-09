@@ -4,6 +4,7 @@
 	<title>Segregation Simulation</title>
 	<author>Andy Nguyen</author>
 	<param id="similarityReq">0.5</param>
+	<shape id = "Triangle">1</shape>
 	<grid>
 		<dimension>
 			<width>20</width>

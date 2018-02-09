@@ -8,8 +8,8 @@ public class GameOfLifeCell extends Cell{
 	public static final int ALIVE = 1;
 	public static final Paint[] colors = {Color.BLACK, Color.AQUA};
 	
-	public GameOfLifeCell(int state, double[] props) {
-		super(state, props);
+	public GameOfLifeCell() {
+		super();
 		super.setColors(colors);
 	}
 

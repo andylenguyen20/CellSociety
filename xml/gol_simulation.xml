@@ -3,6 +3,7 @@
 	<type>GameOfLife</type>
 	<title>Game Of Life Simulation</title>
 	<author>Andy Nguyen</author>
+	<shape id = "Triangle">1</shape>
 	<grid>
 		<dimension>
 			<width>20</width>

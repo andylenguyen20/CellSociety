@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 public class CellsToVisualize extends Visualizer {
 	protected  ExperimentalCell cell;
-	private List<ExperimentalCell> cellsToVisualize;
+	private List<Cell> cellsToVisualize;
 	private GridFactory gridCreator;
 	
 //	public void drawNewGrid(Simulation sim, double width, double height ) {
@@ -33,8 +33,9 @@ public class CellsToVisualize extends Visualizer {
 //	}
 
 	public void drawNewGrid(Simulation sim, Dimension screenDim, Dimension gridDim){
-		cellsToVisualize = GridFactory.generateGrid("Triangle", gridDim);
-		Map<String, List<ExperimentalCell>> map = MapFactory.generateVertexMap(cellsToVisualize);
+		Grid grid = GridFactory.generateGrid("Triangle", gridDim, "GameOfLife");
+		cellsToVisualize = grid.getCells();
+		Map<String, List<Cell>> map = MapFactory.generateVertexMap(cellsToVisualize);
 		
 		/*
 		List<ExperimentalCell> myCells = GridCreator.getTriangleGrid(screenDim, gridDim);
@@ -47,7 +48,7 @@ public class CellsToVisualize extends Visualizer {
 		*/
 	}
 	
-	public List<ExperimentalCell> getCellsToVisualize(){
+	public List<Cell> getCellsToVisualize(){
 		return cellsToVisualize;
 	}
 	/*

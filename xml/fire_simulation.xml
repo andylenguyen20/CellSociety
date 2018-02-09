@@ -4,6 +4,7 @@
 	<title>Fire Simulation</title>
 	<author>Andy Nguyen</author>
 	<param id = "probCatch">0.5</param>
+	<shape id = "Rectangle">1</shape>
 	<grid>
 		<dimension>
 			<width>20</width>

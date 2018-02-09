@@ -2,10 +2,11 @@ package cellsociety_team07;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.paint.Color;
 
 public class Simulation {
-	
 	private SimulationXMLParser simXMLParser;
 	private Grid grid;
 	private String myTitle;
@@ -30,23 +31,24 @@ public class Simulation {
 	}
 
 	private void setUpCells(){
-		ArrayList<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
+		List<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
 		double[] simulationParams = simXMLParser.getSimulationParams();
-		Cell[][] cells = grid.getCells();
+		List<Cell> cells = grid.getCells();
 		for(InitialCellProperties initProps : initialCellPropList){
 			int row = initProps.getLocation().x;
 			int col = initProps.getLocation().y;
 			int state = initProps.getState();
 			String cellType = initProps.getCellType();
-			cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
+			//cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
 		}
+		/*
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells[i].length; j++){
 				if(cells[i][j] == null){
 					cells[i][j] = SimulationObjectManager.getDefaultCell(myType, simulationParams);
 				}
 			}
-		}
+		}*/
 		grid.setCellNeighbors();
 	}
 
@@ -55,7 +57,7 @@ public class Simulation {
 		return grid;
 	}
 	
-	public Cell[][] getCells(){
+	public List<Cell> getCells(){
 		return grid.getCells();
 	}
 }

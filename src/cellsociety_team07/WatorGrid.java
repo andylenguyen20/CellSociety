@@ -1,16 +1,18 @@
 package cellsociety_team07;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class WatorGrid extends Grid implements CellMover{
-	public static final Point[] NEIGHBOR_OFFSETS = new Point[]{new Point(-1,0), new Point(1,0), new Point(0,-1), new Point(0,1)};
-	public WatorGrid(int width, int height){
-		super(width, height);
-		setNeighborFinder(new UnboundedNeighborFinder(0,1,1));
+	public WatorGrid(List<Cell> cells, Dimension gridDimensions){
+		super(cells, gridDimensions);
+		setNeighborFinder(new UnboundedNeighborFinder(UnboundedNeighborFinder.ADJACENT_NEIGHBORS, gridDimensions));
 	}
 	@Override
 	public void update(){
+		/*
 		Cell[][] grid = super.getCells();
 		for(int row = 0; row < grid.length; row++){
 			for(int col = 0; col < grid[0].length; col++){
@@ -19,9 +21,11 @@ public class WatorGrid extends Grid implements CellMover{
 			}
 		}
 		super.setCellNeighbors();
+		*/
 	}
 	@Override
 	public void prepareNextState(){
+		/*
 		Cell[][] grid = super.getCells();
 		
 		for(int row = 0; row < grid.length; row++){
@@ -30,6 +34,7 @@ public class WatorGrid extends Grid implements CellMover{
 				currCell.applyRules(this);
 			}
 		}
+		*/
 	}
 	
 	
@@ -46,6 +51,7 @@ public class WatorGrid extends Grid implements CellMover{
 	}
 	@Override
 	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
+		/*
 		Cell[][] cells = super.getCells();
 		Point toBeOverwrittenCoord;
 		Point movingCellCoord=null;
@@ -68,7 +74,7 @@ public class WatorGrid extends Grid implements CellMover{
 		
 		//cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
 		cells[movingCellCoord.x][movingCellCoord.y] = movingCellReplacement;
-
+	*/
 	}
 
 }

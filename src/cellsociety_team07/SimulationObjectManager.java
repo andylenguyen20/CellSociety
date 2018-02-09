@@ -1,7 +1,11 @@
 package cellsociety_team07;
 
 public class SimulationObjectManager {
-	public static Cell getDefaultCell(String simulationType, double[] cellProps){
+	private static final Cell[] POSSIBLE_CELLS = new Cell[]{new GameOfLifeCell(), new FireCell(), new SegregationCell(),
+													new FishCell()};
+	private static final Cell[] POSSIBLE_GRIDS = new Cell[]{new GameOfLifeGrid(), new FireGrid(), new SegregationGrid(),
+			new WatorGrid()};
+	public static Cell getDefaultCell(String simulationType){
 		switch(simulationType){
 		case "Fire": 
 			return new FireCell(Cell.DEFAULT_STATE, cellProps);
@@ -11,9 +15,9 @@ public class SimulationObjectManager {
 			return new SegregationCell(Cell.DEFAULT_STATE, cellProps);
 		case "Wator":
 			return new FishCell(Cell.DEFAULT_STATE, cellProps);
-	default:
-		throw new BadSimulationException("Bad simulation type while getting default cell");		
-	}
+		default:
+			throw new BadSimulationException("Bad simulation type while getting default cell");		
+		}
 	}
 	public static Cell getSpecificCell(String cellType, int state, double[] cellProps){
 		switch(cellType){
