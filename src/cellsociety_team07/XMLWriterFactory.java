@@ -82,11 +82,11 @@ public class XMLWriterFactory {
 				c.setAttribute(TYPE, cell.getClass().getSimpleName());
 				// get Points, State
 				for (Double d:cell.getVertices()) {
-					
+					c.appendChild(addData(file, "Point", d.toString()));
 				}
+				c.appendChild(addData(file, "State", String.valueOf(cell.getCurrentState())));
 				// add to grid node
-				grid.appendChild(c);
-				
+				grid.appendChild(c);	
 			}
 			// Format + save file
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
