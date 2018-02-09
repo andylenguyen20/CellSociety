@@ -99,34 +99,11 @@ public class Visualizer extends Application {
 		return scene;
 	}
 	
-
 	private void drawFreshGrid() {
-		for (int i = 0; i < simulation.getCells().length; i++) {
-			for (int j = 0; j < simulation.getCells()[i].length; j++) {
-				Cell cell = simulation.getCells()[i][j];
-				double cellWidth = SCENE_WIDTH / simulation.getCells()[0].length;
-				double cellHeight = SCENE_WIDTH / simulation.getCells().length;
-				cell.setWidth(cellWidth);
-				cell.setHeight(cellHeight);
-				cell.setFill(cell.getColor());
-				cell.setStroke(Color.WHITE);
-			    cell.setX(SCENE_WIDTH / simulation.getCells()[0].length * j + 135);
-                cell.setY(SCENE_HEIGHT / simulation.getCells().length * i + 115);
-			    root.getChildren().add(cell);
-
-			    cell.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-				    @Override
-				    public void handle(MouseEvent mouseEvent) {
-				    		cell.setCurrentState(1);
-				    		cell.setFill(cell.getColor());
-				    } 
-				});
-
-			}
-		}
+		CellsToVisualize.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root);
 	}
-
 	
+
 	public List<Cell> getCellsToVisualize(){
 		return cellsToVisualize;
 	}
