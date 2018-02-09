@@ -12,6 +12,7 @@ public class SimulationHandler{
 	protected void handleSimulation(Event e, MenuCreator m, Scene scene, Stage stage, Timeline a, Simulation simulate, double width, double height) {
 
 		String selectedAction = m.simulations().getSelectionModel().getSelectedItem();
+		
 		if (selectedAction.equals("Game of Life")) 
 			
 			newSim("xml/gol_simulation.xml", scene, stage, a, simulate, width, height);

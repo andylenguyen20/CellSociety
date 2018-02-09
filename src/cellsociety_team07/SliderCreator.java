@@ -8,27 +8,37 @@ import javafx.scene.layout.VBox;
 
 
 
-public class SliderCreator extends GridPane{
+public class SliderCreator {
 	
 	private Slider slider;
 	private GridPane gPane;
+	private static final int SLIDER_MIN=0;
+	private static final int SLIDER_MAX=100;
+	private static final int HBOX_SPACING=10;
+	private static final int VALUE=40;
+	private static final int MINOR_TICK = 5;
+	private static final int MAJOR_TICK = 50;
+	private static final int BLOCK_INCREMENT = 10;
+	private static final int MAX_WIDTH = 100;
+	private static final int PREF_HEIGHT = 500;
+
 	
     public VBox sliderInitializer() {
     		slider = new Slider();
-    		slider.setMin(0);
-    		slider.setMax(100);
-    		slider.setValue(40);
+    		slider.setMin(SLIDER_MIN);
+    		slider.setMax(SLIDER_MAX);
+    		slider.setValue(VALUE);
     		slider.setShowTickLabels(true);
     		slider.setShowTickMarks(true);
-    		slider.setMajorTickUnit(50);
-    		slider.setMinorTickCount(5);
-    		slider.setBlockIncrement(10);
-    		slider.setMaxWidth(100);
+    		slider.setMajorTickUnit(MAJOR_TICK);
+    		slider.setMinorTickCount(MINOR_TICK);
+    		slider.setBlockIncrement(BLOCK_INCREMENT);
+    		slider.setMaxWidth(MAX_WIDTH);
     		slider.setOrientation(Orientation.VERTICAL);
-    		slider.setPrefHeight(500);
+    		slider.setPrefHeight(PREF_HEIGHT);
 
     		VBox vbox = new VBox(slider);
-    		vbox.setPrefHeight(500);
+    		vbox.setPrefHeight(PREF_HEIGHT);
     		return vbox;
     }
 

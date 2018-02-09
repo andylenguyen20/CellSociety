@@ -2,6 +2,7 @@ package cellsociety_team07;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UnboundedNeighborFinder extends NeighborFinder {
 
@@ -11,9 +12,9 @@ public class UnboundedNeighborFinder extends NeighborFinder {
 	}
 
 	@Override
-	public ArrayList<Cell> getCellNeighborhood(Cell[][] cells, int row, int col) {
+	public List<Cell> getCellNeighborhood(Cell[][] cells, int row, int col) {
 
-		ArrayList<Cell> neighborList = super.getCellNeighborhood(cells, row, col);
+		List<Cell> neighborList = super.getCellNeighborhood(cells, row, col);
 
 		if (col == 0)
 			neighborList.add(cells[row][cells[0].length - 1]);

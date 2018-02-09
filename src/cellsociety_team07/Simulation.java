@@ -3,6 +3,8 @@ package cellsociety_team07;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.paint.Color;
 
 public class Simulation {
@@ -36,7 +38,7 @@ public class Simulation {
 	}
 
 	private void setUpCells(){
-		ArrayList<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
+		List<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
 		double[] simulationParams = simXMLParser.getSimulationParams();
 		Cell[][] cells = grid.getCells();
 		for(InitialCellProperties initProps : initialCellPropList){
