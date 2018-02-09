@@ -1,9 +1,5 @@
 package cellsociety_team07;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,8 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
@@ -35,10 +29,10 @@ public class Visualizer extends Application {
 	protected Group root;
 	protected CellsToVisualize cellDrawer;
 	protected SimulationHandler simHandler;
-	protected SliderCreator slider;
 	private ResourceBundle myResources_C;
 	private ResourceBundle myResources_S;
-	private List<Cell>cellsToVisualize;
+	private double [] props;
+
 	
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private GraphCreator lineChart;
@@ -47,7 +41,9 @@ public class Visualizer extends Application {
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		myScene = setUpGame(800, 800, "xml/gol_simulation.xml" );
+		simulation = new Simulation("xml/wator_simulation.xml");
+		getInitialProp();
+		myScene = setUpGame(800, 800, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
 
 		stg.show();
@@ -69,50 +65,52 @@ public class Visualizer extends Application {
 		simHandler = new SimulationHandler();
 		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
 		myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
-		slider = new SliderCreator();
 		lineChart = new GraphCreator();
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(800, 800); 
-	    borderPane.setTop(MenuCreator.addHBox(myResources_C, myResources_S));
-		borderPane.setRight(slider.sliderInitializer());
+	    borderPane.setTop(MenuCreator.addHBox(myResources_C, myResources_S));	    
+		borderPane.setRight(TextFieldCreator.textFieldCreator());
 		borderPane.setBottom(lineChart.getLineChart());
-		borderPane.setStyle("-fx-padding: 10;" +
+		borderPane.setStyle("-fx-padding: 10;" +"-fx-border-style: solid inside;" + "-fx-border-width: 2;" + 
+							"-fx-border-insets: 5;" +"-fx-border-radius: 5;" + "-fx-border-color: blue;");
 
-	              	"-fx-border-style: solid inside;" +
-
-	                "-fx-border-width: 2;" +
-
-	                "-fx-border-insets: 5;" +
-
-	                "-fx-border-radius: 5;" +
-
-	                "-fx-border-color: blue;");
-
-		
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
-		
-		cellsToVisualize = new ArrayList<Cell>();
-		
 		drawFreshGrid();
 		root.getChildren().add(borderPane);
 		return scene;
 	}
 	
 	private void drawFreshGrid() {
-		CellsToVisualize.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root);
+		
+		CellsToVisualize.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root, props);
 	}
 	
-
-	public List<Cell> getCellsToVisualize(){
-		return cellsToVisualize;
+	private void getInitialProp() {
+		for (int i = 0; i < simulation.getCells().length; i++) {
+			System.out.println("hi");
+			for (int j = 0; j < simulation.getCells()[i].length; j++) {
+				Cell cell = simulation.getCells()[i][j];
+				props = new double [cell.getProps().length];
+				System.out.println(props.length);
+				props = cell.getProps();
+			}
+		}
 	}
-
-	
 
 	private void step(double elapsedTime) {
 	
 		update();
+		
+	    TextFieldCreator.getSubmit().setOnAction((e) -> {
+	    		props = new double[1];
+	    		String str = TextFieldCreator.getTextValue().getText();
+	    		String [] arrOfStr = str.split(":", 2);
+	    		int i =	Integer.parseInt(arrOfStr[0]) ;
+	    		double d = Double.parseDouble(arrOfStr[1]);
+	    		props[i] =  d;
+    		
+	    });
 		MenuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(MenuCreator.getResources(myResources_C, "StepForwardCommand"));			
 		});
@@ -123,6 +121,9 @@ public class Visualizer extends Application {
 		MenuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ;
 		});
+		
+		
+		
 	}
 
 	protected void update() {
@@ -133,6 +134,7 @@ public class Visualizer extends Application {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
 			}
+	
 		drawFreshGrid();
 	  }
 	

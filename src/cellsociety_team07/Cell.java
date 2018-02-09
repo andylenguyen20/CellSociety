@@ -60,6 +60,10 @@ public abstract class Cell extends Rectangle {
 	public double[] getProps(){
 		return props;
 	}
+	
+	public void setProps(double[] p) {
+		props = p;
+	}
 
 	public abstract void applyRules();
 }
