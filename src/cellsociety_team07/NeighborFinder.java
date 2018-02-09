@@ -1,38 +1,42 @@
 package cellsociety_team07;
 
-import java.awt.Point;
+import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class NeighborFinder {
-	private Point[] neighborOffsets;
-	public NeighborFinder(Point[] neighborOffsets){
-		this.neighborOffsets = neighborOffsets;
+	private int minSharedVertices;
+	public NeighborFinder(int minSharedVertices){
+		this.minSharedVertices = minSharedVertices;
 	}
-	public ArrayList<Cell> getCellNeighborhood(Cell[][] cells, int row, int col){
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
-		for(int rowOffset = -1; rowOffset <= 1; rowOffset++){
-			for(int colOffset = -1; colOffset <= 1; colOffset++){
-				int neighRow = row + rowOffset;
-				int neighCol = col + colOffset;
-				if(isNeighborOffset(rowOffset, colOffset) && !outOfBounds(cells, neighRow, neighCol)){
-					neighbors.add(cells[neighRow][neighCol]);
-				}
+	
+	/*
+	 * Given the cell whose neighbors we want to find and given the map of vertices linked to all cells in the grid,
+	 * returns a list of cell neighbors for the given cell.
+	 */
+	public List<ExperimentalCell> findNeighbors(ExperimentalCell cell, Map<String, ExperimentalCell> verticeMap){
+		List<Double> cellVertices = cell.getVertices();
+		Map<ExperimentalCell, Integer> numSharedVertices = new HashMap<ExperimentalCell, Integer>();
+		for(Double vertex : cellVertices){
+			ExperimentalCell neigh = verticeMap.get(vertex.getX() + "," + vertex.getY());
+			if(!numSharedVertices.containsKey(neigh)){
+				numSharedVertices.put(neigh,  1);
+			}else{
+				numSharedVertices.put(neigh,  numSharedVertices.get(neigh) + 1);
 			}
 		}
-		return neighbors;
+		return this.getValidNeighbors(numSharedVertices);
 	}
-	protected boolean outOfBounds(Cell[][] cells, int row, int col){
-		if(row >= cells.length || row < 0 || col >= cells[0].length || col < 0){
-			return true;
-		}
-		return false;
-	}
-	public boolean isNeighborOffset(int rowOffset, int colOffset){
-		for(Point p : neighborOffsets){
-			if(p.x == rowOffset && p.y == colOffset){
-				return true;
+	
+	protected List<ExperimentalCell> getValidNeighbors(Map<ExperimentalCell, Integer> numSharedVertices){
+		List<ExperimentalCell> neighborList = new ArrayList<>();
+		for(ExperimentalCell potentialNeighbor : numSharedVertices.keySet()){
+			if(numSharedVertices.get(potentialNeighbor) >= minSharedVertices){
+				neighborList.add(potentialNeighbor);
 			}
 		}
-		return false;
+		return neighborList;
 	}
 }

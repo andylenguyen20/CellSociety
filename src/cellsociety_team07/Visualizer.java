@@ -1,5 +1,10 @@
 package cellsociety_team07;
 
+import java.awt.Dimension;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -8,7 +13,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane; 
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon; 
 
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 10;
@@ -28,6 +35,7 @@ public class Visualizer extends Application {
 	protected CellsToVisualize cellDrawer;
 	protected GridPaneAssembler paneAssembler;
 	protected SimulationHandler simHandler;
+	protected List<Polygon> testDrawer = new ArrayList<Polygon>();
 	
 	@Override
 	public void start(Stage stage) {
@@ -60,12 +68,50 @@ public class Visualizer extends Application {
 		return scene;
 	}
 	
+	
+	private void drawFreshGrid() {
+		
+		
+		root.getChildren().clear();
+		cellDrawer = new CellsToVisualize();
+		//cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
+		int numRows = 30;
+		int numCols = 30;
+		cellDrawer.drawNewGrid(simulation, new Dimension(400, 400), new Dimension(numRows, numCols));
+		//root.getChildren().addAll(cellDrawer.getCellsToVisualize());
+		
+		for(ExperimentalCell cell : cellDrawer.getCellsToVisualize()){
+			Polygon triangle = new Polygon();
+			for(Point2D.Double vertex : cell.getVertices()){
+				triangle.getPoints().add(vertex.getX() * (sceneWidth / numRows));
+				triangle.getPoints().add(vertex.getY() * (sceneHeight / numCols));
+			}
+			triangle.setFill(Color.BLACK);
+			triangle.setStroke(Color.WHITE);
+			root.getChildren().add(triangle);
+		}
+		System.out.println("hi");
+		/*
+		Polygon rect = new Polygon();
+		rect.getPoints().add(0.0);
+		rect.getPoints().add(0.0);
+		rect.getPoints().add(100.0);
+		rect.getPoints().add(0.0);
+		rect.getPoints().add(100.0);
+		rect.getPoints().add(100.0);
+		rect.getPoints().add(0.0);
+		rect.getPoints().add(100.0);
+		root.getChildren().add(rect);
+		*/
+	}
+	/*
 	private void drawFreshGrid() {
 		cellDrawer = new CellsToVisualize();
 		cellDrawer.drawNewGrid(simulation, sceneWidth, sceneHeight);
 		for (Cell c : cellDrawer.getCellsToVisualize())
 				root.getChildren().add(c);
 	}
+	*/
 	
 	private void setUpGridPane() {
 		gridPane = new GridPane();	
@@ -79,7 +125,6 @@ public class Visualizer extends Application {
 
 	private void step(double elapsedTime) {
 		update();
-		
 		menuCreator.commands().setOnAction((e) -> {
 			commandHandler.handleCommand( e, animation, menuCreator);
 		});
@@ -96,6 +141,7 @@ public class Visualizer extends Application {
 	}
 	
 	protected void update() {
+		/*
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
 		grid.update();
@@ -103,6 +149,10 @@ public class Visualizer extends Application {
 			for (Cell cell : cells)
 				root.getChildren().remove(cell);
 			}
+			*/
+		for(ExperimentalCell ec : cellDrawer.getCellsToVisualize()){
+			root.getChildren().remove(ec);
+		}
 		drawFreshGrid();
 	  }
 	

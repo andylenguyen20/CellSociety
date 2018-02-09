@@ -39,7 +39,7 @@ public abstract class Grid{
 	public void setCellNeighbors(){
 		for(int i = 0; i < cells.length; i++){
 			for(int j = 0; j < cells.length; j++){
-				cells[i][j].setNeighbors(neighFinder.getCellNeighborhood(cells, i, j));
+				//cells[i][j].setNeighbors(neighFinder.findNeighbors(cells, i, j));
 			}
 		}
 	}

@@ -7,6 +7,6 @@ public class GameOfLifeGrid extends Grid{
 																new Point(0,1), new Point(1,-1), new Point(1,0), new Point(1,1)};
 	public GameOfLifeGrid(int width, int height){
 		super(width, height);	
-		setNeighborFinder(new NeighborFinder(NEIGHBOR_OFFSETS));
+		setNeighborFinder(new NeighborFinder(0));
 	}
 }
