@@ -3,6 +3,7 @@ package cellsociety_team07;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,14 +16,14 @@ import org.w3c.dom.NodeList;
 
 public class SimulationXMLParser {
 	private Document document;
-	public SimulationXMLParser(String fileName){
+	public SimulationXMLParser(String fileName) throws FileNotFoundException{
 		document = readInFile(fileName);
 	}
 	/*
 	 * getDocumentElement()
 	 * taken from https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 	 */
-	private Document readInFile(String fileName){
+	private Document readInFile(String fileName) throws FileNotFoundException{
 		Document doc = null;
 		try {
 			File fXmlFile = new File(fileName);
@@ -30,7 +31,7 @@ public class SimulationXMLParser {
 			doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new FileNotFoundException();
 		}
 		return doc;
 	}
