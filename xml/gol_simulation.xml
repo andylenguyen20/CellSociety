@@ -5,32 +5,98 @@
 	<author>Andy Nguyen</author>
 	<grid>
 		<dimension>
-			<width>20</width>
-			<height>20</height>
+			<width>7</width>
+			<height>7</height>
 		</dimension>
 		<cell type = "GameOfLife">
-			<row>0</row>
-			<col>1</col>
+			<point>0,0</point>
+			<point>1,0</point>
+			<point>1,1</point>
+			<point>0,1</point>
+			<state>0</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point>1,0</point>
+			<point>2,0</point>
+			<point>2,1</point>
+			<point>1,1</point>
 			<state>1</state>
 		</cell>
 		<cell type = "GameOfLife">
-			<row>1</row>
-			<col>2</col>
+			<point>2,0</point>
+			<point>3,0</point>
+			<point>3,1</point>
+			<point>2,1</point>
 			<state>1</state>
 		</cell>
 		<cell type = "GameOfLife">
-			<row>2</row>
-			<col>0</col>
+			<point>3,0</point>
+			<point>4,0</point>
+			<point>4,1</point>
+			<point>3,1</point>
 			<state>1</state>
 		</cell>
 		<cell type = "GameOfLife">
-			<row>2</row>
-			<col>1</col>
+			<point>4,0</point>
+			<point>5,0</point>
+			<point>5,1</point>
+			<point>4,1</point>
+			<state>1</state>
+		</cell>
+				<cell type = "GameOfLife">
+			<point>5,0</point>
+			<point>6,0</point>
+			<point>6,1</point>
+			<point>5,1</point>
 			<state>1</state>
 		</cell>
 		<cell type = "GameOfLife">
-			<row>2</row>
-			<col>2</col>
+			<point>6,0</point>
+			<point>7,0</point>
+			<point>7,1</point>
+			<point>6,1</point>
+			<state>1</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point>0,1</point>
+			<point>1,1</point>
+			<point>1,2</point>
+			<point>0,2</point>
+			<state>1</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point>1,1</point>
+			<point>2,1</point>
+			<point>2,2</point>
+			<point>1,2</point>
+			<state>1</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point></point>
+			<point></point>
+			<point></point>
+			<point></point>
+			<state>1</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point></point>
+			<point></point>
+			<point></point>
+			<point></point>
+			<state>1</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point></point>
+			<point></point>
+			<point></point>
+			<point></point>
+			<state>1</state>
+		</cell>
+		<cell type = "GameOfLife">
+			<point></point>
+			<point></point>
+			<point></point>
+			<point></point>
 			<state>1</state>
 		</cell>
 	</grid>
