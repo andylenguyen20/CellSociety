@@ -35,7 +35,7 @@ public class Visualizer extends Application {
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		simulation = new Simulation("xml/fire_simulation.xml");
+		simulation = new Simulation("xml/gol_simulation.xml");
 		//getInitialProp();
 		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/fire_simulation.xml" );
 		stg.setScene(myScene);
@@ -85,7 +85,7 @@ public class Visualizer extends Application {
 //	}
 //
 	private void step(double elapsedTime) {
-		//update();
+		update();
 		
 //	    TextFieldCreator.getSubmit().setOnAction((e) -> {
 //	    		handleParamChanges(e);
@@ -99,15 +99,13 @@ public class Visualizer extends Application {
 		MenuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ;
 		});
-		
-		
-		
 	}
 
 	protected void update() {
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
 		grid.update();
+		System.out.println("hi");
 		/*
 		for (Cell[] cells : grid.getCells()) {
 			for (Cell cell : cells)

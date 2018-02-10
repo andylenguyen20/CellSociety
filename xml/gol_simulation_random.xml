@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+	<type>GameOfLife</type>
+	<title>GameOfLife Simulation</title>
+	<author>Andy Nguyen</author>
+	<shape random = "0" id = "GridShape">Triangle</shape>
+	<grid>
+		<dimension>
+			<width>10</width>
+			<height>20</height>
+		</dimension>
+	</grid>
+</simulation>

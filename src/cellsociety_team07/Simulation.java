@@ -1,6 +1,7 @@
 package cellsociety_team07;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class Simulation {
 		simXMLParser = new SimulationXMLParser(fileName);
 		myTitle = simXMLParser.getTitle();
 		myType = simXMLParser.getType();
-		//setUpGrid();
+		//this.setUpRandomizedGrid();
+		this.setUpInitializedGrid();
 		//setUpCells();
 	}
 
@@ -26,31 +28,17 @@ public class Simulation {
 		return myTitle;
 	}
 	
-	private void setUpGrid(){
+	private void setUpRandomizedGrid(){
 		Dimension gridDimensions = simXMLParser.getGridDimensions();
-		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
+		String gridShape = simXMLParser.getGridShape();
+		//grid = SimulationObjectManager.getSpecificGrid(gridShape, gridDimensions, myType);
+		//grid = SimulationObjectManager.getSpecificGrid("Triangle", new Dimension(4,4), "GameOfLife");
 	}
 
-	private void setUpCells(){
-		List<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
-		double[] simulationParams = simXMLParser.getSimulationParams();
-		List<Cell> cells = grid.getCells();
-		for(InitialCellProperties initProps : initialCellPropList){
-			int row = initProps.getLocation().x;
-			int col = initProps.getLocation().y;
-			int state = initProps.getState();
-			String cellType = initProps.getCellType();
-			//cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
-		}
-		/*for(int i = 0; i < cells.length; i++){
-			for(int j = 0; j < cells[i].length; j++){
-				if(cells[i][j] == null){
-					cells[i][j] = SimulationObjectManager.getDefaultCell(myType, simulationParams);
-				}
-			}
-		}
-		*/
-		grid.setCellNeighbors();
+	private void setUpInitializedGrid(){
+		Dimension gridDimensions = simXMLParser.getGridDimensions();
+		List<Cell> initializedCells = simXMLParser.getInitialCells(myType);
+		grid = GridFactory.generateInitializedGrid(initializedCells, gridDimensions, myType);
 	}
 
 	
@@ -59,7 +47,6 @@ public class Simulation {
 	}
 	
 	public List<Cell> getCells(){
-		Grid grid = GridFactory.generateGrid("Rectangle", new Dimension(20,20), "GameOfLife");
 		return grid.getCells();
 	}
 }

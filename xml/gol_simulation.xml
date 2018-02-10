@@ -3,36 +3,350 @@
 	<type>GameOfLife</type>
 	<title>Game Of Life Simulation</title>
 	<author>Andy Nguyen</author>
+	<shape>Triangle</shape>
 	<grid>
 		<dimension>
-			<width>20</width>
-			<height>20</height>
+			<width>4</width>
+			<height>4</height>
 		</dimension>
-		<cell type = "GameOfLife">
-			<row>0</row>
-			<col>1</col>
-			<state>1</state>
+		<cell type="GameOfLife">
+			<point>0.0,0.0</point>
+			<point>0.5,1.0</point>
+			<point>1.0,0.0</point>
+			<state>0</state>
 		</cell>
-		<cell type = "GameOfLife">
-			<row>1</row>
-			<col>2</col>
-			<state>1</state>
+		<cell type="GameOfLife">
+			<point>1.0,0.0</point>
+			<point>1.5,1.0</point>
+			<point>2.0,0.0</point>
+			<state>0</state>
 		</cell>
-		<cell type = "GameOfLife">
-			<row>2</row>
-			<col>0</col>
-			<state>1</state>
+		<cell type="GameOfLife">
+			<point>2.0,0.0</point>
+			<point>2.5,1.0</point>
+			<point>3.0,0.0</point>
+			<state>0</state>
 		</cell>
-		<cell type = "GameOfLife">
-			<row>2</row>
-			<col>1</col>
-			<state>1</state>
+		<cell type="GameOfLife">
+			<point>3.0,0.0</point>
+			<point>3.5,1.0</point>
+			<point>4.0,0.0</point>
+			<state>0</state>
 		</cell>
-		<cell type = "GameOfLife">
-			<row>2</row>
-			<col>2</col>
-			<state>1</state>
+		<cell type="GameOfLife">
+			<point>0.0,2.0</point>
+			<point>0.5,3.0</point>
+			<point>1.0,2.0</point>
+			<state>0</state>
 		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,2.0</point>
+			<point>1.5,3.0</point>
+			<point>2.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,2.0</point>
+			<point>2.5,3.0</point>
+			<point>3.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,2.0</point>
+			<point>3.5,3.0</point>
+			<point>4.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,1.0</point>
+			<point>1.0,2.0</point>
+			<point>1.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,1.0</point>
+			<point>2.0,2.0</point>
+			<point>2.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,1.0</point>
+			<point>3.0,2.0</point>
+			<point>3.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,3.0</point>
+			<point>1.0,4.0</point>
+			<point>1.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,3.0</point>
+			<point>2.0,4.0</point>
+			<point>2.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,3.0</point>
+			<point>3.0,4.0</point>
+			<point>3.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.0,2.0</point>
+			<point>0.5,1.0</point>
+			<point>1.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,2.0</point>
+			<point>1.5,1.0</point>
+			<point>2.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,2.0</point>
+			<point>2.5,1.0</point>
+			<point>3.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,2.0</point>
+			<point>3.5,1.0</point>
+			<point>4.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.0,4.0</point>
+			<point>0.5,3.0</point>
+			<point>1.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,4.0</point>
+			<point>1.5,3.0</point>
+			<point>2.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,4.0</point>
+			<point>2.5,3.0</point>
+			<point>3.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,4.0</point>
+			<point>3.5,3.0</point>
+			<point>4.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,1.0</point>
+			<point>1.0,0.0</point>
+			<point>1.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,1.0</point>
+			<point>2.0,0.0</point>
+			<point>2.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,1.0</point>
+			<point>3.0,0.0</point>
+			<point>3.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,3.0</point>
+			<point>1.0,2.0</point>
+			<point>1.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,3.0</point>
+			<point>2.0,2.0</point>
+			<point>2.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,3.0</point>
+			<point>3.0,2.0</point>
+			<point>3.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.0,0.0</point>
+			<point>0.5,1.0</point>
+			<point>1.0,0.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,0.0</point>
+			<point>1.5,1.0</point>
+			<point>2.0,0.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,0.0</point>
+			<point>2.5,1.0</point>
+			<point>3.0,0.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,0.0</point>
+			<point>3.5,1.0</point>
+			<point>4.0,0.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.0,2.0</point>
+			<point>0.5,3.0</point>
+			<point>1.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,2.0</point>
+			<point>1.5,3.0</point>
+			<point>2.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,2.0</point>
+			<point>2.5,3.0</point>
+			<point>3.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,2.0</point>
+			<point>3.5,3.0</point>
+			<point>4.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,1.0</point>
+			<point>1.0,2.0</point>
+			<point>1.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,1.0</point>
+			<point>2.0,2.0</point>
+			<point>2.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,1.0</point>
+			<point>3.0,2.0</point>
+			<point>3.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,3.0</point>
+			<point>1.0,4.0</point>
+			<point>1.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,3.0</point>
+			<point>2.0,4.0</point>
+			<point>2.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,3.0</point>
+			<point>3.0,4.0</point>
+			<point>3.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.0,2.0</point>
+			<point>0.5,1.0</point>
+			<point>1.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,2.0</point>
+			<point>1.5,1.0</point>
+			<point>2.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,2.0</point>
+			<point>2.5,1.0</point>
+			<point>3.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,2.0</point>
+			<point>3.5,1.0</point>
+			<point>4.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.0,4.0</point>
+			<point>0.5,3.0</point>
+			<point>1.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.0,4.0</point>
+			<point>1.5,3.0</point>
+			<point>2.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.0,4.0</point>
+			<point>2.5,3.0</point>
+			<point>3.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>3.0,4.0</point>
+			<point>3.5,3.0</point>
+			<point>4.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,1.0</point>
+			<point>1.0,0.0</point>
+			<point>1.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,1.0</point>
+			<point>2.0,0.0</point>
+			<point>2.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,1.0</point>
+			<point>3.0,0.0</point>
+			<point>3.5,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>0.5,3.0</point>
+			<point>1.0,2.0</point>
+			<point>1.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>1.5,3.0</point>
+			<point>2.0,2.0</point>
+			<point>2.5,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="GameOfLife">
+			<point>2.5,3.0</point>
+			<point>3.0,2.0</point>
+			<point>3.5,3.0</point>
+			<state>0</state>
+		</cell>
+
+
 	</grid>
-	
+
 </simulation>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+	<type>Fire</type>
+	<title>Fire Simulation</title>
+	<author>Andy Nguyen</author>
+	<param random = "1" id = "probCatch">0 1</param>
+	<shape random = "1" id = "GridShape">Rectangle Triangle</shape>
+	<grid>
+		<dimension>
+			<width>20</width>
+			<height>20</height>
+		</dimension>
+	</grid>
+</simulation>
