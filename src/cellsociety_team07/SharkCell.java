@@ -14,12 +14,15 @@ public class SharkCell extends WatorCell{
 	public static final int STARTING_ENERGY =2;
 	public static final int FISH_ENERGY = 3;
 	
-	public SharkCell(int state, double[] props) {
-		super(state, props);
+	public SharkCell() {
+		super();
+		/*
+		super();
 		toBeMoved = false;
 		energy = props[STARTING_ENERGY];
 		reproductionCounter = 0;
 		reproductionTime = props[REPRODUCTION_CHRONON];
+		*/
 	}
 
 	
@@ -66,7 +69,6 @@ public class SharkCell extends WatorCell{
 			}
 		}
 		
-
 	}
 	
 	public void applyRules(CellMover cm) {
@@ -77,22 +79,22 @@ public class SharkCell extends WatorCell{
 				openCell = cm.getCellOfType(FISH, this);
 				
 				openCell.setNextState(WATER);
-
 				energy+=super.getProps()[FISH_ENERGY];
 			} else {
 				openCell = cm.getCellOfType(WATER, this);
 				openCell.setNextState(WATER);
 			}
 			if (toReproduce) {
-				replacement = new SharkCell(SHARK, super.getProps());
+				replacement = new SharkCell();
+				replacement.setInitialAttrivutes(SHARK, super.getProps());
 				super.setNextState(SHARK);
 				reproductionCounter = 0;
 			} else {
-				replacement = new FishCell(WATER, super.getProps());
+				replacement = new FishCell();
+				replacement.setInitialAttrivutes(SHARK, super.getProps());
 				super.setNextState(SHARK);
 			}
 		}
-
 	}
 
 	public boolean toReproduce() {
@@ -117,3 +119,4 @@ public class SharkCell extends WatorCell{
 	
 	
 }
+

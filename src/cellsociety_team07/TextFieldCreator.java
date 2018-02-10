@@ -8,9 +8,9 @@ public class TextFieldCreator {
 	protected static TextField textField;
 	protected  static Button submit;
 	
-	protected static HBox textFieldCreator() {
+	protected static HBox textFieldCreator(String txt) {
 		textField = new TextField ();
-		textField.setPromptText("Enter->Index:Value");
+		textField.setPromptText(txt);
 		textField.getText();
 		submit = new Button("Submit");
 
@@ -23,6 +23,7 @@ public class TextFieldCreator {
 	}
 	
 	protected static Button getSubmit() {
+		
 		return submit;
 	}
 	

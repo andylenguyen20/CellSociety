@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.awt.geom.Point2D.Double;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -92,6 +93,7 @@ public class XMLWriterFactory {
 				c.setAttribute(TYPE, cell.getClass().getSimpleName());
 				// get Points, State
 				for (Double d:cell.getVertices()) {
+
 					c.appendChild(addData(file, "point", d.toString()));
 				}
 				c.appendChild(addData(file, "state", String.valueOf(cell.getCurrentState())));
