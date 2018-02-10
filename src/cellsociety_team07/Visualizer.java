@@ -1,5 +1,7 @@
 package cellsociety_team07;
 
+import java.awt.geom.Point2D;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -35,9 +37,9 @@ public class Visualizer extends Application {
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		simulation = new Simulation("xml/fire_simulation.xml");
+		simulation = new Simulation("xml/gol_simulation.xml");
 		//getInitialProp();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/fire_simulation.xml" );
+		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/gol_simulation.xml" );
 		stg.setScene(myScene);
 
 		stg.show();
@@ -73,23 +75,22 @@ public class Visualizer extends Application {
 	
 //	private void getInitialProp() {
 //		
-//		for (int i = 0; i < simulation.getCells().length; i++) {
-//			for (int j = 0; j < simulation.getCells()[i].length; j++) {
-//				Cell cell = simulation.getCells()[i][j];
-//				propsLength = cell.getProps().length;
-//				props = new double [propsLength];
-//				props = cell.getProps();
+//		List<Cell> cells = simulation.getCells();
+//		for(Cell cell : cells) {
+//			propsLength = cell.getProps().length;
+//			props = new double [propsLength];
+//			props = cell.getProps();
 //				
 //			}
 //		}
-//	}
-//
+//	
+
 	private void step(double elapsedTime) {
-		//update();
+		update();
 		
-//	    TextFieldCreator.getSubmit().setOnAction((e) -> {
-//	    		handleParamChanges(e);
-//    		 });
+	    TextFieldCreator.getSubmit().setOnAction((e) -> {
+	    		handleParamChanges(e);
+    		 });
 		MenuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(MenuCreator.getResources(myResources_C, "StepForwardCommand"));			
 		});
@@ -117,6 +118,7 @@ public class Visualizer extends Application {
 		for(Cell cell : grid.getCells()) {
 			root.getChildren().remove(cell);
 		}
+		System.out.println(root.getChildren().size());
 		drawFreshGrid();
 	  }
 	
@@ -131,8 +133,11 @@ public class Visualizer extends Application {
 	
 	private void handleSimulation(Event e) {
 		String selectedAction = MenuCreator.simulations().getSelectionModel().getSelectedItem();
-		if (selectedAction.equals("Game of Life")) 
+		if (selectedAction.equals("Game of Life")) {
 			newSim("xml/gol_simulation.xml");
+			animation.stop();
+
+		}
 		if (selectedAction.equals("Segregation"))
 			newSim("xml/segregation_simulation.xml");
 		if (selectedAction.equals("Predator/Prey")) 

@@ -2,6 +2,7 @@ package cellsociety_team07;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,22 +54,41 @@ public class SimulationXMLParser {
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
 	}
-	public List<InitialCellProperties> getInitialCellInfo(){
-		List<InitialCellProperties> initialCellPropList = new ArrayList<InitialCellProperties>();
+	public List<Cell> getInitialCells(String type){
+		List<Cell> initialCells = new ArrayList<Cell>();
 		NodeList cellTags = document.getElementsByTagName("cell");
 		for(int i = 0; i < cellTags.getLength(); i++){
-			Element cell = (Element) cellTags.item(i);
-			int row = this.getTagValue(cell, "row");
-			int col = this.getTagValue(cell, "col");
-			int state = this.getTagValue(cell, "state");
-			String cellType = this.getCellType(cell);
-			initialCellPropList.add(new InitialCellProperties(row, col, state, cellType));
+			Element cellTag = (Element) cellTags.item(i);
+			String cellType = this.getCellType(cellTag);
+			Cell cell  = CellFactory.generateBlankCell(cellType);
+			cell.setVertices(this.getPoints(cellTag));
+			int state = this.getTagValue(cellTag, "state");
+			double[] params = this.getSimulationParams();
+			cell.setInitialAttrivutes(state, params);
+			initialCells.add(cell);
 		}
-		return initialCellPropList;
+		return initialCells;
 	}
+	
+	public List<Point2D.Double> getPoints(Element cell){
+		List<Point2D.Double> vertices = new ArrayList<>();
+		NodeList cellTags = cell.getElementsByTagName("point");
+		for(int i = 0; i < cellTags.getLength(); i++){
+			String[] coords = cellTags.item(i).getTextContent().split(",");
+			Point2D.Double vertex = new Point2D.Double(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
+			vertices.add(vertex);
+		}
+		return vertices;
+	}
+	
 	public String getCellType(Element cell){
 		return cell.getAttribute("type");
 	}
+	public String getGridShape(){
+		Element gridTag = (Element) document.getElementsByTagName("shape").item(0);
+		return gridTag.getTextContent();
+	}
+	
 	public String getType(){
 		Element type = (Element) document.getElementsByTagName("type").item(0);
 		return type.getTextContent();

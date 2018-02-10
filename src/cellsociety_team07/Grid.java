@@ -22,6 +22,8 @@ public abstract class Grid{
 	public Grid(List<Cell> cells, Dimension gridDimensions){
 		this.cells = cells;
 		this.gridDimensions = gridDimensions;
+		this.vertexMap = MapFactory.generateVertexMap(cells);
+		//this.setCellNeighbors();
 	}
 	
 	/********************** METHODS ****************************/
@@ -41,8 +43,10 @@ public abstract class Grid{
 	 * sets cell neighbors
 	 */
 	public void setCellNeighbors(){
+		System.out.println("11111");
 		for(Cell cell : cells){
 			cell.setNeighbors(neighFinder.findNeighbors(cell, vertexMap));
+			
 		}
 	}
 	
@@ -61,6 +65,14 @@ public abstract class Grid{
 		for(Cell cell : cells){
 			cell.applyRules();
 		}
+	}
+	
+	public double numRows() {
+		return gridDimensions.getHeight();
+	}
+	
+	public double numCols() {
+		return gridDimensions.getWidth();
 	}
 	
 	/*
