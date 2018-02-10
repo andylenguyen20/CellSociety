@@ -150,9 +150,7 @@ public class XMLWriterFactory {
 			sim.appendChild(addData(file,TITLE,simType + "Simulation"));
 			sim.appendChild(addData(file,AUTHOR,"Brendan Cheng"));
 			
-			/*
-			 * Add code to get props array and write data to nodes as necessary
-			 */
+			appendProps(simType, getProps(simType),sim,file);
 			
 			// Set up grid node
 			Element grid = file.createElement(GRID);
@@ -166,7 +164,7 @@ public class XMLWriterFactory {
 			for (int c = 0; c < width; c++) {
 				for (int r = 0; r < height; r++) {
 					Element cell = file.createElement(CELL);
-					cell.setAttribute(TYPE, simType);
+					cell.setAttribute(TYPE, simType+"Cell");
 					cell.appendChild(addData(file,"point",String.valueOf(c) + "," + String.valueOf(r))); // top left vertex
 					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r))); // top right vertex
 					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r + 1))); // bottom right vertex
@@ -238,9 +236,66 @@ public class XMLWriterFactory {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 
+	 * 
+	 * @param simType: String containing type of simulation (GameOfLife,Fire,Segregation,Wator)
+	 * @return double array of props
+	 */
+	private static double[] getProps(String simType) {
+		switch (simType) {
+		case "Fire":
+			return getFireSegProps();
+		case "Segregation":
+			return getFireSegProps();
+		case "Wator":
+			return getWatorProps();
+		default:
+			return null;
+		}
+	}
+	
+	/**
+	 * FireSimulation and SegregationSimulation both require only one property, which is a double between 0 and 1. This randomizes
+	 * the data in props array
+	 * 
+	 * @return double array of one index containing a number between 0 and 1
+	 */
+	private static double[] getFireSegProps() {
+		double[] props = new double[1];
+		props[0] = Math.random();
+		return props;
+	}
+	
+	private static double[] getWatorProps() {
+		double[] props = {3,3,4,5};
+		return props;
+	}
+	
+	private static void appendProps(String simType, double[] props, Element sim, Document file) {
+		switch (simType) {
+		case "Fire":
+		case "Segregation":
+			Element probCatch = file.createElement("param");
+			sim.appendChild(probCatch);
+			probCatch.setAttribute("id", "probCatch");
+			probCatch.appendChild(file.createTextNode(String.valueOf(props[0])));
+			return;
+		case "Wator":
+			String[] watorProps = {"FishCrononReproduce","SharkCrononReproduce","SharkStartingEnergy","EnergyForEatingFish"};
+			for (int i = 0; i < watorProps.length; i++) {
+				Element e = file.createElement("param");
+				sim.appendChild(e);
+				e.setAttribute("id", watorProps[i]);
+				e.appendChild(file.createTextNode(String.valueOf(props[i])));
+				return;
+			}
+		default: return;
+		}
+	}
 	
 	public static void main(String[] args) {
-		writeRectangularSimData(5,5,"GameOfLife","Game of Life");
+		writeRectangularSimData(5,5,"Fire","Fire Simulation");
 //		List<Cell> cells;
 //		cells = new ArrayList<>();
 //		double[] props = {0,1};
