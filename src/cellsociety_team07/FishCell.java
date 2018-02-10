@@ -31,12 +31,12 @@ public class FishCell extends WatorCell{
 		if(toBeMoved){
 			if(toReproduce){
 				replacement = new FishCell();
-				replacement.setInitialAttrivutes(FISH, super.getProps());
+				replacement.setInitialAttributes(FISH, super.getProps());
 				super.setNextState(FISH);
 				numChrononsAlive = 0;
 			}else{
 				replacement = new FishCell();
-				replacement.setInitialAttrivutes(WATER, super.getProps());
+				replacement.setInitialAttributes(WATER, super.getProps());
 				super.setNextState(WATER);
 			}
 			openCell = cm.getCellOfType(WATER, this);

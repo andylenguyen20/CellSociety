@@ -21,7 +21,7 @@ public abstract class Cell extends Polygon {
 		
 	}
 	
-	public void setInitialAttrivutes(int initialState, double[] params) {
+	public void setInitialAttributes(int initialState, double[] params) {
 		this.currState = initialState;
 		this.nextState = initialState;
 		this.props = params;

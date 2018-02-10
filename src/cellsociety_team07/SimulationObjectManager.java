@@ -7,19 +7,19 @@ public class SimulationObjectManager {
 		switch(simulationType){
 		case "Fire": 
 			Cell fireCell = new FireCell();
-			fireCell.setInitialAttrivutes(Cell.DEFAULT_STATE, cellProps);
+			fireCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
 			return fireCell;
 		case "GameOfLife":
 			Cell golCell = new GameOfLifeCell();
-			golCell.setInitialAttrivutes(Cell.DEFAULT_STATE, cellProps);
+			golCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
 			return golCell;
 		case "Segregation":
 			Cell segCell = new SegregationCell();
-			segCell.setInitialAttrivutes(Cell.DEFAULT_STATE, cellProps);
+			segCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
 			return segCell;
 		case "Wator":
 			Cell fishCell = new FishCell();
-			fishCell.setInitialAttrivutes(Cell.DEFAULT_STATE, cellProps);
+			fishCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
 			return fishCell;
 	default:
 		throw new BadSimulationException("Bad simulation type while getting default cell");		
@@ -29,23 +29,23 @@ public class SimulationObjectManager {
 		switch(cellType){
 			case "Fire": 
 				Cell fireCell = new FireCell();
-				fireCell.setInitialAttrivutes(state, cellProps);
+				fireCell.setInitialAttributes(state, cellProps);
 				return fireCell;
 			case "GameOfLife":
 				Cell golCell = new GameOfLifeCell();
-				golCell.setInitialAttrivutes(state, cellProps);
+				golCell.setInitialAttributes(state, cellProps);
 				return golCell;
 			case "Segregation":
 				Cell segCell = new SegregationCell();
-				segCell.setInitialAttrivutes(state, cellProps);
+				segCell.setInitialAttributes(state, cellProps);
 				return segCell;
 			case "Fish":
 				Cell fishCell = new FishCell();
-				fishCell.setInitialAttrivutes(state, cellProps);
+				fishCell.setInitialAttributes(state, cellProps);
 				return fishCell;
 			case "Shark":
 				Cell sharkCell = new SharkCell();
-				sharkCell.setInitialAttrivutes(state, cellProps);
+				sharkCell.setInitialAttributes(state, cellProps);
 				return sharkCell;
 		default:
 			throw new BadSimulationException("Bad simulation type while getting cell");		

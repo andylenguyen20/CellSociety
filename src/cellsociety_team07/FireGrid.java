@@ -6,7 +6,7 @@ import java.util.List;
 public class FireGrid extends Grid{
 	public FireGrid(List<Cell> cells, Dimension gridDimensions){
 		super(cells, gridDimensions);
-		setNeighborFinder(new NeighborFinder(NeighborFinder.ADJACENT_NEIGHBORS));
+		setNeighborFinder(new UnboundedNeighborFinder(NeighborFinder.ADJACENT_NEIGHBORS, gridDimensions));
 	}
 
 }

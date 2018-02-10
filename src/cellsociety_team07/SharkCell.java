@@ -86,12 +86,12 @@ public class SharkCell extends WatorCell{
 			}
 			if (toReproduce) {
 				replacement = new SharkCell();
-				replacement.setInitialAttrivutes(SHARK, super.getProps());
+				replacement.setInitialAttributes(SHARK, super.getProps());
 				super.setNextState(SHARK);
 				reproductionCounter = 0;
 			} else {
 				replacement = new FishCell();
-				replacement.setInitialAttrivutes(SHARK, super.getProps());
+				replacement.setInitialAttributes(SHARK, super.getProps());
 				super.setNextState(SHARK);
 			}
 		}

@@ -41,7 +41,12 @@ public class Simulation {
 		Dimension gridDimensions = simXMLParser.getGridDimensions();
 		List<Cell> initializedCells = simXMLParser.getInitialCells(myType);
 		grid = GridFactory.generateInitializedGrid(initializedCells, gridDimensions, myType);
+		
 		grid.setCellNeighbors();
+	}
+	
+	private void initializeCellsInGrid() {
+		
 	}
 
 

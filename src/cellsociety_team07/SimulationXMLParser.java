@@ -64,7 +64,7 @@ public class SimulationXMLParser {
 			cell.setVertices(this.getPoints(cellTag));
 			int state = this.getTagValue(cellTag, "state");
 			double[] params = this.getSimulationParams();
-			cell.setInitialAttrivutes(state, params);
+			cell.setInitialAttributes(state, params);
 			initialCells.add(cell);
 		}
 		return initialCells;
@@ -98,6 +98,7 @@ public class SimulationXMLParser {
 		NodeList parameters = document.getElementsByTagName("param");
 		double[] params = new double[parameters.getLength()];
 		for(int i = 0; i < params.length; i++){
+			System.out.println("fadsfadsfads");
 			params[i] = Double.parseDouble(parameters.item(i).getTextContent());
 		}
 		return params;
