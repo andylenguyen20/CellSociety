@@ -13,6 +13,7 @@ public class UnboundedNeighborFinder extends NeighborFinder {
 	public UnboundedNeighborFinder(List<Integer> allowedNumSharedVertices, Dimension gridDimensions) {
 		super(allowedNumSharedVertices);
 		this.numRows = gridDimensions.getHeight();
+		System.out.println(numRows);
 		this.numCols = gridDimensions.getWidth();
 	}
 

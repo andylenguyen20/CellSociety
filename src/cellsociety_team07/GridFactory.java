@@ -136,4 +136,7 @@ public class GridFactory {
 		Point2D.Double rightVertice = new Point2D.Double(topLeftX + 2*triangleXStep, topLeftY);
 		return Arrays.asList(leftVertice, middleVertice, rightVertice);
 	}
+
 }
+
+

@@ -21,6 +21,8 @@ public class Simulation {
 		myType = simXMLParser.getType();
 		//this.setUpRandomizedGrid();
 		this.setUpInitializedGrid();
+		System.out.println(myType);
+		setUpInitializedGrid();
 		//setUpCells();
 	}
 
@@ -39,7 +41,10 @@ public class Simulation {
 		Dimension gridDimensions = simXMLParser.getGridDimensions();
 		List<Cell> initializedCells = simXMLParser.getInitialCells(myType);
 		grid = GridFactory.generateInitializedGrid(initializedCells, gridDimensions, myType);
+		grid.setCellNeighbors();
 	}
+
+
 
 	
 	public Grid getGrid(){

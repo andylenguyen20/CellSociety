@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GameOfLifeGrid extends Grid{
 	public GameOfLifeGrid(List<Cell> cells, Dimension gridDimensions){
-		super(cells, gridDimensions);	
+		super(cells, gridDimensions);
 		setNeighborFinder(new NeighborFinder(NeighborFinder.TOUCHING_NEIGHBORS));
 	}
 }
