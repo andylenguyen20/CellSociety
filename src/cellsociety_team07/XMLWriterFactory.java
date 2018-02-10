@@ -43,7 +43,9 @@ public class XMLWriterFactory {
 	/*
 	 * Static class that writes current state of Simulation to an XML document. Methods are called in the
 	 * Simulation class upon button click in the UI, so parameters are based on fields that are
-	 * accessible within Simulation.java
+	 * accessible within Simulation.java.
+	 * 
+	 * Based on code written by App Shah at http://crunchify.com/java-simple-way-to-write-xml-dom-file-in-java/
 	 */
 	
 	
@@ -72,9 +74,17 @@ public class XMLWriterFactory {
 			sim.appendChild(addData(file,TYPE,simType));
 			sim.appendChild(addData(file,TITLE,simType + "Simulation"));
 			sim.appendChild(addData(file,AUTHOR,"Insert_name"));
+			
+			/*
+			 * Add code to get props array and write data to nodes as necessary
+			 */
+			
 			// Set up grid node
 			Element grid = file.createElement(GRID);
 			sim.appendChild(grid);
+			/*
+			 * Add code to get dimensions
+			 */
 			// Input cell data
 			for (Cell cell:cells) {
 				Element c = file.createElement(CELL);
@@ -82,9 +92,9 @@ public class XMLWriterFactory {
 				c.setAttribute(TYPE, cell.getClass().getSimpleName());
 				// get Points, State
 				for (Double d:cell.getVertices()) {
-					c.appendChild(addData(file, "Point", d.toString()));
+					c.appendChild(addData(file, "point", d.toString()));
 				}
-				c.appendChild(addData(file, "State", String.valueOf(cell.getCurrentState())));
+				c.appendChild(addData(file, "state", String.valueOf(cell.getCurrentState())));
 				// add to grid node
 				grid.appendChild(c);	
 			}
@@ -112,13 +122,130 @@ public class XMLWriterFactory {
 		e.appendChild(doc.createTextNode(data));
 		return e;
 	}
+	/**
+	 * 
+	 * Writes data to XML file for a rectangular simulation. Takes care of points, randomizes state
+	 * 
+	 * @param width: width of grid
+	 * @param height: height of grid
+	 * @param simType: Type of simulation (e.g. Game of Life)
+	 * @param simTitle: Title of simulation:
+	 * @param numStates: number of possible states
+	 */
+	public static void writeRectangularSimData(int width,int height, String simType, String simTitle) {
+		String fileName = simType; // save simType
+		String docTitle = simTitle;
+		Document file; // document to be written to
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
+		File f = new File("xml/" + simType + ".xml");
+		// Set up file
+		try {
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			file = db.newDocument(); // create new document
+			// Create root element + append
+			Element sim = file.createElement(SIM);
+			file.appendChild(sim);
+			// Append type, title, author
+			sim.appendChild(addData(file,TYPE,simType));
+			sim.appendChild(addData(file,TITLE,simType + "Simulation"));
+			sim.appendChild(addData(file,AUTHOR,"Brendan Cheng"));
+			
+			/*
+			 * Add code to get props array and write data to nodes as necessary
+			 */
+			
+			// Set up grid node
+			Element grid = file.createElement(GRID);
+			sim.appendChild(grid);
+			// get dimensions
+			Element dim = file.createElement("dimension");
+			grid.appendChild(dim);
+			dim.appendChild(addData(file,"width",String.valueOf(width)));
+			dim.appendChild(addData(file,"height",String.valueOf(height)));
+			// Input cell data
+			for (int c = 0; c < width; c++) {
+				for (int r = 0; r < height; r++) {
+					Element cell = file.createElement(CELL);
+					cell.setAttribute(TYPE, simType);
+					cell.appendChild(addData(file,"point",String.valueOf(c) + "," + String.valueOf(r))); // top left vertex
+					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r))); // top right vertex
+					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r + 1))); // bottom right vertex
+					cell.appendChild(addData(file,"point",String.valueOf(c) + "," + String.valueOf(r + 1))); // bottom left vertex
+					cell.appendChild(addData(file,"state",String.valueOf((int) (2*Math.random()))));
+					grid.appendChild(cell);
+				}
+			}
+			// Format + save file
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(file);
+			StreamResult newFile = new StreamResult(f);
+			transformer.transform(source, newFile);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeTriangularSimData(List<Cell> triGrid, String simType, String simTitle) {
+		String fileName = simType; // save simType
+		String docTitle = simTitle;
+		Document file; // document to be written to
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
+		File f = new File("xml/" + simType + ".xml");
+		// Set up file
+		try {
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			file = db.newDocument(); // create new document
+			// Create root element + append
+			Element sim = file.createElement(SIM);
+			file.appendChild(sim);
+			// Append type, title, author
+			sim.appendChild(addData(file,TYPE,simType));
+			sim.appendChild(addData(file,TITLE,simType + "Simulation"));
+			sim.appendChild(addData(file,AUTHOR,"Brendan Cheng"));
+			
+			/*
+			 * Add code to get props array and write data to nodes as necessary
+			 */
+			
+			// Set up grid node
+			Element grid = file.createElement(GRID);
+			sim.appendChild(grid);
+			// get dimensions
+			Element dim = file.createElement("dimension");
+			grid.appendChild(dim);
+			dim.appendChild(addData(file,"width",String.valueOf(width)));
+			dim.appendChild(addData(file,"height",String.valueOf(height)));
+			// Input cell data
+			for (int r = 0; r < width; r++) {
+				for (int c = 0; c < height; c++) {
+					Element cell = file.createElement(CELL);
+					cell.setAttribute(TYPE, simType);
+					cell.appendChild(addData(file,"point",String.valueOf(c) + "," + String.valueOf(r))); // top left vertex
+					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r))); // top right vertex
+					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r + 1))); // bottom right vertex
+					cell.appendChild(addData(file,"state",String.valueOf((int) (2*Math.random()))));
+					grid.appendChild(cell);
+				}
+			}
+			// Format + save file
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(file);
+			StreamResult newFile = new StreamResult(f);
+			transformer.transform(source, newFile);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
-		List<Cell> cells;
-		cells = new ArrayList<>();
-		double[] props = {0,1};
-		cells.add(new GameOfLifeCell(0, props) );
-		getSimData(cells,"testType","testTitle");
+		writeRectangularSimData(5,5,"GameOfLife","Game of Life");
+//		List<Cell> cells;
+//		cells = new ArrayList<>();
+//		double[] props = {0,1};
+//		cells.add(new GameOfLifeCell(0, props) );
+//		getSimData(cells,"testType","testTitle");
 //		Cell fish = new FishCell(1, null);
 //		System.out.println(fish.getClass().getSimpleName());
 	}
