@@ -1,16 +1,26 @@
 package cellsociety_team07;
 
+import java.awt.Dimension;
+
 public class SimulationObjectManager {
 	public static Cell getDefaultCell(String simulationType, double[] cellProps){
 		switch(simulationType){
 		case "Fire": 
-			return new FireCell(Cell.DEFAULT_STATE, cellProps);
+			Cell fireCell = new FireCell();
+			fireCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
+			return fireCell;
 		case "GameOfLife":
-			return new GameOfLifeCell(Cell.DEFAULT_STATE, cellProps);
+			Cell golCell = new GameOfLifeCell();
+			golCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
+			return golCell;
 		case "Segregation":
-			return new SegregationCell(Cell.DEFAULT_STATE, cellProps);
+			Cell segCell = new SegregationCell();
+			segCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
+			return segCell;
 		case "Wator":
-			return new FishCell(Cell.DEFAULT_STATE, cellProps);
+			Cell fishCell = new FishCell();
+			fishCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
+			return fishCell;
 	default:
 		throw new BadSimulationException("Bad simulation type while getting default cell");		
 	}
@@ -18,31 +28,31 @@ public class SimulationObjectManager {
 	public static Cell getSpecificCell(String cellType, int state, double[] cellProps){
 		switch(cellType){
 			case "Fire": 
-				return new FireCell(state, cellProps);
+				Cell fireCell = new FireCell();
+				fireCell.setInitialAttributes(state, cellProps);
+				return fireCell;
 			case "GameOfLife":
-				return new GameOfLifeCell(state, cellProps);
+				Cell golCell = new GameOfLifeCell();
+				golCell.setInitialAttributes(state, cellProps);
+				return golCell;
 			case "Segregation":
-				return new SegregationCell(state, cellProps);
+				Cell segCell = new SegregationCell();
+				segCell.setInitialAttributes(state, cellProps);
+				return segCell;
 			case "Fish":
-				return new FishCell(state, cellProps);
+				Cell fishCell = new FishCell();
+				fishCell.setInitialAttributes(state, cellProps);
+				return fishCell;
 			case "Shark":
-				return new SharkCell(state, cellProps);
+				Cell sharkCell = new SharkCell();
+				sharkCell.setInitialAttributes(state, cellProps);
+				return sharkCell;
 		default:
 			throw new BadSimulationException("Bad simulation type while getting cell");		
 		}
 	}
-	public static Grid getSpecificGrid(String simulationType, int width, int height){
-		switch(simulationType){
-			case "Fire": 
-				return new FireGrid(width, height);
-			case "GameOfLife":
-				return new GameOfLifeGrid(width, height);
-			case "Segregation":
-				return new SegregationGrid(width, height);
-			case "Wator":
-				return new WatorGrid(width, height);
-		default:
-			throw new BadSimulationException("Bad simulation type while getting grid");		
-		}
+	public static Grid getSpecificGrid(String shape, Dimension gridDim, String simType){
+		return GridFactory.generateRandomizedGrid(shape, gridDim, simType);
 	}
 }
+

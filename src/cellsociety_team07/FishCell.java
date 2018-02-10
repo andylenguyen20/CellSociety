@@ -1,4 +1,4 @@
- package cellsociety_team07;
+package cellsociety_team07;
 
 
 public class FishCell extends WatorCell{
@@ -9,8 +9,8 @@ public class FishCell extends WatorCell{
 	private Cell replacement;
 	private Cell openCell;
 
-	public FishCell(int initialState, double[] props) {
-		super(initialState, props);
+	public FishCell() {
+		super();
 		toBeMoved = false;
 		numChrononsAlive = 0;
 	}
@@ -30,11 +30,13 @@ public class FishCell extends WatorCell{
 		this.applyRules();
 		if(toBeMoved){
 			if(toReproduce){
-				replacement = new FishCell(FISH, super.getProps());
+				replacement = new FishCell();
+				replacement.setInitialAttributes(FISH, super.getProps());
 				super.setNextState(FISH);
 				numChrononsAlive = 0;
 			}else{
-				replacement = new FishCell(WATER, super.getProps());
+				replacement = new FishCell();
+				replacement.setInitialAttributes(WATER, super.getProps());
 				super.setNextState(WATER);
 			}
 			openCell = cm.getCellOfType(WATER, this);
@@ -62,7 +64,6 @@ public class FishCell extends WatorCell{
 				numOpenSpotsAvailable++;
 			}
 		}
-
 		return (numOpenSpotsAvailable > 0) && !this.willBeEaten() && !this.isWaterCell();
 	}
 	
@@ -84,3 +85,4 @@ public class FishCell extends WatorCell{
 
 	}
 }
+

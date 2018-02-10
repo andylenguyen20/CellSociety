@@ -1,27 +1,39 @@
 package cellsociety_team07;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-
+import java.awt.geom.Point2D.Double;
 import javafx.scene.paint.Paint;
 
-public abstract class Cell extends Rectangle {
+public abstract class Cell extends Polygon {
 	public static final int DEFAULT_STATE = 0;
 	private List<Cell> neighbors;
+	private List<Double> vertices;
 	private int currState, nextState;
 	private double[] props;
 	private static Paint[] colors;
 	
 	//private Rule rule = new GameOfLifeRule();
 	
-	public Cell(int initialState, double[] props){
-		this.currState = initialState;
-		this.props = props;
-		this.nextState = initialState;
+	public Cell() {
+		
 	}
 	
+	public void setInitialAttributes(int initialState, double[] params) {
+		this.currState = initialState;
+		this.nextState = initialState;
+		this.props = params;
+	}
+	
+	public void setVertices(List<Double> vertices) {
+		this.vertices = vertices;
+	}
+	
+	public List<Double> getVertices() {
+		return vertices;
+	}
 	/*
 	 * A method that updates the Cell’s state to the next state.
 	 */
@@ -67,5 +79,3 @@ public abstract class Cell extends Rectangle {
 
 	public abstract void applyRules();
 }
-
-
