@@ -6,30 +6,30 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-public class StateChangeTextField extends TextFieldFactory{
+public class StateChangeTextField {
 	
-	protected  TextField textField;
+	protected  TextField stateText;
 	protected  Button enter;
 
 
 	
-	protected TextField stateTextFieldCreator(String txt) {
-		textField = new TextField ();
-		textField.setPromptText(txt);
-		textField.getText();
-		return textField;
+	protected TextField stateTextFieldCreator(ResourceBundle com, String txt) {
+		stateText = new TextField ();
+		stateText.setPromptText(com.getString(txt));
+		stateText.getText();
+		return stateText;
 		
 	}
 	
-	protected Button makeEnterButton() {
-		enter = new Button("Enter");
+	protected Button makeEnterButton(ResourceBundle com, String str) {
+		enter = new Button(com.getString(str));
 		return enter;
 		
 	}
-	protected  HBox stateHBoxMaker(String txt) {
+	protected  HBox stateHBoxMaker(ResourceBundle com, String txt, String str) {
 		
 		HBox hb = new HBox();
-		hb.getChildren().addAll(stateTextFieldCreator(txt), makeEnterButton());
+		hb.getChildren().addAll(stateTextFieldCreator(com,txt), makeEnterButton(com, str));
 		hb.setSpacing(10);
 		return hb;
 	}
@@ -41,8 +41,10 @@ public class StateChangeTextField extends TextFieldFactory{
 	
 	protected  TextField getTextValue() {
 		
-		return textField;
+		return stateText;
 		
 	}
+
+
 	
 }

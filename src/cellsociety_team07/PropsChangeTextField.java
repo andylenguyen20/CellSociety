@@ -13,23 +13,23 @@ public class PropsChangeTextField  {
 
 
 	
-	protected TextField propsTextFieldCreator(String txt) {
+	protected TextField propsTextFieldCreator(ResourceBundle com, String txt) {
 		propsText = new TextField ();
-		propsText.setPromptText(txt);
+		propsText.setPromptText(com.getString(txt));
 		propsText.getText();
 		return propsText;
 		
 	}
 	
-	protected Button makeSubmitButton() {
-		submit = new Button("Submit");
+	protected Button makeSubmitButton(ResourceBundle com, String str) {
+		submit = new Button(com.getString(str));
 		return submit;
-		
-	}
-	protected  HBox propsHBoxMaker(String txt) {
+		}
+	
+	protected  HBox propsHBoxMaker(ResourceBundle com, String txt, String enter) {
 		
 		HBox hb = new HBox();
-		hb.getChildren().addAll(propsTextFieldCreator(txt), makeSubmitButton());
+		hb.getChildren().addAll(propsTextFieldCreator(com, txt), makeSubmitButton(com, enter));
 		hb.setSpacing(10);
 		return hb;
 	}

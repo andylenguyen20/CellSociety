@@ -1,6 +1,5 @@
 package cellsociety_team07;
 
-import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -35,7 +34,6 @@ public class Visualizer extends Application {
 	private int cellState=1;
 	private StateChangeTextField stateChanger;
 	private PropsChangeTextField propsChanger;
-	private BorderPaneFactory borderMaker = new BorderPaneFactory();
 	private MenuCreator menuCreator;
 	
 	@Override
@@ -73,8 +71,8 @@ public class Visualizer extends Application {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(800, 800); 
 		borderPane.setTop(menuCreator.addHBox(myResources_C, myResources_S));	    
-		borderPane.setRight(propsChanger.propsHBoxMaker("Index:Prop"));
-		borderPane.setLeft(stateChanger.stateHBoxMaker("Enter State"));
+		borderPane.setRight(propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"));
+		borderPane.setLeft(stateChanger.stateHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"));
 
 		borderPane.setBottom(lineChart.getLineChart());
 		borderPane.setStyle("-fx-padding: 10;" +"-fx-border-style: solid inside;" + "-fx-border-width: 2;" + 
@@ -99,7 +97,6 @@ public class Visualizer extends Application {
 			propsLength = cell.getProps().length;
 			props = new double [propsLength]; 
 			props = cell.getProps();
-			//cellState = cell.getCurrentState();
 			
 				
 			}
