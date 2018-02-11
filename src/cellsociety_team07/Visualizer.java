@@ -32,14 +32,16 @@ public class Visualizer extends Application {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private GraphCreator lineChart;
 	private int propsLength;
+	private MenuCreator menuCreator;
+	private BorderPaneFactory borderPane;
 	
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		simulation = new Simulation("xml/gol_simulation.xml");
+		simulation = new Simulation("xml/wator_simulation.xml");
 		//getInitialProp();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/gol_simulation.xml" );
+		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
 
 		stg.show();
@@ -57,15 +59,20 @@ public class Visualizer extends Application {
 
 	protected Scene setUpGame(int height, int background, String sim) {
 		root = new Group();
+		menuCreator = new MenuCreator();
 		commandHandler = new CommandHandler();
+		borderPane = new BorderPaneFactory();
 		myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
 		myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
 		lineChart = new GraphCreator();
-		BorderPane bPane = BorderPaneFactory.bPaneMaker(myResources_C, myResources_S, lineChart);
+		BorderPane bPane = borderPane.bPaneMaker(myResources_C, myResources_S, lineChart);
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
 		drawFreshGrid();
 		root.getChildren().add(bPane);
+		menuCreator.stepButton().setOnAction((e) -> {
+			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));
+		});
 		return scene;
 	}
 	
@@ -91,13 +98,11 @@ public class Visualizer extends Application {
 	    TextFieldCreator.getSubmit().setOnAction((e) -> {
 	    		handleParamChanges(e);
     		 });
-		MenuCreator.stepButton().setOnAction((e) -> {
-			handleStepForward(MenuCreator.getResources(myResources_C, "StepForwardCommand"));			
+		
+		menuCreator.commands().setOnAction((e) -> {
+			commandHandler.handleCommand( e, animation, menuCreator);
 		});
-		MenuCreator.commands().setOnAction((e) -> {
-			commandHandler.handleCommand( e, animation);
-		});
-		MenuCreator.simulations().setOnAction((e) -> {
+		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ;
 		});
 	}
@@ -123,17 +128,20 @@ public class Visualizer extends Application {
 	}
 	
 	private void handleSimulation(Event e) {
-		String selectedAction = MenuCreator.simulations().getSelectionModel().getSelectedItem();
+		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Game of Life")) {
 			newSim("xml/gol_simulation.xml");
 
 		}
-		if (selectedAction.equals("Segregation"))
+		if (selectedAction.equals("Segregation")){
 			newSim("xml/segregation_simulation.xml");
-		if (selectedAction.equals("Predator/Prey")) 
+		}
+		if (selectedAction.equals("Predator/Prey")) {
 			newSim("xml/wator_simulation.xml");
-		if (selectedAction.equals("Fire"))
+		}
+		if (selectedAction.equals("Fire")){
 			newSim("xml/fire_simulation.xml");
+		}
 		}
 	
 	protected void newSim(String sim) {

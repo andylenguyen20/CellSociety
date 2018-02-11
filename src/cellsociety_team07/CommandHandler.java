@@ -5,9 +5,9 @@ import javafx.event.Event;
 
 public class CommandHandler {
 
-	protected void handleCommand(Event e, Timeline a) {
+	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
 		
-		String selectedAction = MenuCreator.commands().getSelectionModel().getSelectedItem();
+		String selectedAction = m.commands().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Pause")) {
 			a.stop();
 		}

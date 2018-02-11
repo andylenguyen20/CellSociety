@@ -20,11 +20,11 @@ public class MenuCreator {
 	private static final int HBOX_SPACING=10;
 
 
-	protected static String getResources(ResourceBundle rb, String s) {
+	protected  String getResources(ResourceBundle rb, String s) {
 		return rb.getString(s);
 	}
 	
-	protected static ComboBox<String> getCommandsBox(ResourceBundle c) {
+	protected  ComboBox<String> getCommandsBox(ResourceBundle c) {
 		commandsBox = new ComboBox<String>();
 		commandsBox.setValue(getResources(c, "InitialCommand"));
 		commandsBox.getItems().addAll(getResources(c, "PlayCommand"),
@@ -33,7 +33,7 @@ public class MenuCreator {
 		return commandsBox;
 	}
 	
-	protected static ComboBox<String> getSimulationMenu(ResourceBundle s) {
+	protected  ComboBox<String> getSimulationMenu(ResourceBundle s) {
 		simulationMenu = new ComboBox<String>();
 		simulationMenu.setValue(getResources(s, "InitialCommand"));
 		simulationMenu.getItems().addAll(getResources(s, "GOLCommand"),
@@ -42,12 +42,12 @@ public class MenuCreator {
 		return simulationMenu;
 	}
 	
-	protected static Button makeButton(Button button, ResourceBundle c, String string) {
+	protected  Button makeButton(Button button, ResourceBundle c, String string) {
 		button = new Button(getResources(c, string));
 		return button;
 	}
 	
-	public static HBox addHBox(ResourceBundle com, ResourceBundle sim) {
+	public  HBox addHBox(ResourceBundle com, ResourceBundle sim) {
 	    HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(INSET_TWO, INSET_ONE, INSET_TWO, INSET_ONE));
 	    hbox.setSpacing(HBOX_SPACING);
@@ -56,20 +56,20 @@ public class MenuCreator {
 	    return hbox;
 	}
 
-	protected static ComboBox<String> commands (){
+	protected  ComboBox<String> commands (){
 		return commandsBox;
 	}
 	
-	protected static ComboBox<String> simulations (){
+	protected  ComboBox<String> simulations (){
 		return simulationMenu;
 	}
 	
-	protected static Button makeStepForward(ResourceBundle c) {
+	protected  Button makeStepForward(ResourceBundle c) {
 		stepForward = new Button(getResources(c, "StepForwardCommand"));
 		return stepForward;
 	}
 
-	protected static Button stepButton (){
+	protected  Button stepButton (){
 		return stepForward;
 	}
 

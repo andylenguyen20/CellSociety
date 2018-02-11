@@ -5,12 +5,12 @@ import java.util.ResourceBundle;
 import javafx.scene.layout.BorderPane;
 
 public class BorderPaneFactory {
+	private MenuCreator menuCreator = new MenuCreator();
 	
-	
-	public static BorderPane bPaneMaker(ResourceBundle com, ResourceBundle sim , GraphCreator lineChart) {
+	public  BorderPane bPaneMaker(ResourceBundle com, ResourceBundle sim , GraphCreator lineChart) {
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(800, 800); 
-		borderPane.setTop(MenuCreator.addHBox(com, sim));	    
+		borderPane.setTop(menuCreator.addHBox(com, sim));	    
 		borderPane.setRight(TextFieldCreator.textFieldCreator("Enter->Index:Value"));
 		//borderPane.setLeft(TextFieldCreator.textFieldCreator("Enter State"));
 

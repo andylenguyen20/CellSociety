@@ -1,7 +1,6 @@
 package cellsociety_team07;
 
 import java.awt.Dimension;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,26 +10,18 @@ public class WatorGrid extends Grid implements CellFetcher{
 		setNeighborFinder(new UnboundedNeighborFinder(UnboundedNeighborFinder.ADJACENT_NEIGHBORS, gridDimensions));
 	}
 	@Override
-	public void update(){
-		List<Cell> grid = super.getCells();
-		for(Cell cell : grid){
-			WatorCell watorCell = (WatorCell) cell;
-			watorCell.update(this);
-		}
-	}
-	@Override
 	public void prepareNextState(){
 		List<Cell> grid = super.getCells();
 		for(Cell cell : grid){
 			WatorCell watorCell = (WatorCell) cell;
-			if(watorCell instanceof SharkCell){
-				((SharkCell) watorCell).applyRules(this);
+			if(watorCell.isShark()){
+				(watorCell).applyRules(this);
 			}
 		}
 		for(Cell cell : grid){
 			WatorCell watorCell = (WatorCell) cell;
-			if(watorCell instanceof FishCell){
-				((FishCell) watorCell).applyRules(this);
+			if(!watorCell.isShark()){
+				(watorCell).applyRules(this);
 			}
 		}
 	}

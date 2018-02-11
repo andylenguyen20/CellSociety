@@ -2,7 +2,9 @@
 <simulation>
 	<type>GameOfLife</type>
 	<title>GameOfLife Simulation</title>
-	<author>Brendan Cheng</author>
+	<author>Brendan
+		Cheng
+	</author>
 	<grid>
 		<dimension>
 			<width>4</width>
@@ -98,7 +100,6 @@
 			<point>2.5,3</point>
 			<state>0</state>
 		</cell>
-		
 		<cell type="GameOfLifeCell">
 			<point>3,0</point>
 			<point>3.5,1</point>
@@ -135,7 +136,6 @@
 			<point>4,2</point>
 			<state>0</state>
 		</cell>
-		
 		<cell type="GameOfLifeCell">
 			<point>0,4</point>
 			<point>0.5,3</point>
