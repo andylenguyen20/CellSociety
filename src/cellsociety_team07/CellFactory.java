@@ -9,7 +9,7 @@ public class CellFactory {
 		switch(simType){
 		case "Fire": 
 			return new FireCell();
-		case "GameOfLife":
+		case "GameOfLifeCell":
 			return new GameOfLifeCell();
 		case "SegregationCell":
 			return new SegregationCell();
