@@ -5,9 +5,25 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class GridFactory {
+	private static final HashMap<String,ArrayList<String>> typeMap = new HashMap<>();
+	static {
+		ArrayList<String> gol = new ArrayList<>();
+		gol.add("GameOfLifeCell");
+		typeMap.put("GameOfLife",gol);
+		ArrayList<String> fire = new ArrayList<>();
+		fire.add("FireCell");
+		typeMap.put("Fire",fire);
+		ArrayList<String> seg = new ArrayList<>();
+		seg.add("SegregationCell");
+		typeMap.put("Segregation",seg);
+		ArrayList<String> wator = new ArrayList<>();
+		wator.add("WatorCell");
+		typeMap.put("Wator",wator);
+	}
 	private static final double triangleXStep = 0.5;
 	private static final double triangleYStep = 1;
 	private static final double rectangleXStep = 1;
