@@ -5,9 +5,25 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class GridFactory {
+	private static final HashMap<String,ArrayList<String>> typeMap = new HashMap<>();
+	static {
+		ArrayList<String> gol = new ArrayList<>();
+		gol.add("GameOfLifeCell");
+		typeMap.put("GameOfLife",gol);
+		ArrayList<String> fire = new ArrayList<>();
+		fire.add("FireCell");
+		typeMap.put("Fire",fire);
+		ArrayList<String> seg = new ArrayList<>();
+		seg.add("SegregationCell");
+		typeMap.put("Segregation",seg);
+		ArrayList<String> wator = new ArrayList<>();
+		wator.add("WatorCell");
+		typeMap.put("Wator",wator);
+	}
 	private static final double triangleXStep = 0.5;
 	private static final double triangleYStep = 1;
 	private static final double rectangleXStep = 1;
@@ -63,7 +79,9 @@ public class GridFactory {
 		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 0; rowCount < numRows; rowCount++){
 			for(int colCount = 0; colCount < numCols; colCount++){
-				Cell cell = CellFactory.generateBlankCell(simType);
+				int numStates = typeMap.get(simType).size();
+				String cellType = typeMap.get(simType).get((int)(numStates*Math.random()));
+				Cell cell = CellFactory.generateBlankCell(cellType);
 				cell.setVertices(getRectangleVertices(rowCount, colCount));
 				cells.add(cell);
 			}

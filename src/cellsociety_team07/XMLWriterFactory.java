@@ -232,34 +232,13 @@ public class XMLWriterFactory {
 	
 	
 	/**
-	 * Generates <param> tags for each element in the props array for the given simulation and appends them to the simulation tag.
+	 * Code to create a param node, append it to the parent simulation node, and set its attributes/values
 	 * 
-	 * @param simType String containing name of simulation
-	 * @param sim     The element that each <param> should be appended to. Should be the simulation tag every time
-	 * @param file    The file in which elements are being created
+	 * @param paramName Name of node to be created
+	 * @param prop      property/value of node
+	 * @param file      file to create element in
+	 * @param sim       parent node to which param node will be attached; usually simulatoin
 	 */
-	private static void appendRandomProps(String simType, Element sim, Document file) {
-		double[] props;
-		switch (simType) {
-		case "Fire":
-		case "Segregation":
-			props = getFireSegProps();
-			Element probCatch = file.createElement("param");
-			sim.appendChild(probCatch);
-			probCatch.setAttribute("id", "probCatch");
-			probCatch.appendChild(file.createTextNode(String.valueOf(props[0])));
-			return;
-		case "Wator":
-			props = getWatorProps();
-			for (int i = 0; i < WATOR_PROPS.length; i++) {
-				Element e = file.createElement("param");
-				sim.appendChild(e);
-				e.setAttribute("id", WATOR_PROPS[i]);
-				e.appendChild(file.createTextNode(String.valueOf(props[i])));
-			}
-		}
-	}
-	
 	private static void setParams(String paramName, double prop, Document file, Element sim) {
 		Element e = file.createElement("param");
 		sim.appendChild(e);
@@ -267,34 +246,62 @@ public class XMLWriterFactory {
 		e.appendChild(file.createTextNode(String.valueOf(prop)));
 	}
 	
+	/**
+	 * Generates <param> tags for each element in the props array for the given simulation and appends them to the simulation tag.
+	 * 
+	 * @param simType String containing name of simulation
+	 * @param sim     The element that each <param> should be appended to. Should be the simulation tag every time
+	 * @param file    The file in which elements are being created
+	 */
+	private static void appendRandomProps(String simType, Element sim, Document file) {
+		String param;
+		if (simType.equals("FireCell")) {
+			param = "probCatch";
+		} else {
+			param = "similarityReq";
+		}
+		double[] props;
+		switch (simType) {
+		case "Fire":
+		case "Segregation":
+			props = getFireSegProps();
+			setParams(param,props[0],file,sim);
+			return;
+		case "Wator":
+			props = getWatorProps();
+			for (int i = 0; i < WATOR_PROPS.length; i++) {
+				setParams(WATOR_PROPS[i],props[i],file,sim);
+			}
+		}
+	}
+	/**
+	 * 
+	 * @param simType
+	 * @param props
+	 * @param sim
+	 * @param file
+	 */
 	private static void appendProps(String simType, double[] props, Element sim, Document file) {
 		String param;
-		if (simType == "Fire") {
+		if (simType == "FireCell") {
 			param = "probCatch";
 		} else
 			param = "similarityReq";
 		switch (simType) {
 		case "Fire":
 		case "Segregation":
-			props = getFireSegProps();
-			Element probCatch = file.createElement("param");
-			sim.appendChild(probCatch);
-			probCatch.setAttribute("id", param);
-			probCatch.appendChild(file.createTextNode(String.valueOf(props[0])));
+			setParams(param,props[0],file,sim);
 			return;
 		case "Wator":
 			props = getWatorProps();
 			for (int i = 0; i < WATOR_PROPS.length; i++) {
-				Element e = file.createElement("param");
-				sim.appendChild(e);
-				e.setAttribute("id", WATOR_PROPS[i]);
-				e.appendChild(file.createTextNode(String.valueOf(props[i])));
+				setParams(WATOR_PROPS[i],props[i],file,sim);
 			}
 		}
 	}
 	
 	public static void main(String[] args) {
-		writeRandomSimData(5,5,"Segregation","Fire","Rectangle");
+		writeRandomSimData(5,5,"Fire","Fire","Rectangle");
 	}
 	
 }

@@ -1,9 +1,11 @@
 package cellsociety_team07;
 
 public class CellFactory {
-	public static Cell generateBlankCell(String cellType){
-		switch(cellType){
-		case "FireCell": 
+
+
+	public static Cell generateBlankCell(String simType){
+		switch(simType){
+		case "FireCell":
 			return new FireCell();
 		case "GameOfLifeCell":
 			return new GameOfLifeCell();
@@ -11,12 +13,7 @@ public class CellFactory {
 			return new SegregationCell();
 		case "WatorCell":
 			return new WatorCell();
-			/*
-		case "FishCell":
-			return new FishCell();
-		case "SharkCell":
-			return new SharkCell();
-			*/
+
 		default:
 			throw new BadSimulationException("Bad simulation type while getting blank cell");		
 		}
