@@ -1,12 +1,731 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <simulation>
+	<type>Wator</type>
+	<title>WatorSimulation</title>
+	<author>Brendan Cheng</author>
+	<param id="FishCrononReproduce">20.0</param>
+	<param id="SharkCrononReproduce">10.0</param>
+	<param id="SharkStartingEnergy">1.0</param>
+	<param id="EnergyForEatingFish">2.0</param>
+	<grid>
+		<dimension>
+			<width>10</width>
+			<height>10</height>
+		</dimension>
+		<cell type="WatorCell">
+			<point>0.0,0.0</point>
+			<point>1.0,0.0</point>
+			<point>1.0,1.0</point>
+			<point>0.0,1.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,0.0</point>
+			<point>2.0,0.0</point>
+			<point>2.0,1.0</point>
+			<point>1.0,1.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,0.0</point>
+			<point>3.0,0.0</point>
+			<point>3.0,1.0</point>
+			<point>2.0,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,0.0</point>
+			<point>4.0,0.0</point>
+			<point>4.0,1.0</point>
+			<point>3.0,1.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,0.0</point>
+			<point>5.0,0.0</point>
+			<point>5.0,1.0</point>
+			<point>4.0,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,0.0</point>
+			<point>6.0,0.0</point>
+			<point>6.0,1.0</point>
+			<point>5.0,1.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,0.0</point>
+			<point>7.0,0.0</point>
+			<point>7.0,1.0</point>
+			<point>6.0,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,0.0</point>
+			<point>8.0,0.0</point>
+			<point>8.0,1.0</point>
+			<point>7.0,1.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,0.0</point>
+			<point>9.0,0.0</point>
+			<point>9.0,1.0</point>
+			<point>8.0,1.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,0.0</point>
+			<point>10.0,0.0</point>
+			<point>10.0,1.0</point>
+			<point>9.0,1.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,1.0</point>
+			<point>1.0,1.0</point>
+			<point>1.0,2.0</point>
+			<point>0.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,1.0</point>
+			<point>2.0,1.0</point>
+			<point>2.0,2.0</point>
+			<point>1.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,1.0</point>
+			<point>3.0,1.0</point>
+			<point>3.0,2.0</point>
+			<point>2.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,1.0</point>
+			<point>4.0,1.0</point>
+			<point>4.0,2.0</point>
+			<point>3.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,1.0</point>
+			<point>5.0,1.0</point>
+			<point>5.0,2.0</point>
+			<point>4.0,2.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,1.0</point>
+			<point>6.0,1.0</point>
+			<point>6.0,2.0</point>
+			<point>5.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,1.0</point>
+			<point>7.0,1.0</point>
+			<point>7.0,2.0</point>
+			<point>6.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,1.0</point>
+			<point>8.0,1.0</point>
+			<point>8.0,2.0</point>
+			<point>7.0,2.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,1.0</point>
+			<point>9.0,1.0</point>
+			<point>9.0,2.0</point>
+			<point>8.0,2.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,1.0</point>
+			<point>10.0,1.0</point>
+			<point>10.0,2.0</point>
+			<point>9.0,2.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,2.0</point>
+			<point>1.0,2.0</point>
+			<point>1.0,3.0</point>
+			<point>0.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,2.0</point>
+			<point>2.0,2.0</point>
+			<point>2.0,3.0</point>
+			<point>1.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,2.0</point>
+			<point>3.0,2.0</point>
+			<point>3.0,3.0</point>
+			<point>2.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,2.0</point>
+			<point>4.0,2.0</point>
+			<point>4.0,3.0</point>
+			<point>3.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,2.0</point>
+			<point>5.0,2.0</point>
+			<point>5.0,3.0</point>
+			<point>4.0,3.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,2.0</point>
+			<point>6.0,2.0</point>
+			<point>6.0,3.0</point>
+			<point>5.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,2.0</point>
+			<point>7.0,2.0</point>
+			<point>7.0,3.0</point>
+			<point>6.0,3.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,2.0</point>
+			<point>8.0,2.0</point>
+			<point>8.0,3.0</point>
+			<point>7.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,2.0</point>
+			<point>9.0,2.0</point>
+			<point>9.0,3.0</point>
+			<point>8.0,3.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,2.0</point>
+			<point>10.0,2.0</point>
+			<point>10.0,3.0</point>
+			<point>9.0,3.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,3.0</point>
+			<point>1.0,3.0</point>
+			<point>1.0,4.0</point>
+			<point>0.0,4.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,3.0</point>
+			<point>2.0,3.0</point>
+			<point>2.0,4.0</point>
+			<point>1.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,3.0</point>
+			<point>3.0,3.0</point>
+			<point>3.0,4.0</point>
+			<point>2.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,3.0</point>
+			<point>4.0,3.0</point>
+			<point>4.0,4.0</point>
+			<point>3.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,3.0</point>
+			<point>5.0,3.0</point>
+			<point>5.0,4.0</point>
+			<point>4.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,3.0</point>
+			<point>6.0,3.0</point>
+			<point>6.0,4.0</point>
+			<point>5.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,3.0</point>
+			<point>7.0,3.0</point>
+			<point>7.0,4.0</point>
+			<point>6.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,3.0</point>
+			<point>8.0,3.0</point>
+			<point>8.0,4.0</point>
+			<point>7.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,3.0</point>
+			<point>9.0,3.0</point>
+			<point>9.0,4.0</point>
+			<point>8.0,4.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,3.0</point>
+			<point>10.0,3.0</point>
+			<point>10.0,4.0</point>
+			<point>9.0,4.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,4.0</point>
+			<point>1.0,4.0</point>
+			<point>1.0,5.0</point>
+			<point>0.0,5.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,4.0</point>
+			<point>2.0,4.0</point>
+			<point>2.0,5.0</point>
+			<point>1.0,5.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,4.0</point>
+			<point>3.0,4.0</point>
+			<point>3.0,5.0</point>
+			<point>2.0,5.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,4.0</point>
+			<point>4.0,4.0</point>
+			<point>4.0,5.0</point>
+			<point>3.0,5.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,4.0</point>
+			<point>5.0,4.0</point>
+			<point>5.0,5.0</point>
+			<point>4.0,5.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,4.0</point>
+			<point>6.0,4.0</point>
+			<point>6.0,5.0</point>
+			<point>5.0,5.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,4.0</point>
+			<point>7.0,4.0</point>
+			<point>7.0,5.0</point>
+			<point>6.0,5.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,4.0</point>
+			<point>8.0,4.0</point>
+			<point>8.0,5.0</point>
+			<point>7.0,5.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,4.0</point>
+			<point>9.0,4.0</point>
+			<point>9.0,5.0</point>
+			<point>8.0,5.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,4.0</point>
+			<point>10.0,4.0</point>
+			<point>10.0,5.0</point>
+			<point>9.0,5.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,5.0</point>
+			<point>1.0,5.0</point>
+			<point>1.0,6.0</point>
+			<point>0.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,5.0</point>
+			<point>2.0,5.0</point>
+			<point>2.0,6.0</point>
+			<point>1.0,6.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,5.0</point>
+			<point>3.0,5.0</point>
+			<point>3.0,6.0</point>
+			<point>2.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,5.0</point>
+			<point>4.0,5.0</point>
+			<point>4.0,6.0</point>
+			<point>3.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,5.0</point>
+			<point>5.0,5.0</point>
+			<point>5.0,6.0</point>
+			<point>4.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,5.0</point>
+			<point>6.0,5.0</point>
+			<point>6.0,6.0</point>
+			<point>5.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,5.0</point>
+			<point>7.0,5.0</point>
+			<point>7.0,6.0</point>
+			<point>6.0,6.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,5.0</point>
+			<point>8.0,5.0</point>
+			<point>8.0,6.0</point>
+			<point>7.0,6.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,5.0</point>
+			<point>9.0,5.0</point>
+			<point>9.0,6.0</point>
+			<point>8.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,5.0</point>
+			<point>10.0,5.0</point>
+			<point>10.0,6.0</point>
+			<point>9.0,6.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,6.0</point>
+			<point>1.0,6.0</point>
+			<point>1.0,7.0</point>
+			<point>0.0,7.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,6.0</point>
+			<point>2.0,6.0</point>
+			<point>2.0,7.0</point>
+			<point>1.0,7.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,6.0</point>
+			<point>3.0,6.0</point>
+			<point>3.0,7.0</point>
+			<point>2.0,7.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,6.0</point>
+			<point>4.0,6.0</point>
+			<point>4.0,7.0</point>
+			<point>3.0,7.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,6.0</point>
+			<point>5.0,6.0</point>
+			<point>5.0,7.0</point>
+			<point>4.0,7.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,6.0</point>
+			<point>6.0,6.0</point>
+			<point>6.0,7.0</point>
+			<point>5.0,7.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,6.0</point>
+			<point>7.0,6.0</point>
+			<point>7.0,7.0</point>
+			<point>6.0,7.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,6.0</point>
+			<point>8.0,6.0</point>
+			<point>8.0,7.0</point>
+			<point>7.0,7.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,6.0</point>
+			<point>9.0,6.0</point>
+			<point>9.0,7.0</point>
+			<point>8.0,7.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,6.0</point>
+			<point>10.0,6.0</point>
+			<point>10.0,7.0</point>
+			<point>9.0,7.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,7.0</point>
+			<point>1.0,7.0</point>
+			<point>1.0,8.0</point>
+			<point>0.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,7.0</point>
+			<point>2.0,7.0</point>
+			<point>2.0,8.0</point>
+			<point>1.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,7.0</point>
+			<point>3.0,7.0</point>
+			<point>3.0,8.0</point>
+			<point>2.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,7.0</point>
+			<point>4.0,7.0</point>
+			<point>4.0,8.0</point>
+			<point>3.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,7.0</point>
+			<point>5.0,7.0</point>
+			<point>5.0,8.0</point>
+			<point>4.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,7.0</point>
+			<point>6.0,7.0</point>
+			<point>6.0,8.0</point>
+			<point>5.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,7.0</point>
+			<point>7.0,7.0</point>
+			<point>7.0,8.0</point>
+			<point>6.0,8.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,7.0</point>
+			<point>8.0,7.0</point>
+			<point>8.0,8.0</point>
+			<point>7.0,8.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,7.0</point>
+			<point>9.0,7.0</point>
+			<point>9.0,8.0</point>
+			<point>8.0,8.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,7.0</point>
+			<point>10.0,7.0</point>
+			<point>10.0,8.0</point>
+			<point>9.0,8.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,8.0</point>
+			<point>1.0,8.0</point>
+			<point>1.0,9.0</point>
+			<point>0.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,8.0</point>
+			<point>2.0,8.0</point>
+			<point>2.0,9.0</point>
+			<point>1.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,8.0</point>
+			<point>3.0,8.0</point>
+			<point>3.0,9.0</point>
+			<point>2.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,8.0</point>
+			<point>4.0,8.0</point>
+			<point>4.0,9.0</point>
+			<point>3.0,9.0</point>
+			<state>1</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,8.0</point>
+			<point>5.0,8.0</point>
+			<point>5.0,9.0</point>
+			<point>4.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,8.0</point>
+			<point>6.0,8.0</point>
+			<point>6.0,9.0</point>
+			<point>5.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,8.0</point>
+			<point>7.0,8.0</point>
+			<point>7.0,9.0</point>
+			<point>6.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,8.0</point>
+			<point>8.0,8.0</point>
+			<point>8.0,9.0</point>
+			<point>7.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,8.0</point>
+			<point>9.0,8.0</point>
+			<point>9.0,9.0</point>
+			<point>8.0,9.0</point>
+			<state>2</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,8.0</point>
+			<point>10.0,8.0</point>
+			<point>10.0,9.0</point>
+			<point>9.0,9.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>0.0,9.0</point>
+			<point>1.0,9.0</point>
+			<point>1.0,10.0</point>
+			<point>0.0,10.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>1.0,9.0</point>
+			<point>2.0,9.0</point>
+			<point>2.0,10.0</point>
+			<point>1.0,10.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>2.0,9.0</point>
+			<point>3.0,9.0</point>
+			<point>3.0,10.0</point>
+			<point>2.0,10.0</point>
+			<state>2</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>3.0,9.0</point>
+			<point>4.0,9.0</point>
+			<point>4.0,10.0</point>
+			<point>3.0,10.0</point>
+			<state>2</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>4.0,9.0</point>
+			<point>5.0,9.0</point>
+			<point>5.0,10.0</point>
+			<point>4.0,10.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>5.0,9.0</point>
+			<point>6.0,9.0</point>
+			<point>6.0,10.0</point>
+			<point>5.0,10.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>6.0,9.0</point>
+			<point>7.0,9.0</point>
+			<point>7.0,10.0</point>
+			<point>6.0,10.0</point>
+			<state>2</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>7.0,9.0</point>
+			<point>8.0,9.0</point>
+			<point>8.0,10.0</point>
+			<point>7.0,10.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>8.0,9.0</point>
+			<point>9.0,9.0</point>
+			<point>9.0,10.0</point>
+			<point>8.0,10.0</point>
+			<state>0</state>
+		</cell>
+		<cell type="WatorCell">
+			<point>9.0,9.0</point>
+			<point>10.0,9.0</point>
+			<point>10.0,10.0</point>
+			<point>9.0,10.0</point>
+			<state>0</state>
+		</cell>
+	</grid>
+</simulation>
+
+
+<!-- 
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<simulation>
 <type>Wator</type>
 <title>WatorSimulation</title>
 <author>Brendan Cheng</author>
 <param id="FishCrononReproduce">3.0</param>
 <param id="SharkCrononReproduce">3.0</param>
 <param id="SharkStartingEnergy">2.0</param>
-<param id="EnergyForEatingFish">3.0</param>
+<param id="EnergyForEatingFish">2.0</param>
 <grid>
 <dimension>
 <width>10</width>
@@ -580,7 +1299,7 @@
 <point>8.5,9.0</point>
 <point>9.0,10.0</point>
 <point>9.5,9.0</point>
-<state>2</state>
+<state>1</state>
 </cell>
 <cell type="WatorCell">
 <point>0.0,2.0</point>
@@ -592,7 +1311,7 @@
 <point>1.0,2.0</point>
 <point>1.5,1.0</point>
 <point>2.0,2.0</point>
-<state>2</state>
+<state>1</state>
 </cell>
 <cell type="WatorCell">
 <point>2.0,2.0</point>
@@ -622,7 +1341,7 @@
 <point>6.0,2.0</point>
 <point>6.5,1.0</point>
 <point>7.0,2.0</point>
-<state>2</state>
+<state>1</state>
 </cell>
 <cell type="WatorCell">
 <point>7.0,2.0</point>
@@ -634,7 +1353,7 @@
 <point>8.0,2.0</point>
 <point>8.5,1.0</point>
 <point>9.0,2.0</point>
-<state>2</state>
+<state>1</state>
 </cell>
 <cell type="WatorCell">
 <point>9.0,2.0</point>
@@ -646,13 +1365,13 @@
 <point>0.0,4.0</point>
 <point>0.5,3.0</point>
 <point>1.0,4.0</point>
-<state>2</state>
+<state>1</state>
 </cell>
 <cell type="WatorCell">
 <point>1.0,4.0</point>
 <point>1.5,3.0</point>
 <point>2.0,4.0</point>
-<state>2</state>
+<state>1</state>
 </cell>
 <cell type="WatorCell">
 <point>2.0,4.0</point>
@@ -1154,724 +1873,9 @@
 </cell>
 </grid>
 </simulation>
-<!--
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<simulation>
-	<type>Wator</type>
-	<title>WatorSimulation</title>
-	<author>Brendan Cheng</author>
-	<param id="FishCrononReproduce">3.0</param>
-	<param id="SharkCrononReproduce">3.0</param>
-	<param id="SharkStartingEnergy">3.0</param>
-	<param id="EnergyForEatingFish">2.0</param>
-	<grid>
-		<dimension>
-			<width>10</width>
-			<height>10</height>
-		</dimension>
-		<cell type="WatorCell">
-			<point>0.0,0.0</point>
-			<point>1.0,0.0</point>
-			<point>1.0,1.0</point>
-			<point>0.0,1.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,0.0</point>
-			<point>2.0,0.0</point>
-			<point>2.0,1.0</point>
-			<point>1.0,1.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,0.0</point>
-			<point>3.0,0.0</point>
-			<point>3.0,1.0</point>
-			<point>2.0,1.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,0.0</point>
-			<point>4.0,0.0</point>
-			<point>4.0,1.0</point>
-			<point>3.0,1.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,0.0</point>
-			<point>5.0,0.0</point>
-			<point>5.0,1.0</point>
-			<point>4.0,1.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,0.0</point>
-			<point>6.0,0.0</point>
-			<point>6.0,1.0</point>
-			<point>5.0,1.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,0.0</point>
-			<point>7.0,0.0</point>
-			<point>7.0,1.0</point>
-			<point>6.0,1.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,0.0</point>
-			<point>8.0,0.0</point>
-			<point>8.0,1.0</point>
-			<point>7.0,1.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,0.0</point>
-			<point>9.0,0.0</point>
-			<point>9.0,1.0</point>
-			<point>8.0,1.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,0.0</point>
-			<point>10.0,0.0</point>
-			<point>10.0,1.0</point>
-			<point>9.0,1.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,1.0</point>
-			<point>1.0,1.0</point>
-			<point>1.0,2.0</point>
-			<point>0.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,1.0</point>
-			<point>2.0,1.0</point>
-			<point>2.0,2.0</point>
-			<point>1.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,1.0</point>
-			<point>3.0,1.0</point>
-			<point>3.0,2.0</point>
-			<point>2.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,1.0</point>
-			<point>4.0,1.0</point>
-			<point>4.0,2.0</point>
-			<point>3.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,1.0</point>
-			<point>5.0,1.0</point>
-			<point>5.0,2.0</point>
-			<point>4.0,2.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,1.0</point>
-			<point>6.0,1.0</point>
-			<point>6.0,2.0</point>
-			<point>5.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,1.0</point>
-			<point>7.0,1.0</point>
-			<point>7.0,2.0</point>
-			<point>6.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,1.0</point>
-			<point>8.0,1.0</point>
-			<point>8.0,2.0</point>
-			<point>7.0,2.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,1.0</point>
-			<point>9.0,1.0</point>
-			<point>9.0,2.0</point>
-			<point>8.0,2.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,1.0</point>
-			<point>10.0,1.0</point>
-			<point>10.0,2.0</point>
-			<point>9.0,2.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,2.0</point>
-			<point>1.0,2.0</point>
-			<point>1.0,3.0</point>
-			<point>0.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,2.0</point>
-			<point>2.0,2.0</point>
-			<point>2.0,3.0</point>
-			<point>1.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,2.0</point>
-			<point>3.0,2.0</point>
-			<point>3.0,3.0</point>
-			<point>2.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,2.0</point>
-			<point>4.0,2.0</point>
-			<point>4.0,3.0</point>
-			<point>3.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,2.0</point>
-			<point>5.0,2.0</point>
-			<point>5.0,3.0</point>
-			<point>4.0,3.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,2.0</point>
-			<point>6.0,2.0</point>
-			<point>6.0,3.0</point>
-			<point>5.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,2.0</point>
-			<point>7.0,2.0</point>
-			<point>7.0,3.0</point>
-			<point>6.0,3.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,2.0</point>
-			<point>8.0,2.0</point>
-			<point>8.0,3.0</point>
-			<point>7.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,2.0</point>
-			<point>9.0,2.0</point>
-			<point>9.0,3.0</point>
-			<point>8.0,3.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,2.0</point>
-			<point>10.0,2.0</point>
-			<point>10.0,3.0</point>
-			<point>9.0,3.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,3.0</point>
-			<point>1.0,3.0</point>
-			<point>1.0,4.0</point>
-			<point>0.0,4.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,3.0</point>
-			<point>2.0,3.0</point>
-			<point>2.0,4.0</point>
-			<point>1.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,3.0</point>
-			<point>3.0,3.0</point>
-			<point>3.0,4.0</point>
-			<point>2.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,3.0</point>
-			<point>4.0,3.0</point>
-			<point>4.0,4.0</point>
-			<point>3.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,3.0</point>
-			<point>5.0,3.0</point>
-			<point>5.0,4.0</point>
-			<point>4.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,3.0</point>
-			<point>6.0,3.0</point>
-			<point>6.0,4.0</point>
-			<point>5.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,3.0</point>
-			<point>7.0,3.0</point>
-			<point>7.0,4.0</point>
-			<point>6.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,3.0</point>
-			<point>8.0,3.0</point>
-			<point>8.0,4.0</point>
-			<point>7.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,3.0</point>
-			<point>9.0,3.0</point>
-			<point>9.0,4.0</point>
-			<point>8.0,4.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,3.0</point>
-			<point>10.0,3.0</point>
-			<point>10.0,4.0</point>
-			<point>9.0,4.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,4.0</point>
-			<point>1.0,4.0</point>
-			<point>1.0,5.0</point>
-			<point>0.0,5.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,4.0</point>
-			<point>2.0,4.0</point>
-			<point>2.0,5.0</point>
-			<point>1.0,5.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,4.0</point>
-			<point>3.0,4.0</point>
-			<point>3.0,5.0</point>
-			<point>2.0,5.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,4.0</point>
-			<point>4.0,4.0</point>
-			<point>4.0,5.0</point>
-			<point>3.0,5.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,4.0</point>
-			<point>5.0,4.0</point>
-			<point>5.0,5.0</point>
-			<point>4.0,5.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,4.0</point>
-			<point>6.0,4.0</point>
-			<point>6.0,5.0</point>
-			<point>5.0,5.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,4.0</point>
-			<point>7.0,4.0</point>
-			<point>7.0,5.0</point>
-			<point>6.0,5.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,4.0</point>
-			<point>8.0,4.0</point>
-			<point>8.0,5.0</point>
-			<point>7.0,5.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,4.0</point>
-			<point>9.0,4.0</point>
-			<point>9.0,5.0</point>
-			<point>8.0,5.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,4.0</point>
-			<point>10.0,4.0</point>
-			<point>10.0,5.0</point>
-			<point>9.0,5.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,5.0</point>
-			<point>1.0,5.0</point>
-			<point>1.0,6.0</point>
-			<point>0.0,6.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,5.0</point>
-			<point>2.0,5.0</point>
-			<point>2.0,6.0</point>
-			<point>1.0,6.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,5.0</point>
-			<point>3.0,5.0</point>
-			<point>3.0,6.0</point>
-			<point>2.0,6.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,5.0</point>
-			<point>4.0,5.0</point>
-			<point>4.0,6.0</point>
-			<point>3.0,6.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,5.0</point>
-			<point>5.0,5.0</point>
-			<point>5.0,6.0</point>
-			<point>4.0,6.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,5.0</point>
-			<point>6.0,5.0</point>
-			<point>6.0,6.0</point>
-			<point>5.0,6.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,5.0</point>
-			<point>7.0,5.0</point>
-			<point>7.0,6.0</point>
-			<point>6.0,6.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,5.0</point>
-			<point>8.0,5.0</point>
-			<point>8.0,6.0</point>
-			<point>7.0,6.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,5.0</point>
-			<point>9.0,5.0</point>
-			<point>9.0,6.0</point>
-			<point>8.0,6.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,5.0</point>
-			<point>10.0,5.0</point>
-			<point>10.0,6.0</point>
-			<point>9.0,6.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,6.0</point>
-			<point>1.0,6.0</point>
-			<point>1.0,7.0</point>
-			<point>0.0,7.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,6.0</point>
-			<point>2.0,6.0</point>
-			<point>2.0,7.0</point>
-			<point>1.0,7.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,6.0</point>
-			<point>3.0,6.0</point>
-			<point>3.0,7.0</point>
-			<point>2.0,7.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,6.0</point>
-			<point>4.0,6.0</point>
-			<point>4.0,7.0</point>
-			<point>3.0,7.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,6.0</point>
-			<point>5.0,6.0</point>
-			<point>5.0,7.0</point>
-			<point>4.0,7.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,6.0</point>
-			<point>6.0,6.0</point>
-			<point>6.0,7.0</point>
-			<point>5.0,7.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,6.0</point>
-			<point>7.0,6.0</point>
-			<point>7.0,7.0</point>
-			<point>6.0,7.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,6.0</point>
-			<point>8.0,6.0</point>
-			<point>8.0,7.0</point>
-			<point>7.0,7.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,6.0</point>
-			<point>9.0,6.0</point>
-			<point>9.0,7.0</point>
-			<point>8.0,7.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,6.0</point>
-			<point>10.0,6.0</point>
-			<point>10.0,7.0</point>
-			<point>9.0,7.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,7.0</point>
-			<point>1.0,7.0</point>
-			<point>1.0,8.0</point>
-			<point>0.0,8.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,7.0</point>
-			<point>2.0,7.0</point>
-			<point>2.0,8.0</point>
-			<point>1.0,8.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,7.0</point>
-			<point>3.0,7.0</point>
-			<point>3.0,8.0</point>
-			<point>2.0,8.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,7.0</point>
-			<point>4.0,7.0</point>
-			<point>4.0,8.0</point>
-			<point>3.0,8.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,7.0</point>
-			<point>5.0,7.0</point>
-			<point>5.0,8.0</point>
-			<point>4.0,8.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,7.0</point>
-			<point>6.0,7.0</point>
-			<point>6.0,8.0</point>
-			<point>5.0,8.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,7.0</point>
-			<point>7.0,7.0</point>
-			<point>7.0,8.0</point>
-			<point>6.0,8.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,7.0</point>
-			<point>8.0,7.0</point>
-			<point>8.0,8.0</point>
-			<point>7.0,8.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,7.0</point>
-			<point>9.0,7.0</point>
-			<point>9.0,8.0</point>
-			<point>8.0,8.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,7.0</point>
-			<point>10.0,7.0</point>
-			<point>10.0,8.0</point>
-			<point>9.0,8.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,8.0</point>
-			<point>1.0,8.0</point>
-			<point>1.0,9.0</point>
-			<point>0.0,9.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,8.0</point>
-			<point>2.0,8.0</point>
-			<point>2.0,9.0</point>
-			<point>1.0,9.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,8.0</point>
-			<point>3.0,8.0</point>
-			<point>3.0,9.0</point>
-			<point>2.0,9.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,8.0</point>
-			<point>4.0,8.0</point>
-			<point>4.0,9.0</point>
-			<point>3.0,9.0</point>
-			<state>1</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,8.0</point>
-			<point>5.0,8.0</point>
-			<point>5.0,9.0</point>
-			<point>4.0,9.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,8.0</point>
-			<point>6.0,8.0</point>
-			<point>6.0,9.0</point>
-			<point>5.0,9.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,8.0</point>
-			<point>7.0,8.0</point>
-			<point>7.0,9.0</point>
-			<point>6.0,9.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,8.0</point>
-			<point>8.0,8.0</point>
-			<point>8.0,9.0</point>
-			<point>7.0,9.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,8.0</point>
-			<point>9.0,8.0</point>
-			<point>9.0,9.0</point>
-			<point>8.0,9.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,8.0</point>
-			<point>10.0,8.0</point>
-			<point>10.0,9.0</point>
-			<point>9.0,9.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>0.0,9.0</point>
-			<point>1.0,9.0</point>
-			<point>1.0,10.0</point>
-			<point>0.0,10.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>1.0,9.0</point>
-			<point>2.0,9.0</point>
-			<point>2.0,10.0</point>
-			<point>1.0,10.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>2.0,9.0</point>
-			<point>3.0,9.0</point>
-			<point>3.0,10.0</point>
-			<point>2.0,10.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>3.0,9.0</point>
-			<point>4.0,9.0</point>
-			<point>4.0,10.0</point>
-			<point>3.0,10.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>4.0,9.0</point>
-			<point>5.0,9.0</point>
-			<point>5.0,10.0</point>
-			<point>4.0,10.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>5.0,9.0</point>
-			<point>6.0,9.0</point>
-			<point>6.0,10.0</point>
-			<point>5.0,10.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>6.0,9.0</point>
-			<point>7.0,9.0</point>
-			<point>7.0,10.0</point>
-			<point>6.0,10.0</point>
-			<state>2</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>7.0,9.0</point>
-			<point>8.0,9.0</point>
-			<point>8.0,10.0</point>
-			<point>7.0,10.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>8.0,9.0</point>
-			<point>9.0,9.0</point>
-			<point>9.0,10.0</point>
-			<point>8.0,10.0</point>
-			<state>0</state>
-		</cell>
-		<cell type="WatorCell">
-			<point>9.0,9.0</point>
-			<point>10.0,9.0</point>
-			<point>10.0,10.0</point>
-			<point>9.0,10.0</point>
-			<state>0</state>
-		</cell>
-	</grid>
-</simulation>
 -->
+
+
 
 <!--
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>

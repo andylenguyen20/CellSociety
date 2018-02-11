@@ -15,12 +15,6 @@ public abstract class Cell extends Polygon {
 	private double[] props;
 	private static Paint[] colors;
 	
-	//private Rule rule = new GameOfLifeRule();
-	
-	public Cell() {
-		
-	}
-	
 	public void setInitialAttributes(int initialState, double[] params) {
 		this.currState = initialState;
 		this.nextState = initialState;
@@ -61,9 +55,9 @@ public abstract class Cell extends Polygon {
 	public Paint getColor() {
 		return colors[getCurrentState()];
 	}
-	 public Paint[]getColors(){
-		 return colors;
-	 }
+	public Paint[]getColors(){
+		return colors;
+	}
 	
 	public void setColors(Paint[] arr) {
 		colors = arr;

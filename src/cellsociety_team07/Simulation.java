@@ -43,9 +43,6 @@ public class Simulation {
 		grid.setCellNeighbors();
 	}
 
-
-
-	
 	public Grid getGrid(){
 		return grid;
 	}
