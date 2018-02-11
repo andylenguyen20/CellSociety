@@ -5,35 +5,83 @@ import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class GridFactory {
+	private static final HashMap<String,ArrayList<String>> typeMap = new HashMap<>();
+	static {
+		ArrayList<String> gol = new ArrayList<>();
+		gol.add("GameOfLifeCell");
+		typeMap.put("GameOfLife",gol);
+		ArrayList<String> fire = new ArrayList<>();
+		fire.add("FireCell");
+		typeMap.put("Fire",fire);
+		ArrayList<String> seg = new ArrayList<>();
+		seg.add("SegregationCell");
+		typeMap.put("Segregation",seg);
+		ArrayList<String> wator = new ArrayList<>();
+		wator.add("WatorCell");
+		typeMap.put("Wator",wator);
+	}
 	private static final double triangleXStep = 0.5;
 	private static final double triangleYStep = 1;
 	private static final double rectangleXStep = 1;
 	private static final double rectangleYStep = 1;
 	
+	public static Grid generateInitializedGrid(List<Cell> initializedCells, Dimension gridDimensions, String simType){
+		switch(simType){
+		case "Fire": 
+			return new FireGrid(initializedCells, gridDimensions);
+		case "GameOfLife":
+			return new GameOfLifeGrid(initializedCells, gridDimensions);
+		case "Segregation":
+			return new SegregationGrid(initializedCells, gridDimensions);
+		case "Wator":
+			return new WatorGrid(initializedCells, gridDimensions);
+		default:
+			throw new BadSimulationException("Bad simulation type while getting default cell");		
+		}
+	}
+	
+	public static Grid generateRandomizedGrid(String gridShape, Dimension gridDim, String simType){
+		switch(simType){
+		case "Fire": 
+			return new FireGrid(generateCellsOfGrid(gridShape, gridDim, simType), gridDim);
+		case "GameOfLife":
+			return new GameOfLifeGrid(generateCellsOfGrid(gridShape, gridDim, simType), gridDim);
+		case "Segregation":
+			return new SegregationGrid(generateCellsOfGrid(gridShape, gridDim, simType), gridDim);
+		case "Wator":
+			return new WatorGrid(generateCellsOfGrid(gridShape, gridDim, simType), gridDim);
+		default:
+			throw new BadSimulationException("Bad simulation type while getting default cell");		
+		}
+	}
+	
 	/*
-	 * given grid type and grid dimensions, return a list of unitialized cells that have vertices corresponding to the
+	 * given grid type and grid dimensions, return a list of uninitialized cells that have vertices corresponding to the
 	 * matching grid coordinate system
 	 */
-	public static List<ExperimentalCell> generateGrid(String gridType, Dimension gridDim){
-		switch(gridType){
+	public static List<Cell> generateCellsOfGrid(String gridShape, Dimension gridDim, String simType){
+		switch(gridShape){
 			case "Triangle":
-				return getTriangularGrid(gridDim);
+				return getTriangularGrid(gridDim, simType);
 			case "Rectangle":
-				return getRectangularGrid(gridDim);
+				return getRectangularGrid(gridDim, simType);
 			default:
 				throw new BadSimulationException("Wrong grid type!");
 		}
 	}
-	private static List<ExperimentalCell> getRectangularGrid(Dimension gridDim){
+	private static List<Cell> getRectangularGrid(Dimension gridDim, String simType){
 		int numCols = gridDim.width;
 		int numRows = gridDim.height;
-		List<ExperimentalCell> cells = new ArrayList<ExperimentalCell>();
+		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 0; rowCount < numRows; rowCount++){
 			for(int colCount = 0; colCount < numCols; colCount++){
-				ExperimentalCell cell = new ExperimentalCell();
+				int numStates = typeMap.get(simType).size();
+				String cellType = typeMap.get(simType).get((int)(numStates*Math.random()));
+				Cell cell = CellFactory.generateBlankCell(cellType);
 				cell.setVertices(getRectangleVertices(rowCount, colCount));
 				cells.add(cell);
 			}
@@ -47,54 +95,54 @@ public class GridFactory {
 		Point2D.Double bottomLeft = new Point2D.Double(colCount, rowCount + rectangleYStep);
 		return Arrays.asList(topLeft, topRight, bottomRight, bottomLeft);
 	}
-	private static List<ExperimentalCell> getTriangularGrid(Dimension grid){
+	private static List<Cell> getTriangularGrid(Dimension grid, String simType){
 		int numCols = grid.width;
 		int numRows = grid.height;
-		List<ExperimentalCell> cells = new ArrayList<ExperimentalCell>();
-		cells.addAll(getDownwardWideTriangleRows(numRows, numCols));
-		cells.addAll(getDownwardNarrowTriangleRows(numRows, numCols));
-		cells.addAll(getUpwardWideTriangleRows(numRows, numCols));
-		cells.addAll(getUpwardNarrowTriangleRows(numRows, numCols));
+		List<Cell> cells = new ArrayList<Cell>();
+		cells.addAll(getDownwardWideTriangleRows(numRows, numCols, simType));
+		cells.addAll(getDownwardNarrowTriangleRows(numRows, numCols, simType));
+		cells.addAll(getUpwardWideTriangleRows(numRows, numCols, simType));
+		cells.addAll(getUpwardNarrowTriangleRows(numRows, numCols, simType));
 		return cells;
 	}
-	private static List<ExperimentalCell> getDownwardWideTriangleRows(int numRows, int numCols){
-		List<ExperimentalCell> cells = new ArrayList<ExperimentalCell>();
+	private static List<Cell> getDownwardWideTriangleRows(int numRows, int numCols, String simType){
+		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 0; rowCount < numRows; rowCount+= 2){
 			Point2D.Double topLeft = new Point2D.Double(0, rowCount);
-			cells.addAll(getTriangleRow(topLeft,numCols, 1));
+			cells.addAll(getTriangleRow(topLeft,numCols, 1, simType));
 		}
 		return cells;
 	}
-	private static List<ExperimentalCell> getDownwardNarrowTriangleRows(int numRows, int numCols){
-		List<ExperimentalCell> cells = new ArrayList<ExperimentalCell>();
+	private static List<Cell> getDownwardNarrowTriangleRows(int numRows, int numCols, String simType){
+		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 1; rowCount < numRows; rowCount+= 2){
 			Point2D.Double left = new Point2D.Double(triangleXStep, rowCount * triangleYStep);
-			cells.addAll(getTriangleRow(left, numCols - 1, 1));
+			cells.addAll(getTriangleRow(left, numCols - 1, 1, simType));
 		}
 		return cells;
 	}
-	private static List<ExperimentalCell> getUpwardWideTriangleRows(int numRows, int numCols){
-		List<ExperimentalCell> cells = new ArrayList<ExperimentalCell>();
+	private static List<Cell> getUpwardWideTriangleRows(int numRows, int numCols, String simType){
+		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 2; rowCount <= numRows; rowCount+= 2){
 			Point2D.Double bottomLeft = new Point2D.Double(0, rowCount * triangleYStep);
-			cells.addAll(getTriangleRow(bottomLeft, numCols, -1));
+			cells.addAll(getTriangleRow(bottomLeft, numCols, -1, simType));
 		}
 		return cells;
 	}
-	private static List<ExperimentalCell> getUpwardNarrowTriangleRows(int numRows, int numCols){
-		List<ExperimentalCell> cells = new ArrayList<ExperimentalCell>();
+	private static List<Cell> getUpwardNarrowTriangleRows(int numRows, int numCols, String simType){
+		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 1; rowCount <= numRows; rowCount+= 2){
 			Point2D.Double left = new Point2D.Double(triangleXStep, rowCount * triangleYStep);
-			cells.addAll(getTriangleRow(left, numCols - 1, -1));
+			cells.addAll(getTriangleRow(left, numCols - 1, -1, simType));
 		}
 		return cells;
 	}
-	private static List<ExperimentalCell> getTriangleRow(Point2D.Double leftMost, int numTriangles, int direction){
-		List<ExperimentalCell> triangleRow = new ArrayList<ExperimentalCell>();
+	private static List<Cell> getTriangleRow(Point2D.Double leftMost, int numTriangles, int direction, String simType){
+		List<Cell> triangleRow = new ArrayList<Cell>();
 		double topLeftX = leftMost.getX();
 		double topLeftY = leftMost.getY();
 		for(int triangleHorizontalCount = 0; triangleHorizontalCount < numTriangles; triangleHorizontalCount++, topLeftX += 2*triangleXStep){
-			ExperimentalCell cell = new ExperimentalCell();
+			Cell cell = CellFactory.generateBlankCell(simType);
 			cell.setVertices(getTriangleVertices(topLeftX, topLeftY, direction));
 			triangleRow.add(cell);
 		}
@@ -106,4 +154,6 @@ public class GridFactory {
 		Point2D.Double rightVertice = new Point2D.Double(topLeftX + 2*triangleXStep, topLeftY);
 		return Arrays.asList(leftVertice, middleVertice, rightVertice);
 	}
+
 }
+

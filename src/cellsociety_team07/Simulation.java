@@ -1,7 +1,10 @@
 package cellsociety_team07;
 
 import java.awt.Dimension;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.paint.Color;
 
 public class Simulation {
@@ -15,47 +18,40 @@ public class Simulation {
 	public Simulation(String fileName){
 		simXMLParser = new SimulationXMLParser(fileName);
 		myTitle = simXMLParser.getTitle();
-		myType = simXMLParser.getType();
-		setUpGrid();
-		setUpCells();
+		myType = simXMLParser.getSimulationType();
+		//this.setUpRandomizedGrid();
+		this.setUpInitializedGrid();
+		setUpInitializedGrid();
+		//setUpCells();
 	}
 
 	public String getTitle(){
 		return myTitle;
 	}
 	
-	private void setUpGrid(){
+	private void setUpRandomizedGrid(){
 		Dimension gridDimensions = simXMLParser.getGridDimensions();
-		grid = SimulationObjectManager.getSpecificGrid(myType, gridDimensions.width, gridDimensions.height);
+		String gridShape = simXMLParser.getGridShape();
+		//grid = SimulationObjectManager.getSpecificGrid(gridShape, gridDimensions, myType);
+		//grid = SimulationObjectManager.getSpecificGrid("Triangle", new Dimension(4,4), "GameOfLife");
 	}
 
-	private void setUpCells(){
-		ArrayList<InitialCellProperties> initialCellPropList = simXMLParser.getInitialCellInfo();
-		double[] simulationParams = simXMLParser.getSimulationParams();
-		Cell[][] cells = grid.getCells();
-		for(InitialCellProperties initProps : initialCellPropList){
-			int row = initProps.getLocation().x;
-			int col = initProps.getLocation().y;
-			int state = initProps.getState();
-			String cellType = initProps.getCellType();
-			cells[row][col] = SimulationObjectManager.getSpecificCell(cellType, state, simulationParams);
-		}
-		for(int i = 0; i < cells.length; i++){
-			for(int j = 0; j < cells[i].length; j++){
-				if(cells[i][j] == null){
-					cells[i][j] = SimulationObjectManager.getDefaultCell(myType, simulationParams);
-				}
-			}
-		}
+	private void setUpInitializedGrid(){
+		Dimension gridDimensions = simXMLParser.getGridDimensions();
+		List<Cell> initializedCells = simXMLParser.getInitialCells();
+		grid = GridFactory.generateInitializedGrid(initializedCells, gridDimensions, myType);
 		grid.setCellNeighbors();
 	}
+
+
 
 	
 	public Grid getGrid(){
 		return grid;
 	}
 	
-	public Cell[][] getCells(){
+	public List<Cell> getCells(){
 		return grid.getCells();
 	}
 }
+

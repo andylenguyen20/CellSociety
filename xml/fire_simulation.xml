@@ -1,39 +1,188 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <simulation>
-	<type>Fire</type>
-	<title>Fire Simulation</title>
-	<author>Andy Nguyen</author>
-	<param id = "probCatch">0.5</param>
-	<grid>
-		<dimension>
-			<width>20</width>
-			<height>20</height>
-		</dimension>
-		<cell type = "Fire">
-			<row>0</row>
-			<col>1</col>
-			<state>1</state>
-		</cell>
-		<cell type = "Fire">
-			<row>1</row>
-			<col>2</col>
-			<state>2</state>
-		</cell>
-		<cell type = "Fire">
-			<row>2</row>
-			<col>0</col>
-			<state>2</state>
-		</cell>
-		<cell type = "Fire">
-			<row>2</row>
-			<col>1</col>
-			<state>1</state>
-		</cell>
-		<cell type = "Fire">
-			<row>2</row>
-			<col>2</col>
-			<state>1</state>
-		</cell>
-	</grid>
-	
+<type>Fire</type>
+<title>FireSimulation</title>
+<author>Brendan Cheng</author>
+<param id="probCatch">0.6917538326444984</param>
+<grid>
+<dimension>
+<width>5</width>
+<height>5</height>
+</dimension>
+<cell type="FireCell">
+<point>0,0</point>
+<point>1,0</point>
+<point>1,1</point>
+<point>0,1</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>0,1</point>
+<point>1,1</point>
+<point>1,2</point>
+<point>0,2</point>
+<state>2</state>
+</cell>
+<cell type="FireCell">
+<point>0,2</point>
+<point>1,2</point>
+<point>1,3</point>
+<point>0,3</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>0,3</point>
+<point>1,3</point>
+<point>1,4</point>
+<point>0,4</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>0,4</point>
+<point>1,4</point>
+<point>1,5</point>
+<point>0,5</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>1,0</point>
+<point>2,0</point>
+<point>2,1</point>
+<point>1,1</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>1,1</point>
+<point>2,1</point>
+<point>2,2</point>
+<point>1,2</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>1,2</point>
+<point>2,2</point>
+<point>2,3</point>
+<point>1,3</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>1,3</point>
+<point>2,3</point>
+<point>2,4</point>
+<point>1,4</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>1,4</point>
+<point>2,4</point>
+<point>2,5</point>
+<point>1,5</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>2,0</point>
+<point>3,0</point>
+<point>3,1</point>
+<point>2,1</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>2,1</point>
+<point>3,1</point>
+<point>3,2</point>
+<point>2,2</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>2,2</point>
+<point>3,2</point>
+<point>3,3</point>
+<point>2,3</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>2,3</point>
+<point>3,3</point>
+<point>3,4</point>
+<point>2,4</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>2,4</point>
+<point>3,4</point>
+<point>3,5</point>
+<point>2,5</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>3,0</point>
+<point>4,0</point>
+<point>4,1</point>
+<point>3,1</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>3,1</point>
+<point>4,1</point>
+<point>4,2</point>
+<point>3,2</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>3,2</point>
+<point>4,2</point>
+<point>4,3</point>
+<point>3,3</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>3,3</point>
+<point>4,3</point>
+<point>4,4</point>
+<point>3,4</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>3,4</point>
+<point>4,4</point>
+<point>4,5</point>
+<point>3,5</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>4,0</point>
+<point>5,0</point>
+<point>5,1</point>
+<point>4,1</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>4,1</point>
+<point>5,1</point>
+<point>5,2</point>
+<point>4,2</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>4,2</point>
+<point>5,2</point>
+<point>5,3</point>
+<point>4,3</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>4,3</point>
+<point>5,3</point>
+<point>5,4</point>
+<point>4,4</point>
+<state>0</state>
+</cell>
+<cell type="FireCell">
+<point>4,4</point>
+<point>5,4</point>
+<point>5,5</point>
+<point>4,5</point>
+<state>0</state>
+</cell>
+</grid>
 </simulation>

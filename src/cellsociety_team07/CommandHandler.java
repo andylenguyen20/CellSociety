@@ -4,8 +4,7 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 
 public class CommandHandler {
-
-	protected void handleCommand(Event e, Timeline a, MenuCreator m) {
+	protected static void handleCommand(Event e, Timeline a, MenuCreator m) {
 		
 		String selectedAction = m.commands().getSelectionModel().getSelectedItem();
 		if (selectedAction.equals("Pause")) {
@@ -24,7 +23,7 @@ public class CommandHandler {
 		}
 	}
 	
-	protected void defaultRateAndPlay(double rate, Timeline a) {
+	protected static void defaultRateAndPlay(double rate, Timeline a) {
 		a.setRate(rate);
 		a.play();
 	}

@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 public class MapFactory {
-	public static Map<String, List<ExperimentalCell>> generateVertexMap(List<ExperimentalCell> grid){
-		Map<String, List<ExperimentalCell>> vertexMap = new HashMap<>();
-		for(ExperimentalCell cell : grid){
-			for(Point2D.Double coordinate : cell.getVertices()){
+	public static Map<String, List<Cell>> generateVertexMap(List<Cell> grid) {
+		Map<String, List<Cell>> vertexMap = new HashMap<>();
+		for (Cell cell : grid) {
+			for (Point2D.Double coordinate : cell.getVertices()) {
 				String vertexKey = coordinate.getX() + "," + coordinate.getY();
-				if(!vertexMap.containsKey(vertexKey)){
-					List<ExperimentalCell> cellsMappedToVertex = new ArrayList<ExperimentalCell>();
+				if (!vertexMap.containsKey(vertexKey)) {
+					List<Cell> cellsMappedToVertex = new ArrayList<Cell>();
 					cellsMappedToVertex.add(cell);
 					vertexMap.put(vertexKey, cellsMappedToVertex);
-				}else{
+				} else {
 					vertexMap.get(vertexKey).add(cell);
 				}
 			}
