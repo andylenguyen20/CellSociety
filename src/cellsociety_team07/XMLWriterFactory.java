@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -107,19 +108,22 @@ public class XMLWriterFactory {
 	}
 	
 	/**
+	 * Writes an XML file specifying a random simulation, given certain initial parameters (cell shape, grid dimensions, simulation type).
 	 * 
-	 * Writes data to XML file for a rectangular simulation. Takes care of points, randomizes state
-	 * 
-	 * @param width: width of grid
-	 * @param height: height of grid
-	 * @param simType: Type of simulation (e.g. Game of Life)
-	 * @param simTitle: Title of simulation:
-	 * @param numStates: number of possible states
+	 * @param height    Height of grid to be generated
+	 * @param width     Width of grid to be generated
+	 * @param simType   Type of simulation
+	 * @param simTitle  Title
+	 * @param shape     Cell shape
 	 */
-	public static void writeRectangularSimData(int width,int height, String simType, String simTitle) {
+	public static void writeRandomSimData(int height, int width, String simType, String simTitle, String shape) {
 		Document file; // document to be written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
 		File f = new File("xml/" + simType + ".xml");
+		// Dimensions
+		Dimension d = new Dimension(width,height);
+		// Get Triangular Cell Grid
+		List<Cell> cells = GridFactory.generateCellsOfGrid(shape,d,simType);
 		// Set up file
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -143,17 +147,14 @@ public class XMLWriterFactory {
 			dim.appendChild(addData(file,"width",String.valueOf(width)));
 			dim.appendChild(addData(file,"height",String.valueOf(height)));
 			// Input cell data
-			for (int c = 0; c < width; c++) {
-				for (int r = 0; r < height; r++) {
-					Element cell = file.createElement(CELL);
-					cell.setAttribute(TYPE, simType+"Cell");
-					cell.appendChild(addData(file,"point",String.valueOf(c) + "," + String.valueOf(r))); // top left vertex
-					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r))); // top right vertex
-					cell.appendChild(addData(file,"point",String.valueOf(c + 1) + "," + String.valueOf(r + 1))); // bottom right vertex
-					cell.appendChild(addData(file,"point",String.valueOf(c) + "," + String.valueOf(r + 1))); // bottom left vertex
-					cell.appendChild(addData(file,"state",String.valueOf((int) (getNumStates(simType)*Math.random()))));
-					grid.appendChild(cell);
+			for (Cell c:cells) {
+				Element cell = file.createElement(CELL);
+				cell.setAttribute(TYPE, String.valueOf(c.getClass().getSimpleName()));
+				for (Point2D.Double v:c.getVertices()) {
+					cell.appendChild(addData(file,"point",String.valueOf(v.getX()) + "," + String.valueOf(v.getY())));
 				}
+				cell.appendChild(addData(file,"state",String.valueOf((int)(getNumStates(simType)*Math.random()))));
+				grid.appendChild(cell);
 			}
 			// Format + save file
 			saveXMLFile(file,f);
@@ -259,14 +260,26 @@ public class XMLWriterFactory {
 		}
 	}
 	
+	private static void setParams(String paramName, double prop, Document file, Element sim) {
+		Element e = file.createElement("param");
+		sim.appendChild(e);
+		e.setAttribute("id",paramName);
+		e.appendChild(file.createTextNode(String.valueOf(prop)));
+	}
+	
 	private static void appendProps(String simType, double[] props, Element sim, Document file) {
+		String param;
+		if (simType == "Fire") {
+			param = "probCatch";
+		} else
+			param = "similarityReq";
 		switch (simType) {
 		case "Fire":
 		case "Segregation":
 			props = getFireSegProps();
 			Element probCatch = file.createElement("param");
 			sim.appendChild(probCatch);
-			probCatch.setAttribute("id", "probCatch");
+			probCatch.setAttribute("id", param);
 			probCatch.appendChild(file.createTextNode(String.valueOf(props[0])));
 			return;
 		case "Wator":
@@ -281,14 +294,7 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		writeRectangularSimData(5,5,"GameOfLife","Game Of Life Simulation");
-//		List<Cell> cells;
-//		cells = new ArrayList<>();
-//		double[] props = {0,1};
-//		cells.add(new GameOfLifeCell(0, props) );
-//		getSimData(cells,"testType","testTitle");
-//		Cell fish = new FishCell(1, null);
-//		System.out.println(fish.getClass().getSimpleName());
+		writeRandomSimData(5,5,"Segregation","Fire","Rectangle");
 	}
 	
 }
