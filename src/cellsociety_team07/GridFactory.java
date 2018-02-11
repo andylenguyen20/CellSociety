@@ -73,15 +73,17 @@ public class GridFactory {
 				throw new BadSimulationException("Wrong grid type!");
 		}
 	}
+	private static String getCellType(String simType) {
+		int numStates = typeMap.get(simType).size();
+		return typeMap.get(simType).get((int)(numStates*Math.random()));
+	}
 	private static List<Cell> getRectangularGrid(Dimension gridDim, String simType){
 		int numCols = gridDim.width;
 		int numRows = gridDim.height;
 		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 0; rowCount < numRows; rowCount++){
 			for(int colCount = 0; colCount < numCols; colCount++){
-				int numStates = typeMap.get(simType).size();
-				String cellType = typeMap.get(simType).get((int)(numStates*Math.random()));
-				Cell cell = CellFactory.generateBlankCell(cellType);
+				Cell cell = CellFactory.generateBlankCell(getCellType(simType));
 				cell.setVertices(getRectangleVertices(rowCount, colCount));
 				cells.add(cell);
 			}
@@ -142,7 +144,7 @@ public class GridFactory {
 		double topLeftX = leftMost.getX();
 		double topLeftY = leftMost.getY();
 		for(int triangleHorizontalCount = 0; triangleHorizontalCount < numTriangles; triangleHorizontalCount++, topLeftX += 2*triangleXStep){
-			Cell cell = CellFactory.generateBlankCell(simType);
+			Cell cell = CellFactory.generateBlankCell(getCellType(simType));
 			cell.setVertices(getTriangleVertices(topLeftX, topLeftY, direction));
 			triangleRow.add(cell);
 		}
