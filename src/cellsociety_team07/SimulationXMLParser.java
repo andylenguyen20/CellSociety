@@ -54,7 +54,7 @@ public class SimulationXMLParser {
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
 	}
-	public List<Cell> getInitialCells(String type){
+	public List<Cell> getInitialCells(){
 		List<Cell> initialCells = new ArrayList<Cell>();
 		NodeList cellTags = document.getElementsByTagName("cell");
 		for(int i = 0; i < cellTags.getLength(); i++){
@@ -70,7 +70,7 @@ public class SimulationXMLParser {
 		return initialCells;
 	}
 	
-	public List<Point2D.Double> getPoints(Element cell){
+	private List<Point2D.Double> getPoints(Element cell){
 		List<Point2D.Double> vertices = new ArrayList<>();
 		NodeList cellTags = cell.getElementsByTagName("point");
 		for(int i = 0; i < cellTags.getLength(); i++){
@@ -81,7 +81,7 @@ public class SimulationXMLParser {
 		return vertices;
 	}
 	
-	public String getCellType(Element cell){
+	private String getCellType(Element cell){
 		return cell.getAttribute("type");
 	}
 	public String getGridShape(){
@@ -89,7 +89,7 @@ public class SimulationXMLParser {
 		return gridTag.getTextContent();
 	}
 	
-	public String getType(){
+	public String getSimulationType(){
 		Element type = (Element) document.getElementsByTagName("type").item(0);
 		return type.getTextContent();
 	}
@@ -107,3 +107,4 @@ public class SimulationXMLParser {
 		return Integer.parseInt(directParent.getElementsByTagName(tagName).item(0).getTextContent());
 	}
 }
+
