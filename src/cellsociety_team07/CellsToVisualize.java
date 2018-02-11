@@ -30,11 +30,9 @@ public class CellsToVisualize  {
 				cell.getPoints().add(vertex.getX() * (width / sim.getGrid().numRows()) +STARTING_X);
 				cell.getPoints().add(vertex.getY() * (height / sim.getGrid().numCols())+STARTING_Y);
 			}
-			
 			cell.setProps(props);
 			cell.setFill(cell.getColor());
 			cell.setStroke(Color.WHITE);
-			
 			cell.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 	            	@Override
 				public void handle(MouseEvent mouseEvent) {
