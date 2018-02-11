@@ -7,13 +7,13 @@ public class CellFactory {
 
 	public static Cell generateBlankCell(String simType){
 		switch(simType){
-		case "Fire": 
+		case "FireCell":
 			return new FireCell();
-		case "GameOfLife":
+		case "GameOfLifeCell":
 			return new GameOfLifeCell();
 		case "SegregationCell":
 			return new SegregationCell();
-		case "Wator":
+		case "WatorCell":
 			return new FishCell();
 		default:
 			throw new BadSimulationException("Bad simulation type while getting default cell");		
