@@ -52,9 +52,11 @@ public class CellsToVisualize  {
 	protected static void drawNewGrid(Simulation sim, double width, double height, Group root, double[] props ){
 		List<Cell> cells = sim.getCells();
 		for(Cell cell : cells) {
+			cell.getPoints().clear();
 			for(Point2D.Double vertex : cell.getVertices()) {
 				cell.getPoints().add(vertex.getX() * (width / sim.getGrid().numRows()) +STARTING_X);
 				cell.getPoints().add(vertex.getY() * (height / sim.getGrid().numCols())+STARTING_Y);
+			
 			}
 			//cell.setProps(props);
 			cell.setFill(cell.getColor());

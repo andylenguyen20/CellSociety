@@ -105,10 +105,11 @@ public class Visualizer extends Application {
 	protected void update() {
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
-		grid.update();
+		System.out.println(root.getChildren().size());
 		for(Cell cell : grid.getCells()) {
 			root.getChildren().remove(cell);
 		}
+		grid.update();
 		drawFreshGrid();
 	  }
 	

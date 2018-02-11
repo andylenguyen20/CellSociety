@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SegregationGrid extends Grid implements CellMover{
+public class SegregationGrid extends Grid implements CellFetcher{
 	public SegregationGrid(List<Cell> cells, Dimension gridDimensions){
 		super(cells, gridDimensions);
 		super.setNeighborFinder(new NeighborFinder(NeighborFinder.TOUCHING_NEIGHBORS));
@@ -21,7 +21,7 @@ public class SegregationGrid extends Grid implements CellMover{
 	
 	@Override
 	public Cell getCellOfType(int emptyState, Cell cell) {
-		ArrayList<Cell> emptyCells = new ArrayList<Cell>();
+		List<Cell> emptyCells = new ArrayList<Cell>();
 		List<Cell> grid = super.getCells();
 		for(Cell currCell : grid) {
 			if(currCell.getCurrentState() == emptyState && currCell.getNextState() == emptyState){
@@ -29,10 +29,5 @@ public class SegregationGrid extends Grid implements CellMover{
 			}
 		}
 		return emptyCells.get((int) (Math.random() * emptyCells.size()));
-	}
-	@Override
-	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -1,73 +1,99 @@
 package cellsociety_team07;
 
 import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WatorGrid extends Grid implements CellMover{
-	public static final Point[] NEIGHBOR_OFFSETS = new Point[]{new Point(-1,0), new Point(1,0), new Point(0,-1), new Point(0,1)};
+public class WatorGrid extends Grid implements CellFetcher, CellMover{
+	List<Cell> cellsToAdd;
+	List<Cell> cellsToRemove;
 	public WatorGrid(List<Cell> cells, Dimension gridDimensions){
 		super(cells, gridDimensions);
 		setNeighborFinder(new UnboundedNeighborFinder(UnboundedNeighborFinder.ADJACENT_NEIGHBORS, gridDimensions));
 	}
 	@Override
 	public void update(){
+		cellsToAdd = new ArrayList<>();
+		cellsToRemove = new ArrayList<>();
 		List<Cell> grid = super.getCells();
-		for(Cell cell : grid) {
-			WatorCell currCell = (WatorCell) cell;
-			currCell.update(this);
+		for(Cell cell : grid){
+			WatorCell watorCell = (WatorCell) cell;
+			watorCell.update(this);
 		}
-		super.setCellNeighbors();
+		System.out.println(cellsToAdd.size());
+		grid.addAll(cellsToAdd);
+		grid.removeAll(cellsToRemove);
+		System.out.println(cellsToRemove.size());
 	}
 	@Override
 	public void prepareNextState(){
 		List<Cell> grid = super.getCells();
-		
-		for(Cell cell : grid) {
-			WatorCell currCell = (WatorCell) cell;
-			currCell.applyRules(this);
+		for(Cell cell : grid){
+			WatorCell watorCell = (WatorCell) cell;
+			if(watorCell instanceof SharkCell){
+				((SharkCell) watorCell).applyRules(this);
+			}
+		}
+		for(Cell cell : grid){
+			WatorCell watorCell = (WatorCell) cell;
+			if(watorCell instanceof FishCell){
+				((FishCell) watorCell).applyRules(this);
+			}
 		}
 	}
 	
 	
 	@Override
 	public Cell getCellOfType(int desiredState, Cell cell) {
-		ArrayList<Cell> potentialCells = new ArrayList<Cell>();
+		List<Cell> potentialCells = new ArrayList<Cell>();
 		for(Cell neighbor : cell.getNeighbors()){
 			if(neighbor.getCurrentState() == desiredState && neighbor.getNextState() == desiredState){
 				potentialCells.add(neighbor);
 			}
 		}
-		return potentialCells.get((int) ( Math.random() *potentialCells.size()));
-		
+		return potentialCells.get((int) ( Math.random() * potentialCells.size()));
 	}
 	@Override
-	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeOverwritten) {
-		/*
-		Cell[][] cells = super.getCells();
-		Point toBeOverwrittenCoord;
-		Point movingCellCoord=null;
-		for(int row = 0; row < cells.length; row++){
-			for(int col = 0; col < cells[0].length; col++){
-				if(cells[row][col] == toBeOverwritten){
-					toBeOverwrittenCoord = new Point(row, col);
-					cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
-				}
-				if(cells[row][col] == movingCell){
-					movingCellCoord = new Point(row, col);
-					
-					
-
-				}
-			}
+	public void moveCellInGrid(Cell movingCell, Cell movingCellReplacement, Cell toBeMovedTo) {
+		movingCell.getNeighbors().remove(toBeMovedTo);
+		toBeMovedTo.getNeighbors().remove(movingCell);
+		List<Cell> savedMovingCellNeighbors = movingCell.getNeighbors();
+		for(Cell neighbor : movingCell.getNeighbors()){
+			neighbor.getNeighbors().remove(movingCell);
 		}
+		for(Cell neighbor: toBeMovedTo.getNeighbors()){
+			neighbor.getNeighbors().remove(toBeMovedTo);
+			neighbor.getNeighbors().add(movingCell);
+		}
+		for(Cell neighbor: savedMovingCellNeighbors){
+			neighbor.getNeighbors().add(movingCellReplacement);
+		}
+		movingCellReplacement.setNeighbors(savedMovingCellNeighbors);
+		movingCellReplacement.getNeighbors().add(toBeMovedTo);
+		toBeMovedTo.getNeighbors().add(movingCellReplacement);
 		
-		
-		
-		//cells[toBeOverwrittenCoord.x][toBeOverwrittenCoord.y] = movingCell;
-		cells[movingCellCoord.x][movingCellCoord.y] = movingCellReplacement;
-	*/
+		List<Point2D.Double> movingCellVertices = movingCell.getVertices();
+		List<Point2D.Double> toBeMovedToVertices = toBeMovedTo.getVertices();
+		movingCell.setVertices(toBeMovedToVertices);
+		movingCellReplacement.setVertices(movingCellVertices);
+		/*
+		//TODO: make it cleaner
+		this.transferVerticesAndNeighbors(movingCell, movingCellReplacement);
+		cellsToAdd.add(movingCellReplacement);
+		this.transferVerticesAndNeighbors(toBeMovedTo, movingCell);
+		cellsToRemove.add(toBeMovedTo);
+		*/
 	}
-
+	@Override
+	public void transferVerticesAndNeighbors(Cell source, Cell receiver){
+		List<Point2D.Double> verticesToTransfer = source.getVertices();
+		receiver.setVertices(verticesToTransfer);
+		List<Cell> neighborsToTransfer = source.getNeighbors();
+		receiver.setNeighbors(neighborsToTransfer);
+		for(Cell neighbor : receiver.getNeighbors()){
+			neighbor.getNeighbors().add(receiver);
+			neighbor.getNeighbors().remove(source);
+		}
+	}
 }

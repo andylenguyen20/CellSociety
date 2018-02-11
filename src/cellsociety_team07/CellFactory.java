@@ -1,43 +1,23 @@
 package cellsociety_team07;
 
-import java.awt.Dimension;
-import java.util.List;
-
 public class CellFactory {
-	private static Cell generateRandomizedCell(String simType){
-		switch(simType){
-		case "Fire": 
+	public static Cell generateBlankCell(String cellType){
+		switch(cellType){
+		case "FireCell": 
 			return new FireCell();
-		case "GameOfLife":
+		case "GameOfLifeCell":
 			return new GameOfLifeCell();
-		case "Segregation":
+		case "SegregationCell":
 			return new SegregationCell();
-		case "Wator":
+		case "WaterCell":
 			return new FishCell();
-		default:
-			throw new BadSimulationException("Bad simulation type while getting default cell");		
-		}
-	}
-	
-	public static Cell generateBlankCell(String simType){
-		switch(simType){
-		case "Fire": 
-			return new FireCell();
-		case "GameOfLife":
-			return new GameOfLifeCell();
-		case "Segregation":
-			return new SegregationCell();
-		case "Wator":
+		case "FishCell":
 			return new FishCell();
+		case "SharkCell":
+			return new SharkCell();
 		default:
-			throw new BadSimulationException("Bad simulation type while getting default cell");		
+			throw new BadSimulationException("Bad simulation type while getting blank cell");		
 		}
-	}
-	private static void initializeCellAttributes(Cell cell){
-		/*
-		int randomState = (int) (Math.random() * numStates);
-		cell.setInitialAttributes(randomState, params);
-		*/
 	}
 }
 

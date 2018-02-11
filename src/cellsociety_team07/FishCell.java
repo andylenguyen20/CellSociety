@@ -2,86 +2,67 @@
 
 
 public class FishCell extends WatorCell{
-	private boolean toBeMoved;
-	private int numChrononsAlive;
-	private boolean toReproduce;
 	public static final int REPRODUCTION_CHRONON = 0;
-	private Cell replacement;
-	private Cell openCell;
-
 	public FishCell() {
 		super();
-		toBeMoved = false;
-		numChrononsAlive = 0;
 	}
 	
 	public void update(CellMover cm){
-		this.update();
-		if(toBeMoved){
-			cm.moveCellInGrid(this, replacement, openCell);
+		if(this.isWaterCell()){
+			return;
 		}
+		if(this.canMove()){
+			cm.moveCellInGrid(this, super.getReplacement(), super.getCellToMoveTo());
+		}
+		super.setChronons(super.getChronons() + 1);
 	}
 	@Override
-	public void update() {
-		numChrononsAlive++;
-	}
-	@Override
-	public void applyRules(CellMover cm){
-		this.applyRules();
-		if(toBeMoved){
-			if(toReproduce){
-				replacement = new FishCell();
-				replacement.setInitialAttrivutes(FISH, super.getProps());
-				super.setNextState(FISH);
-				numChrononsAlive = 0;
+	public void applyRules(CellFetcher cf){
+		if(this.isWaterCell()){
+			return;
+		}
+		if(this.canMove()){
+			Cell desiredMoveLocation = cf.getCellOfType(WATER, this);
+			desiredMoveLocation.setNextState(FISH);
+			super.setCellToMoveTo(desiredMoveLocation);
+			if(super.canReproduce()){
+				super.setReplacement(this.getFishCellReplacement());
+				super.setChronons(0);
+				this.setNextState(FISH);
 			}else{
-				replacement = new FishCell();
-				replacement.setInitialAttrivutes(WATER, super.getProps());
-				super.setNextState(WATER);
+				super.setReplacement(super.getWaterCellReplacement());
+				this.setNextState(WATER);
 			}
-			openCell = cm.getCellOfType(WATER, this);
-			openCell.setNextState(FISH);
 		}
 	}
 	
 	@Override
-	public void applyRules() { 
-		toBeMoved = this.canMove();
-		toReproduce = this.canReproduce();
-	}
-	
-	/*
-	 * must be called after canMove() in applyRules
-	 */
-	private boolean canReproduce(){
-		return toBeMoved && this.numChrononsAlive >= super.getProps()[REPRODUCTION_CHRONON];
-	}
-	
-	private boolean canMove(){
+	protected boolean canMove(){
 		int numOpenSpotsAvailable = 0;
 		for (Cell neighbor:super.getNeighbors()) {
 			if (neighbor.getCurrentState() == WATER && neighbor.getNextState() == WATER){
 				numOpenSpotsAvailable++;
 			}
 		}
-		return (numOpenSpotsAvailable > 0) && !this.willBeEaten() && !this.isWaterCell();
+		return (numOpenSpotsAvailable > 0) && !this.willBeEaten();
 	}
 	
 	private boolean isWaterCell(){
 		return this.getCurrentState() == WATER;
 	}
 	
-	protected void setToBeMoved(boolean t) {
-		toBeMoved = t;
-	}
-	
 	private boolean willBeEaten(){
-		//return this.getNextState() == WATER;
 		return this.getNextState() == SHARK;
 	}
 	
-	public int getChronons(){
-		return this.numChrononsAlive;
-
+	public Cell getFishCellReplacement(){
+		Cell replacement = new FishCell();
+		replacement.setInitialAttributes(FISH, super.getProps());
+		return replacement;
+	}
+	@Override
+	public void setInitialAttributes(int initialState, double[] params) {
+		super.setInitialAttributes(initialState, params);
+		super.setMinReproductionChronon(super.getProps()[REPRODUCTION_CHRONON]);
 	}
 }

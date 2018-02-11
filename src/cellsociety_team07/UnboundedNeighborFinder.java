@@ -13,7 +13,6 @@ public class UnboundedNeighborFinder extends NeighborFinder {
 	public UnboundedNeighborFinder(List<Integer> allowedNumSharedVertices, Dimension gridDimensions) {
 		super(allowedNumSharedVertices);
 		this.numRows = gridDimensions.getHeight();
-		System.out.println(numRows);
 		this.numCols = gridDimensions.getWidth();
 	}
 
@@ -28,6 +27,7 @@ public class UnboundedNeighborFinder extends NeighborFinder {
 		List<String> wrapAroundKeys = this.getWrapAroundKeys(cell);
 		for(String wrapAroundKey : wrapAroundKeys){
 			List<Cell> potentialNeighborList = vertexMap.get(wrapAroundKey);
+			System.out.println(cell.getVertices().toString());
 			for(Cell potentialNeighbor : potentialNeighborList){
 				if(!numSharedVertices.containsKey(potentialNeighbor)){
 					numSharedVertices.put(potentialNeighbor, 1);
