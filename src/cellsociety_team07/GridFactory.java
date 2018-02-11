@@ -79,7 +79,9 @@ public class GridFactory {
 		List<Cell> cells = new ArrayList<Cell>();
 		for(int rowCount = 0; rowCount < numRows; rowCount++){
 			for(int colCount = 0; colCount < numCols; colCount++){
-				Cell cell = CellFactory.generateBlankCell(simType);
+				int numStates = typeMap.get(simType).size();
+				String cellType = typeMap.get(simType).get((int)(numStates*Math.random()));
+				Cell cell = CellFactory.generateBlankCell(cellType);
 				cell.setVertices(getRectangleVertices(rowCount, colCount));
 				cells.add(cell);
 			}
