@@ -21,7 +21,6 @@ public class Simulation {
 		myType = simXMLParser.getType();
 		//this.setUpRandomizedGrid();
 		this.setUpInitializedGrid();
-		System.out.println(myType);
 		setUpInitializedGrid();
 		//setUpCells();
 	}

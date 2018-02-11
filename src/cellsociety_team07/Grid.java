@@ -43,7 +43,6 @@ public abstract class Grid{
 	 * sets cell neighbors
 	 */
 	public void setCellNeighbors(){
-		System.out.println("11111");
 		for(Cell cell : cells){
 			cell.setNeighbors(neighFinder.findNeighbors(cell, vertexMap));
 			
