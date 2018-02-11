@@ -1,9 +1,7 @@
 package cellsociety_team07;
 
-import java.awt.Dimension;
-import java.util.List;
-
 public class CellFactory {
+
 
 	public static Cell generateBlankCell(String simType){
 		switch(simType){
@@ -14,16 +12,13 @@ public class CellFactory {
 		case "SegregationCell":
 			return new SegregationCell();
 		case "WatorCell":
-			return new FishCell();
+			return new WatorCell();
+
 		default:
-			throw new BadSimulationException("Bad simulation type while getting default cell");		
+			throw new BadSimulationException("Bad simulation type while getting blank cell");		
 		}
 	}
-	private static void initializeCellAttributes(Cell cell){
-		/*
-		int randomState = (int) (Math.random() * numStates);
-		cell.setInitialAttributes(randomState, params);
-		*/
-	}
 }
+
+
 

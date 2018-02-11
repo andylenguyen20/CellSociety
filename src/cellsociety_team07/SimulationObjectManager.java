@@ -18,9 +18,9 @@ public class SimulationObjectManager {
 			segCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
 			return segCell;
 		case "Wator":
-			Cell fishCell = new FishCell();
-			fishCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
-			return fishCell;
+			Cell watorCell = new WatorCell();
+			watorCell.setInitialAttributes(Cell.DEFAULT_STATE, cellProps);
+			return watorCell;
 	default:
 		throw new BadSimulationException("Bad simulation type while getting default cell");		
 	}
@@ -39,14 +39,10 @@ public class SimulationObjectManager {
 				Cell segCell = new SegregationCell();
 				segCell.setInitialAttributes(state, cellProps);
 				return segCell;
-			case "Fish":
-				Cell fishCell = new FishCell();
-				fishCell.setInitialAttributes(state, cellProps);
-				return fishCell;
-			case "Shark":
-				Cell sharkCell = new SharkCell();
-				sharkCell.setInitialAttributes(state, cellProps);
-				return sharkCell;
+			case "Wator":
+				Cell watorCell = new WatorCell();
+				watorCell.setInitialAttributes(state, cellProps);
+				return watorCell;
 		default:
 			throw new BadSimulationException("Bad simulation type while getting cell");		
 		}
@@ -55,4 +51,5 @@ public class SimulationObjectManager {
 		return GridFactory.generateRandomizedGrid(shape, gridDim, simType);
 	}
 }
+
 

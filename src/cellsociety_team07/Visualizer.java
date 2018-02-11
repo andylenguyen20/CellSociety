@@ -1,14 +1,10 @@
 package cellsociety_team07;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-
+import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -22,20 +18,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
 
 public class Visualizer extends Application {
+	
 	private static final int MY_SPEED = 5;
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
-	private Timeline animation;
-	private Simulation simulation;
 	private static final int SCENE_WIDTH = 500;
 	private static final int SCENE_HEIGHT = 500;
 	private static final int SCREEN_WIDTH = 800;
 	private static final int SCREEN_HEIGHT = 800;
+	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private Timeline animation;
+	private Simulation simulation;
 	private Stage stg;
 	private Scene myScene;
 	private Group root;
-
 	private double [] props;
-	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private ResourceBundle myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
 	private ResourceBundle myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
 	private GraphCreator graphCreator;
@@ -45,27 +41,22 @@ public class Visualizer extends Application {
 	private PropsChangeTextField propsChanger;
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
-	
 	private static final int MAX_DATA_POINTS = 20;
 	private int xSeriesData = 0;
 	private ExecutorService executor;
     private ConcurrentLinkedQueue<Number> dataQ1 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQ2 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQ3 = new ConcurrentLinkedQueue<>();
-	 
 	
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
 		stg.setTitle("CA Simulation");
-		simulation = new Simulation("xml/fire_simulation.xml");
+		simulation = new Simulation("xml/wator_simulation.xml");
 		getInitialProp();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/fire_simulation.xml" );
+		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
-		
-		
-
 		executor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
@@ -92,7 +83,6 @@ public class Visualizer extends Application {
 
 	protected Scene setUpGame(int height, int background, String sim) {
 		root = new Group();
-		
 		stateChanger = new StateChangeTextField();
 		propsChanger = new PropsChangeTextField();
 		menuCreator = new MenuCreator();
@@ -119,8 +109,10 @@ public class Visualizer extends Application {
 		public void run() {
 			try {
 				Map<Paint, Integer> populations = cellDrawer.getPopulations();
+				if (populations == null) return;
+				List keys = new ArrayList(populations.keySet());
+				
 				for (int i = 0; i < populations.size(); i++) {
-					List keys = new ArrayList(cellDrawer.getPopulations().keySet());
 					Object obj = keys.get(i);
 					if (populations.size()==0)
 						break;
@@ -158,8 +150,6 @@ public class Visualizer extends Application {
 			propsLength = cell.getProps().length;
 			props = new double [propsLength]; 
 			props = cell.getProps();
-			
-				
 			}
 		}
 	
@@ -219,11 +209,13 @@ public class Visualizer extends Application {
 	
 	private void handleParamChanges(Event e) {
 		props = new double[propsLength];
+
 		String str = propsChanger.getTextValue().getText();
 		String [] arrOfStr = str.split(":", 2);
 		int i =	Integer.parseInt(arrOfStr[0]) ;
 		double d = Double.parseDouble(arrOfStr[1]);
 		props[i] =  d;
+		
 	}
 	
 	private void handleSimulation(Event e) {

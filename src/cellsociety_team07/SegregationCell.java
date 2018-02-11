@@ -22,7 +22,7 @@ public class SegregationCell extends Cell{
 
 	}
 
-	public void applyRules(CellMover cm){
+	public void applyRules(CellFetcher cm){
 		this.applyRules();
 		if(toBeMoved){
 			Cell replacement = cm.getCellOfType(EMPTY, this);

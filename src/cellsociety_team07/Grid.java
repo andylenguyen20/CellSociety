@@ -45,7 +45,6 @@ public abstract class Grid{
 	public void setCellNeighbors(){
 		for(Cell cell : cells){
 			cell.setNeighbors(neighFinder.findNeighbors(cell, vertexMap));
-			
 		}
 	}
 	
@@ -74,6 +73,7 @@ public abstract class Grid{
 		return gridDimensions.getWidth();
 	}
 	
+	
 	/*
 	 * A method that updates the Grid’s state to the next state.
 	 */
@@ -84,4 +84,3 @@ public abstract class Grid{
 	}
 
 }
-
