@@ -13,7 +13,7 @@ public class SharkCell extends WatorCell{
 	}
 
 	@Override
-	public void update(CellMover cm) {
+	public void update(CellFetcher cf) {
 		energy--;
 		if((energy <= 0 && this.canMove() && super.getCellToMoveTo().getCurrentState() != FISH)
 				|| (energy <= 0 && !this.canMove())){
@@ -25,7 +25,7 @@ public class SharkCell extends WatorCell{
 		System.out.println("nah");
 		if(this.canMove()){
 			
-			cm.moveCellInGrid(this, super.getReplacement(), super.getCellToMoveTo());
+			cf.moveCellInGrid(this, super.getReplacement(), super.getCellToMoveTo());
 		}
 	}
 	

@@ -1,67 +1,109 @@
 package cellsociety_team07;
 
 import javafx.scene.paint.Paint;
+
 import javafx.scene.paint.Color;
 
-public abstract class WatorCell extends Cell{
+public class WatorCell extends Cell{
 	public static final int WATER = 0;
 	public static final int FISH = 1;
 	public static final int SHARK = 2;
 	public static final Paint[] colors = {Color.BLUE, Color.PINK, Color.GREY};
-	private Cell replacement;
-	private Cell cellToMoveTo;
 	private double minReproductionChronon;
 	private double numChrononsAlive;
+	private double energy;
+	private double startingEnergy;
+	private double fishEnergy;
 
 	public WatorCell() {
 		super();
 		numChrononsAlive = 0;
 		super.setColors(colors);
 	}
+	
+	@Override
+	public void setInitialAttributes(int initialState, double[] props){
+		super.setInitialAttributes(initialState, props);
+		if(initialState == FISH) minReproductionChronon = props[0];
+		if(initialState == SHARK) minReproductionChronon = props[1];
+		startingEnergy = props[2];
+		fishEnergy = props[3];
+		energy = startingEnergy;
+	}
 
 	public void update(){
-
+		super.setCurrentState(super.getNextState());
 	}
 	
 	public void applyRules(){
 		
 	}
 	
-	public abstract void update(CellMover cm);
-	public abstract void applyRules(CellFetcher cm);
-	
-	protected abstract boolean canMove();
-	
-	
-	protected double getChronons(){
-		return numChrononsAlive;
+	public void update(CellFetcher cf){
+		
 	}
-	protected void setChronons(double numChronons){
-		this.numChrononsAlive = numChronons;
+	public void applyRules(CellFetcher cf){
+		if(super.getCurrentState() == SHARK){
+			this.applySharkRules(cf);
+		}else if(this.getCurrentState() == FISH){
+			this.applyFishRules(cf);
+		}
 	}
-	protected boolean canReproduce(){
+	
+	private void applySharkRules(CellFetcher cf){
+		int fishes = 0, openSpots = 0;
+		for(Cell cell : super.getNeighbors()){
+			if(cell.getCurrentState() == FISH && cell.getNextState() == FISH){
+				fishes++;
+			}
+			if(cell.getCurrentState() == WATER && cell.getNextState() == WATER){
+				openSpots++;
+			}
+		}
+		if(fishes > 0){
+			WatorCell prey = (WatorCell) cf.getCellOfType(FISH, this);
+			prey.setNextState(super.getCurrentState());
+		}else if(openSpots > 0){
+			WatorCell openSpot = (WatorCell) cf.getCellOfType(WATER, this);
+			openSpot.setNextState(super.getCurrentState());
+		}
+	}
+	
+	private void applyFishRules(CellFetcher cf){
+		int numOpenSpotsAvailable = 0;
+		for (Cell neighbor : super.getNeighbors()) {
+			if (neighbor.getCurrentState() == WATER && neighbor.getNextState() == WATER){
+				numOpenSpotsAvailable++;
+			}
+		}
+		boolean canMove = numOpenSpotsAvailable > 0 && this.getCurrentState() == FISH && this.getNextState() == FISH;
+		if(canMove){
+			WatorCell openSpot = (WatorCell) cf.getCellOfType(WATER, this);
+			openSpot.setNextState(super.getCurrentState());
+			this.transferDataTo(openSpot);
+			if(this.canReproduce()){
+				numChrononsAlive = 0;
+				this.setNextState(FISH);
+			}else{
+				this.setNextState(WATER);
+			}
+		}
+	}
+	private void transferDataTo(WatorCell toBeMovedTo){
+		toBeMovedTo.setChronons(this.numChrononsAlive);
+		toBeMovedTo.setMinReproductionChronon(this.minReproductionChronon);
+		toBeMovedTo.setEnergy(this.energy);
+	}
+	private boolean canReproduce(){
 		return numChrononsAlive >= minReproductionChronon;
 	}
-	
-	protected void setMinReproductionChronon(double chronon){
-		this.minReproductionChronon = chronon;
+	private void setChronons(double chronons){
+		this.numChrononsAlive = chronons;
 	}
-	protected void setReplacement(Cell replacement){
-		this.replacement = replacement;
+	private void setEnergy(double energy){
+		this.energy = energy;
 	}
-	protected void setCellToMoveTo(Cell cellToMoveTo){
-		this.cellToMoveTo = cellToMoveTo;
-	}
-	protected Cell getReplacement(){
-		return replacement;
-	}
-	protected Cell getCellToMoveTo(){
-		return cellToMoveTo;
-	}
-	
-	protected Cell getWaterCellReplacement(){
-		Cell replacement = new FishCell();
-		replacement.setInitialAttributes(WATER, super.getProps());
-		return replacement;
+	private void setMinReproductionChronon(double minReproductionChronon){
+		this.minReproductionChronon = minReproductionChronon;
 	}
 }

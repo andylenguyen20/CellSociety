@@ -7,7 +7,7 @@ public class FishCell extends WatorCell{
 		super();
 	}
 	
-	public void update(CellMover cm){
+	public void update(CellFetcher cf){
 		if(this.isWaterCell()){
 			return;
 		}
