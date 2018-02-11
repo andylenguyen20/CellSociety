@@ -1,187 +1,187 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <simulation>
-	<type>GameOfLife</type>
-	<title>GameOfLifeSimulation</title>
-	<author>Brendan Cheng</author>
-	<grid>
-		<dimension>
-			<width>5</width>
-			<height>5</height>
-		</dimension>
-		<cell type="GameOfLife">
-			<point>0,0</point>
-			<point>1,0</point>
-			<point>1,1</point>
-			<point>0,1</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>0,1</point>
-			<point>1,1</point>
-			<point>1,2</point>
-			<point>0,2</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>0,2</point>
-			<point>1,2</point>
-			<point>1,3</point>
-			<point>0,3</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>0,3</point>
-			<point>1,3</point>
-			<point>1,4</point>
-			<point>0,4</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>0,4</point>
-			<point>1,4</point>
-			<point>1,5</point>
-			<point>0,5</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>1,0</point>
-			<point>2,0</point>
-			<point>2,1</point>
-			<point>1,1</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>1,1</point>
-			<point>2,1</point>
-			<point>2,2</point>
-			<point>1,2</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>1,2</point>
-			<point>2,2</point>
-			<point>2,3</point>
-			<point>1,3</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>1,3</point>
-			<point>2,3</point>
-			<point>2,4</point>
-			<point>1,4</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>1,4</point>
-			<point>2,4</point>
-			<point>2,5</point>
-			<point>1,5</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>2,0</point>
-			<point>3,0</point>
-			<point>3,1</point>
-			<point>2,1</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>2,1</point>
-			<point>3,1</point>
-			<point>3,2</point>
-			<point>2,2</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>2,2</point>
-			<point>3,2</point>
-			<point>3,3</point>
-			<point>2,3</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>2,3</point>
-			<point>3,3</point>
-			<point>3,4</point>
-			<point>2,4</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>2,4</point>
-			<point>3,4</point>
-			<point>3,5</point>
-			<point>2,5</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>3,0</point>
-			<point>4,0</point>
-			<point>4,1</point>
-			<point>3,1</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>3,1</point>
-			<point>4,1</point>
-			<point>4,2</point>
-			<point>3,2</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>3,2</point>
-			<point>4,2</point>
-			<point>4,3</point>
-			<point>3,3</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>3,3</point>
-			<point>4,3</point>
-			<point>4,4</point>
-			<point>3,4</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>3,4</point>
-			<point>4,4</point>
-			<point>4,5</point>
-			<point>3,5</point>
-			<state>1</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>4,0</point>
-			<point>5,0</point>
-			<point>5,1</point>
-			<point>4,1</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>4,1</point>
-			<point>5,1</point>
-			<point>5,2</point>
-			<point>4,2</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>4,2</point>
-			<point>5,2</point>
-			<point>5,3</point>
-			<point>4,3</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>4,3</point>
-			<point>5,3</point>
-			<point>5,4</point>
-			<point>4,4</point>
-			<state>0</state>
-		</cell>
-		<cell type="GameOfLife">
-			<point>4,4</point>
-			<point>5,4</point>
-			<point>5,5</point>
-			<point>4,5</point>
-			<state>1</state>
-		</cell>
-	</grid>
+<type>GameOfLife</type>
+<title>GameOfLifeSimulation</title>
+<author>Brendan Cheng</author>
+<grid>
+<dimension>
+<width>5</width>
+<height>5</height>
+</dimension>
+<cell type="GameOfLifeCell">
+<point>0,0</point>
+<point>1,0</point>
+<point>1,1</point>
+<point>0,1</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>0,1</point>
+<point>1,1</point>
+<point>1,2</point>
+<point>0,2</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>0,2</point>
+<point>1,2</point>
+<point>1,3</point>
+<point>0,3</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>0,3</point>
+<point>1,3</point>
+<point>1,4</point>
+<point>0,4</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>0,4</point>
+<point>1,4</point>
+<point>1,5</point>
+<point>0,5</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>1,0</point>
+<point>2,0</point>
+<point>2,1</point>
+<point>1,1</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>1,1</point>
+<point>2,1</point>
+<point>2,2</point>
+<point>1,2</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>1,2</point>
+<point>2,2</point>
+<point>2,3</point>
+<point>1,3</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>1,3</point>
+<point>2,3</point>
+<point>2,4</point>
+<point>1,4</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>1,4</point>
+<point>2,4</point>
+<point>2,5</point>
+<point>1,5</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>2,0</point>
+<point>3,0</point>
+<point>3,1</point>
+<point>2,1</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>2,1</point>
+<point>3,1</point>
+<point>3,2</point>
+<point>2,2</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>2,2</point>
+<point>3,2</point>
+<point>3,3</point>
+<point>2,3</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>2,3</point>
+<point>3,3</point>
+<point>3,4</point>
+<point>2,4</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>2,4</point>
+<point>3,4</point>
+<point>3,5</point>
+<point>2,5</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>3,0</point>
+<point>4,0</point>
+<point>4,1</point>
+<point>3,1</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>3,1</point>
+<point>4,1</point>
+<point>4,2</point>
+<point>3,2</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>3,2</point>
+<point>4,2</point>
+<point>4,3</point>
+<point>3,3</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>3,3</point>
+<point>4,3</point>
+<point>4,4</point>
+<point>3,4</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>3,4</point>
+<point>4,4</point>
+<point>4,5</point>
+<point>3,5</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>4,0</point>
+<point>5,0</point>
+<point>5,1</point>
+<point>4,1</point>
+<state>1</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>4,1</point>
+<point>5,1</point>
+<point>5,2</point>
+<point>4,2</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>4,2</point>
+<point>5,2</point>
+<point>5,3</point>
+<point>4,3</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>4,3</point>
+<point>5,3</point>
+<point>5,4</point>
+<point>4,4</point>
+<state>0</state>
+</cell>
+<cell type="GameOfLifeCell">
+<point>4,4</point>
+<point>5,4</point>
+<point>5,5</point>
+<point>4,5</point>
+<state>1</state>
+</cell>
+</grid>
 </simulation>
