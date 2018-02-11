@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
@@ -40,7 +38,7 @@ public class Visualizer extends Application {
 	private ResourceBundle myResources_S;
 	private double [] props;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
-	private GraphCreator lineChart;
+	private GraphCreator graphCreator;
 	private int propsLength;
 	private int cellState=1;
 	private StateChangeTextField stateChanger;
@@ -50,14 +48,10 @@ public class Visualizer extends Application {
 	
 	private static final int MAX_DATA_POINTS = 20;
 	private int xSeriesData = 0;
-	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
-	private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
-	private XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
 	private ExecutorService executor;
     private ConcurrentLinkedQueue<Number> dataQ1 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQ2 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQ3 = new ConcurrentLinkedQueue<>();
-	private NumberAxis xAxis;
 	 
 	
 	@Override
@@ -72,7 +66,7 @@ public class Visualizer extends Application {
 		
 		
 
-        executor = Executors.newCachedThreadPool(new ThreadFactory() {
+		executor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
                 Thread thread = new Thread(r);
@@ -82,7 +76,7 @@ public class Visualizer extends Application {
         });
 
         AddToQueue addToQueue = new AddToQueue();
-        executor.execute(addToQueue);
+        executor .execute(addToQueue);
 		setAnimation(stg);
 	}
 	
@@ -105,49 +99,14 @@ public class Visualizer extends Application {
 		propsChanger = new PropsChangeTextField();
 		menuCreator = new MenuCreator();
 		cellDrawer= new CellsToVisualize();
-		lineChart = new GraphCreator();
-		
-		
-		 xAxis = new NumberAxis(0, MAX_DATA_POINTS, MAX_DATA_POINTS / 10);
-	     xAxis.setForceZeroInRange(false);
-	     xAxis.setAutoRanging(false);
-	     xAxis.setTickLabelsVisible(false);
-	     xAxis.setTickMarkVisible(false);
-	     xAxis.setMinorTickVisible(false);
-	     NumberAxis yAxis = new NumberAxis(0,25, 25);
-	     yAxis.setLabel("Pop Count");
-
-	        // Create a LineChart
-	     final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis) {
-	            // Override to remove symbols on each data point
-	           @Override
-	           protected void dataItemAdded(Series<Number, Number> series, int itemIndex, Data<Number, Number> item) {
-	            }
-	        };
-
-	        lineChart.setAnimated(false);
-	        lineChart.setTitle("Simulation Population Graph");
-	        lineChart.setHorizontalGridLinesVisible(true);
-	        lineChart.setPrefHeight(150);
-	        lineChart.setMinHeight(150);
-	        lineChart.setMaxHeight(150);
-	        lineChart.setPrefWidth(760);
-	        lineChart.setMinWidth(750);
-	        lineChart.setMaxWidth(760);
-
-
-
-
-	        // Add Chart Series
-	        lineChart.getData().addAll(series1, series2, series3);
-
-		
+		graphCreator = new GraphCreator();
+	
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPrefSize(800, 800); 
 		borderPane.setTop(menuCreator.addHBox(myResources_C, myResources_S));	    
 		borderPane.setRight(propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"));
 		borderPane.setLeft(stateChanger.stateHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"));
-		borderPane.setBottom(lineChart);
+		borderPane.setBottom(graphCreator.getLineChart());
 		borderPane.setStyle("-fx-padding: 10;" +"-fx-border-style: solid inside;" + "-fx-border-width: 2;" + 
 						"-fx-border-insets: 5;" +"-fx-border-radius: 5;" + "-fx-border-color: blue;");
 		
@@ -159,40 +118,38 @@ public class Visualizer extends Application {
 		return scene;
 	}
 	
-	 private class AddToQueue implements Runnable {
-	        public void run() {
-	            try {
-	           
-	            	List keys = new ArrayList(cellDrawer.getPopulations().keySet());
-	            	Map<Paint, Integer>populations = cellDrawer.getPopulations();
-	            	for (int i = 0; i < populations.size(); i++) {
-	            	    Object obj = keys.get(i);
+	private class AddToQueue implements Runnable {
+		public void run() {
+			try {
+				List keys = new ArrayList(cellDrawer.getPopulations().keySet());
+				Map<Paint, Integer> populations = cellDrawer.getPopulations();
 
-	            	    if (i==0 && populations.size()==1) {
-	            	 		dataQ1.add(25);
-	            	 		dataQ2.add(0);
-	            	 	}
-	            	     if (i==0){
-	            	    		dataQ1.add(cellDrawer.getPopulations().get(obj));
-	            	    }
+				for (int i = 0; i < populations.size(); i++) {
+					Object obj = keys.get(i);
+					if (i == 0 && populations.size() == 1 && cellDrawer.getPopulations().get(keys.get(0))!=null) {
+						dataQ1.add(25);
+						dataQ2.add(0);
+					}
+					else if (i == 0) {
+						dataQ1.add(cellDrawer.getPopulations().get(obj));
+						System.out.println(cellDrawer.getPopulations().get(obj)+"first");
+					}
+					else if (i == 1) {
+						dataQ2.add(cellDrawer.getPopulations().get(obj));
+					}
+					else if (i == 2) {
+						dataQ3.add(cellDrawer.getPopulations().get(obj));
+						System.out.println(cellDrawer.getPopulations().get(obj));
+					}
+				}
 
-	            	    else if (i== 1) {
-	            	    		dataQ2.add(cellDrawer.getPopulations().get(obj));
-	            	    }
-
-	            	    else if (i== 2) {
-	            	    		dataQ3.add(cellDrawer.getPopulations().get(obj));
-	            	    }
-	            	  
-	            	}
-	            	
-	                Thread.sleep(100);
-	                executor.execute(this);
-	            } catch (InterruptedException ex) {
-	                System.out.println("Error! Interrupted Exception");
-	            }
-	        }
-	    }
+				Thread.sleep(100);
+				executor.execute(this);
+			} catch (InterruptedException ex) {
+				System.out.println("Error! Interrupted Exception");
+			}
+		}
+	}
 	
 	private void drawFreshGrid() {
 		cellDrawer.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root, props, cellState);
@@ -232,30 +189,7 @@ public class Visualizer extends Application {
 			handleSimulation(e) ;
 		});
 		
-		
-		
-		
-		 for (int i = 0; i < 25; i++) { //-- add 20 numbers to the plot+
-	            if (dataQ1.isEmpty()) break;
-	            series1.getData().add(new XYChart.Data<>(xSeriesData++, dataQ1.remove()));
-	            if(dataQ2.isEmpty()) break;
-	            series2.getData().add(new XYChart.Data<>(xSeriesData++, dataQ2.remove()));
-	            if(dataQ3.isEmpty()) break;
-	            series3.getData().add(new XYChart.Data<>(xSeriesData++, dataQ3.remove()));
-	        }
-	        // remove points to keep us at no more than MAX_DATA_POINTS
-	        if (series1.getData().size() > MAX_DATA_POINTS) {
-	            series1.getData().remove(0, series1.getData().size() - MAX_DATA_POINTS);
-	        }
-	        if (series2.getData().size() > MAX_DATA_POINTS) {
-	            series2.getData().remove(0, series2.getData().size() - MAX_DATA_POINTS);
-	        }
-	        if (series3.getData().size() > MAX_DATA_POINTS) {
-	            series3.getData().remove(0, series3.getData().size() - MAX_DATA_POINTS);
-	        }
-	        // update
-	        xAxis.setLowerBound(xSeriesData - MAX_DATA_POINTS);
-	        xAxis.setUpperBound(xSeriesData - 1);
+		updateLineGraph();
 	}
 
 	protected void update() {
@@ -268,6 +202,31 @@ public class Visualizer extends Application {
 		drawFreshGrid();
 	  }
 	
+	protected void updateLineGraph() {
+
+		 for (int i = 0; i < 25; i++) { 
+	            if (dataQ1.isEmpty()) break;
+	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xSeriesData++, dataQ1.remove()));
+	            if(dataQ2.isEmpty()) break;
+	            graphCreator.getSeries2().getData().add(new XYChart.Data<>(xSeriesData++, dataQ2.remove()));
+	            if(dataQ3.isEmpty()) break;
+	            graphCreator.getSeries3().getData().add(new XYChart.Data<>(xSeriesData++, dataQ3.remove()));
+	        }
+
+	        if (graphCreator.getSeries1().getData().size() > MAX_DATA_POINTS) {
+	        		graphCreator.getSeries1().getData().remove(0, graphCreator.getSeries1().getData().size() - MAX_DATA_POINTS);
+	        }
+	        if (graphCreator.getSeries2().getData().size() > MAX_DATA_POINTS) {
+	        		graphCreator.getSeries2().getData().remove(0, graphCreator.getSeries2().getData().size() - MAX_DATA_POINTS);
+	        }
+	        if (graphCreator.getSeries3().getData().size() > MAX_DATA_POINTS) {
+	        		graphCreator.getSeries3().getData().remove(0, graphCreator.getSeries3().getData().size() - MAX_DATA_POINTS);
+	        }
+	        graphCreator.getXAxis().setLowerBound(xSeriesData - MAX_DATA_POINTS);
+	        graphCreator.getXAxis().setUpperBound(xSeriesData - 1);
+		
+	}
+	
 	private void handleParamChanges(Event e) {
 		props = new double[propsLength];
 		String str = propsChanger.getTextValue().getText();
@@ -279,10 +238,12 @@ public class Visualizer extends Application {
 	
 	private void handleSimulation(Event e) {
 		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
-		if (selectedAction.equals("Game of Life")) 
+		if (selectedAction.equals("Game of Life")) { 
 			newSim("xml/gol_simulation.xml");
-		if (selectedAction.equals("Segregation"))
+		}
+		if (selectedAction.equals("Segregation")) {
 			newSim("xml/segregation_simulation.xml");
+		}
 		if (selectedAction.equals("Predator/Prey")) 
 			newSim("xml/wator_simulation.xml");
 		if (selectedAction.equals("Fire")) {
@@ -291,6 +252,9 @@ public class Visualizer extends Application {
 	}
 	
 	protected void newSim(String sim) {
+		dataQ1 = new ConcurrentLinkedQueue<>();
+		dataQ2 = new ConcurrentLinkedQueue<>();
+		dataQ3 = new ConcurrentLinkedQueue<>();
 		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, sim);
 		stg.setScene(myScene);
 		stg.show();

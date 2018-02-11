@@ -31,16 +31,9 @@ public class CellsToVisualize  {
 				cell.getPoints().add(vertex.getY() * (height / sim.getGrid().numCols())+STARTING_Y);
 			}
 			
-			if (!populations.containsKey(cell.getColor())) {
-				populations.put(cell.getColor(), 1);
-			}else {
-				populations.put(cell.getColor(), populations.get(cell.getColor())+1 );
-				}
-
 			cell.setProps(props);
 			cell.setFill(cell.getColor());
 			cell.setStroke(Color.WHITE);
-			root.getChildren().add(cell);
 			
 			cell.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 	            	@Override
@@ -49,7 +42,13 @@ public class CellsToVisualize  {
 					    		cell.setFill(cell.getColor());
 					    } 
 					});
-
+			
+			if (!populations.containsKey(cell.getColor())) {
+				populations.put(cell.getColor(), 1);
+			}else {
+				populations.put(cell.getColor(), populations.get(cell.getColor())+1 );
+				}
+			root.getChildren().add(cell);
 		}
 		
 	}
