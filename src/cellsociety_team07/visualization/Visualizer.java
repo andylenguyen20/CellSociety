@@ -51,8 +51,8 @@ public class Visualizer extends Application {
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
 	private static final int MAXIMUM_POINTS = 20;
-	private int xSeriesData = 0;
-	private ExecutorService executor;
+	private int xData = 0;
+	private ExecutorService chartExecutor;
     private ConcurrentLinkedQueue<Number> dataQueue1 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQueue2 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQueue3 = new ConcurrentLinkedQueue<>();
@@ -76,7 +76,7 @@ public class Visualizer extends Application {
 	}
 	
 	private void setUpLineChartExecutor() {
-		executor = Executors.newCachedThreadPool(new ThreadFactory() {
+		chartExecutor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
                 Thread thread = new Thread(r);
@@ -86,7 +86,7 @@ public class Visualizer extends Application {
         });
 
         AddPointsToQueue addToQueue = new AddPointsToQueue();
-        executor .execute(addToQueue);
+        chartExecutor .execute(addToQueue);
 	}
 	
 	private void setAnimation(Stage s) {
@@ -125,9 +125,9 @@ public class Visualizer extends Application {
 		public void run() {
 			Map<Paint, Integer> populations = cellDrawer.getPopulations();
 			try {
-				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, executor);
+				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, chartExecutor);
 				Thread.sleep(100);
-				executor.execute(this);
+				chartExecutor.execute(this);
 		   }catch (InterruptedException ex) {
 					System.out.println("Error! Interrupted Exception");
 				}
@@ -183,17 +183,17 @@ public class Visualizer extends Application {
 	private void updateLineGraph() {
 		for (int i = 0; i < 25; i++) { 
 	            if (dataQueue1.isEmpty()) break;
-	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xSeriesData++, dataQueue1.remove()));
+	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xData++, dataQueue1.remove()));
 	            if(dataQueue2.isEmpty()) break;
-	            graphCreator.getSeries2().getData().add(new XYChart.Data<>(xSeriesData++, dataQueue2.remove()));
+	            graphCreator.getSeries2().getData().add(new XYChart.Data<>(xData++, dataQueue2.remove()));
 	            if(dataQueue3.isEmpty()) break;
-	            graphCreator.getSeries3().getData().add(new XYChart.Data<>(xSeriesData++, dataQueue3.remove()));
+	            graphCreator.getSeries3().getData().add(new XYChart.Data<>(xData++, dataQueue3.remove()));
 	        }
 			addNewPoint(graphCreator.getSeries1(), MAXIMUM_POINTS);
 			addNewPoint(graphCreator.getSeries2(), MAXIMUM_POINTS);
 			addNewPoint(graphCreator.getSeries3(), MAXIMUM_POINTS);
-			graphCreator.getXAxis().setLowerBound(xSeriesData - MAXIMUM_POINTS);
-	         graphCreator.getXAxis().setUpperBound(xSeriesData - 1);
+			graphCreator.getXAxis().setLowerBound(xData - MAXIMUM_POINTS);
+	        graphCreator.getXAxis().setUpperBound(xData - 1);
 	}
 	
 	private void addNewPoint(XYChart.Series<Number, Number> series, int maxData) {
