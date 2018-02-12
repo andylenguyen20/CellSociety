@@ -28,11 +28,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import cellsociety_team07.simulation.Cell;
-import cellsociety_team07.simulation.FireCell;
-import cellsociety_team07.simulation.GameOfLifeCell;
 import cellsociety_team07.simulation.Grid;
-import cellsociety_team07.simulation.SegregationCell;
-import cellsociety_team07.simulation.WatorCell;
 
 import org.w3c.dom.Node;
 
@@ -71,11 +67,12 @@ public class XMLWriterFactory {
 	 * @param simTitle: title of simulation
 	 */
 	public static void getSimData(Grid g, String simType, String simTitle) {
+		System.out.println("hiif");
 		Document file; // document actively being written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
 		File f = new File("xml/" + simType + "State.xml"); // filepath where document will eventually be saved
-		List<Cell> cells = g.getCells();
 		// Set up file
+		List<Cell> cells = g.getCells();
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			file = db.newDocument(); // create new document
@@ -94,8 +91,10 @@ public class XMLWriterFactory {
 			sim.appendChild(grid);
 			// Dimensions
 			Element dim = file.createElement(DIMENSION);
-			dim.appendChild(addData(file,WIDTH,String.valueOf(g.numCols())));
-			dim.appendChild(addData(file,HEIGHT,String.valueOf(g.numRows())));
+			dim.appendChild(addData(file,WIDTH,g.numCols() + ""));
+			dim.appendChild(addData(file,HEIGHT,g.numRows() + ""));
+			grid.appendChild(dim);
+			System.out.println(dim.getFirstChild().toString());
 			// Input cell data
 			for (Cell cell:cells) {
 				Element c = file.createElement(CELL);
@@ -103,7 +102,7 @@ public class XMLWriterFactory {
 				c.setAttribute(TYPE, cell.getClass().getSimpleName());
 				// get Points, State
 				for (Double d:cell.getVertices()) {
-					c.appendChild(addData(file, "point", d.toString()));
+					c.appendChild(addData(file, "point", d.getX() + "," + d.getY()));
 				}
 				c.appendChild(addData(file, "state", String.valueOf(cell.getCurrentState())));
 				// add to grid node
@@ -112,7 +111,7 @@ public class XMLWriterFactory {
 			// Format + save file
 			saveXMLFile(file,f);
 		} catch(Exception e) {
-			e.printStackTrace();
+			throw new BadSimulationException("");
 		}
 	}
 	
@@ -177,20 +176,19 @@ public class XMLWriterFactory {
 	 * 
 	 * @param simType String containing simulation type
 	 * @return        number of states for that simulation type
-	 * @throws        BadSimulationException if invalid simType
 	 */
-	private static int getNumStates(String simType) throws BadSimulationException {
+	private static int getNumStates(String simType) {
 		switch (simType) {
 		case "GameOfLife":
-			return new GameOfLifeCell().getColors().length;
+			return 2;
 		case "Fire":
-			return new FireCell().getColors().length;
+			return 3;
 		case "Segregation":
-			return new SegregationCell().getColors().length;
+			return 3;
 		case "Wator":
-			return new WatorCell().getColors().length;
+			return 3;
 		default:
-			throw new BadSimulationException();
+			return -1;
 		}
 	}
 	
@@ -265,7 +263,7 @@ public class XMLWriterFactory {
 	 */
 	private static void appendRandomProps(String simType, Element sim, Document file) {
 		String param;
-		if (simType.equals("Fire")) {
+		if (simType.equals("FireCell")) {
 			param = "probCatch";
 		} else {
 			param = "similarityReq";
@@ -293,7 +291,7 @@ public class XMLWriterFactory {
 	 */
 	private static void appendProps(String simType, double[] props, Element sim, Document file) {
 		String param;
-		if (simType == "FireCell") {
+		if (simType.equals("Fire")) {
 			param = "probCatch";
 		} else
 			param = "similarityReq";
@@ -311,7 +309,7 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		writeRandomSimData(10,10,"Fire","Fire","Triangle");
+		writeRandomSimData(10,10,"Wator","Wator","Triangle");
 	}
 	
 }

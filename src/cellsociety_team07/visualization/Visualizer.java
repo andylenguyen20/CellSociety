@@ -50,12 +50,12 @@ public class Visualizer extends Application {
 	private TextFieldCreator propsChanger;
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
-	private static final int MAX_DATA_POINTS = 20;
+	private static final int MAXIMUM_POINTS = 20;
 	private int xSeriesData = 0;
 	private ExecutorService executor;
-    private ConcurrentLinkedQueue<Number> dataQ1 = new ConcurrentLinkedQueue<>();
-	private ConcurrentLinkedQueue<Number> dataQ2 = new ConcurrentLinkedQueue<>();
-	private ConcurrentLinkedQueue<Number> dataQ3 = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<Number> dataQueue1 = new ConcurrentLinkedQueue<>();
+	private ConcurrentLinkedQueue<Number> dataQueue2 = new ConcurrentLinkedQueue<>();
+	private ConcurrentLinkedQueue<Number> dataQueue3 = new ConcurrentLinkedQueue<>();
 	
 	
 	/**
@@ -71,11 +71,11 @@ public class Visualizer extends Application {
 		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
-		setUpGraphExecutor();
+		setUpLineChartExecutor();
 		setAnimation(stg);
 	}
 	
-	private void setUpGraphExecutor() {
+	private void setUpLineChartExecutor() {
 		executor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
             public Thread newThread(Runnable r) {
@@ -85,7 +85,7 @@ public class Visualizer extends Application {
             }
         });
 
-        AddToQueue addToQueue = new AddToQueue();
+        AddPointsToQueue addToQueue = new AddPointsToQueue();
         executor .execute(addToQueue);
 	}
 	
@@ -121,11 +121,11 @@ public class Visualizer extends Application {
 		return scene;
 	}
 	
-	private class AddToQueue implements Runnable {
+	private class AddPointsToQueue implements Runnable {
 		public void run() {
 			Map<Paint, Integer> populations = cellDrawer.getPopulations();
 			try {
-				DataPlotter.plotPoints(populations, dataQ1, dataQ2, dataQ3, executor);
+				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, executor);
 				Thread.sleep(100);
 				executor.execute(this);
 		   }catch (InterruptedException ex) {
@@ -150,16 +150,24 @@ public class Visualizer extends Application {
 	private void step(double elapsedTime) {
 		update();
 		updateLineGraph();
-	    propsChanger.getSubmit().setOnAction((e) -> {
-	   	    		handleParamChanges(e); });
-	    stateChanger.getSubmit().setOnAction((e) -> {
-    			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
+	    handleUserInput();
+	}
+	
+	public void handleUserInput() {
+		propsChanger.getSubmit().setOnAction((e) -> {
+   	    		handleParamChanges(e); });
+		stateChanger.getSubmit().setOnAction((e) -> {
+			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));	});
+		menuCreator.saveStateButton().setOnAction((e) -> {
+			System.out.println("save state executes");
+			simulation.saveCurrentState();	});
 		menuCreator.commands().setOnAction((e) -> {
 			CommandHandler.handleCommand( e, animation, menuCreator); });
 		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ; });
+		
 	}
 
 	private void update() {
@@ -174,17 +182,17 @@ public class Visualizer extends Application {
 	
 	private void updateLineGraph() {
 		for (int i = 0; i < 25; i++) { 
-	            if (dataQ1.isEmpty()) break;
-	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xSeriesData++, dataQ1.remove()));
-	            if(dataQ2.isEmpty()) break;
-	            graphCreator.getSeries2().getData().add(new XYChart.Data<>(xSeriesData++, dataQ2.remove()));
-	            if(dataQ3.isEmpty()) break;
-	            graphCreator.getSeries3().getData().add(new XYChart.Data<>(xSeriesData++, dataQ3.remove()));
+	            if (dataQueue1.isEmpty()) break;
+	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xSeriesData++, dataQueue1.remove()));
+	            if(dataQueue2.isEmpty()) break;
+	            graphCreator.getSeries2().getData().add(new XYChart.Data<>(xSeriesData++, dataQueue2.remove()));
+	            if(dataQueue3.isEmpty()) break;
+	            graphCreator.getSeries3().getData().add(new XYChart.Data<>(xSeriesData++, dataQueue3.remove()));
 	        }
-			addNewPoint(graphCreator.getSeries1(), MAX_DATA_POINTS);
-			addNewPoint(graphCreator.getSeries2(), MAX_DATA_POINTS);
-			addNewPoint(graphCreator.getSeries3(), MAX_DATA_POINTS);
-			graphCreator.getXAxis().setLowerBound(xSeriesData - MAX_DATA_POINTS);
+			addNewPoint(graphCreator.getSeries1(), MAXIMUM_POINTS);
+			addNewPoint(graphCreator.getSeries2(), MAXIMUM_POINTS);
+			addNewPoint(graphCreator.getSeries3(), MAXIMUM_POINTS);
+			graphCreator.getXAxis().setLowerBound(xSeriesData - MAXIMUM_POINTS);
 	         graphCreator.getXAxis().setUpperBound(xSeriesData - 1);
 	}
 	
@@ -217,9 +225,9 @@ public class Visualizer extends Application {
 		}
 	
 	private void newSim(String sim) {
-		dataQ1 = new ConcurrentLinkedQueue<>();
-		dataQ2 = new ConcurrentLinkedQueue<>();
-		dataQ3 = new ConcurrentLinkedQueue<>();
+		dataQueue1 = new ConcurrentLinkedQueue<>();
+		dataQueue2 = new ConcurrentLinkedQueue<>();
+		dataQueue3 = new ConcurrentLinkedQueue<>();
 		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, sim);
 		stg.setScene(myScene);
 		stg.show();

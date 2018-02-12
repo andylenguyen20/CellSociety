@@ -17,7 +17,9 @@ public class MenuCreator {
 	private ComboBox<String> commandsBox;
 	private ComboBox<String> simulationMenu;
 	private Button stepForward;
-	private Button multipleSims;
+	private Button saveState;
+	private ButtonMaker stepButtonMaker;
+	private ButtonMaker stateSaveButtonMaker;
 
 	protected String getResources(ResourceBundle rb, String s) {
 		return rb.getString(s);
@@ -46,12 +48,25 @@ public class MenuCreator {
 		return button;
 	}
 	
+	protected Button makeStepForward(ResourceBundle resource, String command) {
+		stepButtonMaker = new ButtonMaker (resource, command);
+		stepForward = stepButtonMaker.makeButton(stepForward, resource, command);
+		return stepForward;
+	}
+	
+	
+	protected Button makeSaveState(ResourceBundle resource, String command) {
+		stateSaveButtonMaker = new ButtonMaker (resource, command);
+		saveState = stateSaveButtonMaker.makeButton(saveState, resource, command);
+		return saveState;
+	}
+	
 	public HBox addHBox(ResourceBundle com, ResourceBundle sim) {
 	    HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(15, 12, 15, 12));
 	    hbox.setSpacing(10);
 	    hbox.setStyle("-fx-background-color: #336699;");
-	    hbox.getChildren().addAll(getSimulationMenu(sim),getCommandsBox(com),makeStepForward(com),makeButton(multipleSims, sim,"MultipleSimulationsCommand"));
+	    hbox.getChildren().addAll(getSimulationMenu(sim),getCommandsBox(com),makeStepForward(com,"StepForwardCommand"),makeSaveState(com, "SaveStateCommand"));
 	    return hbox;
 	}
 
@@ -63,13 +78,12 @@ public class MenuCreator {
 		return simulationMenu;
 	}
 	
-	protected Button makeStepForward(ResourceBundle c) {
-		stepForward = new Button(getResources(c, "StepForwardCommand"));
-		return stepForward;
-	}
-
 	protected Button stepButton (){
 		return stepForward;
+	}
+	
+	protected Button saveStateButton() {
+		return saveState;
 	}
 
 }
