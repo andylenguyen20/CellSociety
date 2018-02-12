@@ -150,7 +150,6 @@ public class Visualizer extends Application {
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));	});
 		menuCreator.saveStateButton().setOnAction((e) -> {
-			System.out.println("save state executes");
 			simulation.saveCurrentState();	});
 		menuCreator.commands().setOnAction((e) -> {
 			CommandHandler.handleCommand( e, animation, menuCreator); });
@@ -197,7 +196,6 @@ public class Visualizer extends Application {
 		String simType = arrOfStr[2];
 		String shape = arrOfStr[3];
 		XMLWriterFactory.writeRandomSimData(height, width, simType, shape);
-		System.out.println("afadsfadsf");
 		newSim("xml/random.xml");
 		nextSimType = simType;
 	}
