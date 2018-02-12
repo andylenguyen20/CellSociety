@@ -29,7 +29,7 @@ public abstract class Cell extends Polygon {
 		return vertices;
 	}
 	/*
-	 * A method that updates the Cellâ€™s state to the next state.
+	 * A method that updates the Cell’s state to the next state.
 	 */
 	public abstract void update();
 

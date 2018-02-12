@@ -28,7 +28,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import cellsociety_team07.simulation.Cell;
+import cellsociety_team07.simulation.FireCell;
+import cellsociety_team07.simulation.GameOfLifeCell;
 import cellsociety_team07.simulation.Grid;
+import cellsociety_team07.simulation.SegregationCell;
+import cellsociety_team07.simulation.WatorCell;
 
 import org.w3c.dom.Node;
 
@@ -66,10 +70,11 @@ public class XMLWriterFactory {
 	 * @param simType: String containing type of simulation
 	 * @param simTitle: title of simulation
 	 */
-	public static void getSimData(List<Cell> cells, Grid g, String simType, String simTitle) {
+	public static void getSimData(Grid g, String simType, String simTitle) {
 		Document file; // document actively being written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
 		File f = new File("xml/" + simType + "State.xml"); // filepath where document will eventually be saved
+		List<Cell> cells = g.getCells();
 		// Set up file
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -172,19 +177,20 @@ public class XMLWriterFactory {
 	 * 
 	 * @param simType String containing simulation type
 	 * @return        number of states for that simulation type
+	 * @throws        BadSimulationException if invalid simType
 	 */
-	private static int getNumStates(String simType) {
+	private static int getNumStates(String simType) throws BadSimulationException {
 		switch (simType) {
 		case "GameOfLife":
-			return 2;
+			return new GameOfLifeCell().getColors().length;
 		case "Fire":
-			return 3;
+			return new FireCell().getColors().length;
 		case "Segregation":
-			return 3;
+			return new SegregationCell().getColors().length;
 		case "Wator":
-			return 3;
+			return new WatorCell().getColors().length;
 		default:
-			return -1;
+			throw new BadSimulationException();
 		}
 	}
 	
@@ -259,7 +265,7 @@ public class XMLWriterFactory {
 	 */
 	private static void appendRandomProps(String simType, Element sim, Document file) {
 		String param;
-		if (simType.equals("FireCell")) {
+		if (simType.equals("Fire")) {
 			param = "probCatch";
 		} else {
 			param = "similarityReq";
@@ -305,7 +311,7 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		writeRandomSimData(10,10,"Wator","Wator","Triangle");
+		writeRandomSimData(10,10,"Fire","Fire","Triangle");
 	}
 	
 }

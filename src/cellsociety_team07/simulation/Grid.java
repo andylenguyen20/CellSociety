@@ -75,7 +75,7 @@ public abstract class Grid{
 	
 	
 	/*
-	 * A method that updates the Gridâ€™s state to the next state.
+	 * A method that updates the Grid’s state to the next state.
 	 */
 	public void update(){
 		for(Cell cell : cells){

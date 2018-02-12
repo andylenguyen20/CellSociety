@@ -38,4 +38,3 @@ public class WatorGrid extends Grid implements CellFetcher{
 		return potentialCells.get((int) ( Math.random() * potentialCells.size()));
 	}
 }
-
