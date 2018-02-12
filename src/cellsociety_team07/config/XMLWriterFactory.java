@@ -75,7 +75,7 @@ public class XMLWriterFactory {
 			// Append type, title, author
 			setHeader(sim,file,simType);
 			// get + write props
-			double[] props = cells.get(0).getProps();
+			double[] props = cells.get(0).getParams();
 			appendProps(simType,props,sim,file);
 			// Set up grid node
 			Element grid = file.createElement(GRID);

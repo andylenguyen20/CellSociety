@@ -4,6 +4,13 @@ import javafx.scene.paint.Paint;
 
 import javafx.scene.paint.Color;
 
+/**
+ * 
+ * The purpose of this class is to act as a specific subtype of Cell under the Wator simulation
+ * conditions, following the rules of a Wator Cell accordingly.
+ * @author Andy Nguyen
+ *
+ */
 public class WatorCell extends Cell{
 	public static final int WATER = 0;
 	public static final int FISH = 1;
@@ -15,12 +22,18 @@ public class WatorCell extends Cell{
 	private int startingEnergyIndex;
 	private int fishEnergyIndex;
 
+	/**
+	 * instantiates a new WatorCell object
+	 */
 	public WatorCell() {
 		super();
 		numChrononsAlive = 0;
 		super.setColors(colors);
 	}
 	
+	/**
+	 * extends upon the setInitialAttributes method of Cell by initializing other values
+	 */
 	@Override
 	public void setInitialAttributes(int initialState, double[] props){
 		super.setInitialAttributes(initialState, props);
@@ -31,14 +44,17 @@ public class WatorCell extends Cell{
 		energy = props[startingEnergyIndex];
 	}
 	
+	/**
+	 * increases the chronon count by one
+	 */
 	public void applyRules(){
 		this.numChrononsAlive++;
 	}
 	
-	@Override
-	public void update(){
-		this.setCurrentState(this.getNextState());
-	}
+	/**
+	 * applies the rules for this given cell
+	 * @param cf
+	 */
 	public void applyRules(CellFetcher cf){
 		this.applyRules();
 		if(super.getCurrentState() == SHARK){
@@ -48,12 +64,16 @@ public class WatorCell extends Cell{
 		}
 	}
 	
+	/**
+	 * applies the rules of the shark cell explained in the Wator simulation rules
+	 * @param cf
+	 */
 	private void applySharkRules(CellFetcher cf){
 		this.energy--;
 		if(this.fishesAvailableToEat()){
 			WatorCell prey = (WatorCell) cf.getCellOfType(FISH, this);
 			prey.setNextState(SHARK);
-			this.energy += super.getProps()[fishEnergyIndex];
+			this.energy += super.getParams()[fishEnergyIndex];
 			reproduce();
 			this.transferDataTo(prey);
 		}else if(this.openSpotsAvailable()){
@@ -72,6 +92,10 @@ public class WatorCell extends Cell{
 		}
 	}
 	
+	/**
+	 * applies the rules of the fish cell explained in the Wator simulation rules
+	 * @param cf
+	 */
 	private void applyFishRules(CellFetcher cf){
 		boolean canMove = this.openSpotsAvailable() && this.getCurrentState() == FISH && this.getNextState() == FISH;
 		if(canMove){
@@ -82,6 +106,14 @@ public class WatorCell extends Cell{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return	a boolean indicating whether this cell is a shark type cell
+	 */
+	public boolean isShark(){
+		return this.getCurrentState() == SHARK;
+	}
+
 	private boolean fishesAvailableToEat(){
 		int fishes = 0;
 		for(Cell cell : super.getNeighbors()){
@@ -106,29 +138,31 @@ public class WatorCell extends Cell{
 		if(this.canReproduce()){
 			numChrononsAlive = 0;
 			this.setNextState(this.getCurrentState());
-			this.setEnergy(super.getProps()[startingEnergyIndex]);
+			this.setEnergy(super.getParams()[startingEnergyIndex]);
 		}else{
 			this.setNextState(WATER);
 		}
 	}
+	
 	private void transferDataTo(WatorCell toBeMovedTo){
 		toBeMovedTo.setChronons(this.numChrononsAlive);
 		toBeMovedTo.setMinReproductionChrononIndex(minReproductionChrononIndex);
 		toBeMovedTo.setEnergy(this.energy);
 	}
+	
 	private boolean canReproduce(){
-		return numChrononsAlive >= super.getProps()[minReproductionChrononIndex];
+		return numChrononsAlive >= super.getParams()[minReproductionChrononIndex];
 	}
+	
 	private void setChronons(double chronons){
 		this.numChrononsAlive = chronons;
 	}
+	
 	private void setEnergy(double energy){
 		this.energy = energy;
 	}
+	
 	private void setMinReproductionChrononIndex(int index){
 		this.minReproductionChrononIndex = index;
-	}
-	public boolean isShark(){
-		return this.getCurrentState() == SHARK;
 	}
 }
