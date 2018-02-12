@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.simulation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +75,7 @@ public abstract class Grid{
 	
 	
 	/*
-	 * A method that updates the Gridâ€™s state to the next state.
+	 * A method that updates the Grid’s state to the next state.
 	 */
 	public void update(){
 		for(Cell cell : cells){

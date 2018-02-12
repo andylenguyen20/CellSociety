@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.visualization;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
@@ -62,7 +62,7 @@ public class GraphCreator {
 		return xAxis;
 	}
 	
-	public  XYChart.Series<Number, Number> getSeries1(){
+	public XYChart.Series<Number, Number> getSeries1(){
 		return series1;
 	}
 	public  XYChart.Series<Number, Number> getSeries2(){
@@ -73,4 +73,3 @@ public class GraphCreator {
 	}
 
 }
-

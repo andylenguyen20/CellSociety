@@ -1,10 +1,16 @@
-package cellsociety_team07;
+package cellsociety_team07.visualization;
 
 import java.util.ResourceBundle;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+
+/**
+ * This StateChangeTextField class is responsible for initializing the textfield at the left of the screen which allows you to change
+ * the states of the cells once data is entered in the textfield and the Enter button next to the textfield is pressed
+ * @author Dana Park
+ */
+
 
 public class StateChangeTextField {
 	

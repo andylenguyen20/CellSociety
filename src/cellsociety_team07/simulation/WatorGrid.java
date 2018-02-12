@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.simulation;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -38,4 +38,3 @@ public class WatorGrid extends Grid implements CellFetcher{
 		return potentialCells.get((int) ( Math.random() * potentialCells.size()));
 	}
 }
-

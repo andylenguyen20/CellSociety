@@ -1,7 +1,10 @@
-package cellsociety_team07;
+package cellsociety_team07.visualization;
 
 import java.awt.geom.Point2D;
 import java.util.*;
+
+import cellsociety_team07.config.Simulation;
+import cellsociety_team07.simulation.Cell;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -31,13 +34,6 @@ public class CellsToVisualize  {
 		}
 	}
 	
-	private void createPopulationMap(Cell cell) {
-		if (!populations.containsKey(cell.getColor())) {
-			populations.put(cell.getColor(), 1);
-		}else {
-			populations.put(cell.getColor(), populations.get(cell.getColor())+1 );
-			}
-	}
 	
 	private void initializeCells(Cell cell, double[]props, int state) {
 		cell.setProps(props);
@@ -51,6 +47,14 @@ public class CellsToVisualize  {
 				    } 
 			});
 		}
+	
+	private void createPopulationMap(Cell cell) {
+		if (!populations.containsKey(cell.getColor())) {
+			populations.put(cell.getColor(), 1);
+		}else {
+			populations.put(cell.getColor(), populations.get(cell.getColor())+1 );
+			}
+	}
 	
 	protected Map<Paint, Integer> getPopulations(){
 		return populations;

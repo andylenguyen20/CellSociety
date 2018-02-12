@@ -75,7 +75,7 @@
 //
 //}
 
-package cellsociety_team07;
+package cellsociety_team07.visualization;
 
 import java.util.ResourceBundle;
 
@@ -87,7 +87,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class MenuCreator {
-	
 	private ComboBox<String> commandsBox;
 	private ComboBox<String> simulationMenu;
 	private Button stepForward;
@@ -147,5 +146,4 @@ public class MenuCreator {
 	}
 
 }
-
 

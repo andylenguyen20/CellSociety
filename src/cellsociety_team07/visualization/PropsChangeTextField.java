@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.visualization;
 
 import java.util.ResourceBundle;
 
@@ -7,12 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 public class PropsChangeTextField  {
-	
 	protected  TextField propsText;
 	protected  Button submit;
 
-
-	
 	protected TextField propsTextFieldCreator(ResourceBundle com, String txt) {
 		propsText = new TextField ();
 		propsText.setPromptText(com.getString(txt));
