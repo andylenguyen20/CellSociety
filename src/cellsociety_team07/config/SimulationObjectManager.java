@@ -51,7 +51,7 @@ public class SimulationObjectManager {
 				watorCell.setInitialAttributes(state, cellProps);
 				return watorCell;
 		default:
-			throw new BadSimulationException("Bad simulation type while getting cell");		
+			throw new BadSimulationException("Bad simulation type while getting specific cell");		
 		}
 	}
 	public static Grid getSpecificGrid(String shape, Dimension gridDim, String simType){

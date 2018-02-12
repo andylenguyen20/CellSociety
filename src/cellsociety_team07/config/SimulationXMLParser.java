@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import cellsociety_team07.simulation.Cell;
 public class SimulationXMLParser {
 	private Document document;
 	public SimulationXMLParser(String fileName){
+		System.out.println(fileName);
 		document = readInFile(fileName);
 	}
 	/*
@@ -34,7 +36,7 @@ public class SimulationXMLParser {
 			doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BadSimulationException("Could not find or read simulation file!");
 		}
 		return doc;
 	}
@@ -55,6 +57,10 @@ public class SimulationXMLParser {
 	public String getTitle(){
 		Element title = (Element) document.getElementsByTagName("title").item(0);
 		return title.getTextContent();
+	}
+	
+	public Document getDocument() {
+		return document;
 	}
 	public List<Cell> getInitialCells(){
 		List<Cell> initialCells = new ArrayList<Cell>();

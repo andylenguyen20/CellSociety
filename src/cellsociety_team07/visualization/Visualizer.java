@@ -1,4 +1,5 @@
 package cellsociety_team07.visualization;
+import cellsociety_team07.config.BadSimulationException;
 import cellsociety_team07.config.Simulation;
 import cellsociety_team07.config.XMLWriterFactory;
 import cellsociety_team07.simulation.Cell;
@@ -13,11 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
-
-
-
 /**
  * This Visualizer class is responsible for the constant visualization and maintenance of all aspects that are on screen, including
  * drop down menus, buttons,textfields, the grid with live action cells, and a live-action graph at the bottom of the screen.
@@ -37,19 +34,27 @@ public class Visualizer extends Application {
 	private Stage stg;
 	private Scene myScene;
 	private Group root;
+	
 	private double [] props;
+	private int propsLength;
+	private TextFieldCreator propsChanger;
+	
 	private ResourceBundle myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
 	private ResourceBundle myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
-	private GraphCreator graphCreator;
-	private int propsLength;
-	private int cellState= 1;
+	
+
+	private int cellState=0;
 	private TextFieldCreator stateChanger;
-	private TextFieldCreator propsChanger;
+	
 	private String currentSimType;
 	private String nextSimType;
-
+	
 	private MenuCreator menuCreator;
+	
 	private CellsToVisualize cellDrawer;
+	
+	
+	private GraphCreator graphCreator;
 	private static final int MAXIMUM_POINTS = 20;
 	private int xData = 0;
 	private ExecutorService chartExecutor;
@@ -74,6 +79,7 @@ public class Visualizer extends Application {
 		setAnimation(stg);
 	}
 	
+	//move into a factory class as a public static method
 	private void setUpLineChartExecutor() {
 		chartExecutor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -88,6 +94,7 @@ public class Visualizer extends Application {
         chartExecutor .execute(addToQueue);
 	}
 	
+	
 	private void setAnimation(Stage s) {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 		animation = new Timeline();
@@ -101,7 +108,6 @@ public class Visualizer extends Application {
 		root = new Group();
 		stateChanger = new TextFieldCreator(myResources_C, "EnterStateChangeCommand", "EnterCommand");
 		propsChanger = new TextFieldCreator(myResources_C, "EnterPropChangeCommand", "SubmitCommand");
-
 		menuCreator = new MenuCreator();
 		cellDrawer= new CellsToVisualize();
 		graphCreator = new GraphCreator();
@@ -129,11 +135,11 @@ public class Visualizer extends Application {
 				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, chartExecutor, simulation.getCells().size());
 				Thread.sleep(100);
 				chartExecutor.execute(this);
-		   }catch (InterruptedException ex) {
-					System.out.println("Error! Interrupted Exception");
-				}
+		   }catch (Exception ex) {
+				throw new BadSimulationException("Data plotter failed to plot points");
 			}
 		}
+	}
 	
 	private void drawFreshGrid() {
 		if(currentSimType != nextSimType) {
@@ -165,7 +171,8 @@ public class Visualizer extends Application {
 		stateChanger.getButton().setOnAction((e) -> {
 			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
 		menuCreator.getRandomBox().getButton().setOnAction((e) -> {
-			System.out.println("hello"); });
+			System.out.println("hello"); 
+			handleRandomGeneration(e) ; });
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));	});
 		menuCreator.saveStateButton().setOnAction((e) -> {
@@ -175,8 +182,7 @@ public class Visualizer extends Application {
 			CommandHandler.handleCommand( e, animation, menuCreator); });
 		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ; });
-		
-	}
+		 }
 
 	private void update() {
 		Grid grid = simulation.getGrid();
@@ -205,10 +211,9 @@ public class Visualizer extends Application {
 	}
 	
 	private void addNewPoint(XYChart.Series<Number, Number> series, int maxData) {
-		if (series.getData().size() > maxData) {
-    			series.getData().remove(0, graphCreator.getSeries3().getData().size() - maxData);
+		if (series.getData().size() > maxData) 
+    			series.getData().remove(0, series.getData().size() - maxData);
 		}
-	}
 	
 	private void handleParamChanges(Event e) {
 		props = new double[propsLength];
@@ -217,7 +222,6 @@ public class Visualizer extends Application {
 		int i =	Integer.parseInt(arrOfStr[0]) ;
 		double d = Double.parseDouble(arrOfStr[1]);
 		props[i] =  d;
-		
 	}
 	
 	private void handleRandomGeneration(Event e) {
@@ -229,7 +233,8 @@ public class Visualizer extends Application {
 		String simType = arrOfStr[2];
 		String shape = arrOfStr[3];
 		XMLWriterFactory.writeRandomSimData(height, width, simType, shape);
-		newSim("xml/" + simType + "_random" + ".xml");
+		System.out.println("afadsfadsf");
+		newSim("xml/random.xml");
 		nextSimType = simType;
 	}
 	
@@ -250,7 +255,6 @@ public class Visualizer extends Application {
 		dataQueue1 = new ConcurrentLinkedQueue<>();
 		dataQueue2 = new ConcurrentLinkedQueue<>();
 		dataQueue3 = new ConcurrentLinkedQueue<>();
-		
 		myScene = setUpGame(SCREEN_XY, SCREEN_XY, sim);
 		stg.setScene(myScene);
 		stg.show();

@@ -3,9 +3,12 @@ package cellsociety_team07.config;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,6 +22,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import cellsociety_team07.simulation.Cell;
 import cellsociety_team07.simulation.Grid;
 
@@ -87,7 +92,7 @@ public class XMLWriterFactory {
 				// Set cell name
 				c.setAttribute(TYPE, cell.getClass().getSimpleName());
 				// get Points, State
-				for (Double d:cell.getVertices()) {
+				for (Point2D.Double d:cell.getVertices()) {
 					c.appendChild(addData(file, "point", d.getX() + "," + d.getY()));
 				}
 				c.appendChild(addData(file, "state", String.valueOf(cell.getCurrentState())));
@@ -113,7 +118,7 @@ public class XMLWriterFactory {
 		SimulationXMLParser simPars = new SimulationXMLParser("xml/random_properties.xml"); // create object to read random properties
 		Document file; // document to be written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
-		File f = new File("xml/Random.xml");
+		File f = new File("xml/random.xml");
 		// Dimensions
 		Dimension d = new Dimension(width,height);
 		// Get Triangular Cell Grid
@@ -130,7 +135,7 @@ public class XMLWriterFactory {
 			sim.appendChild(addData(file,TITLE,simType + "Simulation"));
 			sim.appendChild(addData(file,AUTHOR,"Brendan Cheng"));
 			// Append Props
-			appendRandomProps(simType,sim,file);
+			appendRandomProps(simType,sim,file, simPars);
 			// Set up grid node
 			Element grid = file.createElement(GRID);
 			sim.appendChild(grid);
@@ -140,40 +145,29 @@ public class XMLWriterFactory {
 			dim.appendChild(addData(file,"width",String.valueOf(width)));
 			dim.appendChild(addData(file,"height",String.valueOf(height)));
 			// Input cell data
+			HashMap<String,ArrayList<Integer>> stateMap = getPossibleStates(simPars,simType);
+			Set<String> typeSet = stateMap.keySet();
+			String[] types = new String[typeSet.size()];
+			int counter = 0;
+			for (String s: typeSet) {
+				types[counter] = s;
+				counter++;
+			}
 			for (Cell c:cells) {
 				Element cell = file.createElement(CELL);
-				cell.setAttribute(TYPE, String.valueOf(c.getClass().getSimpleName()));
+				String cellType = types[(int) (Math.random()*types.length)];
+				cell.setAttribute(TYPE, cellType);
 				for (Point2D.Double v:c.getVertices()) {
 					cell.appendChild(addData(file,"point",String.valueOf(v.getX()) + "," + String.valueOf(v.getY())));
 				}
-				cell.appendChild(addData(file,"state",String.valueOf((int)(getNumStates(simType)*Math.random()))));
+				ArrayList<Integer> states = stateMap.get(cellType);
+				cell.appendChild(addData(file,"state",String.valueOf(states.get((int)(Math.random()*states.size())))));
 				grid.appendChild(cell);
 			}
 			// Format + save file
 			saveXMLFile(file,f);
 		} catch(Exception e) {
-			throw new BadSimulationException();
-		}
-	}
-	
-	/**
-	 * Returns the number of possible states for a given simulation type
-	 * 
-	 * @param simType String containing simulation type
-	 * @return        number of states for that simulation type
-	 */
-	private static int getNumStates(String simType) {
-		switch (simType) {
-		case "GameOfLife":
-			return 2;
-		case "Fire":
-			return 3;
-		case "Segregation":
-			return 3;
-		case "Wator":
-			return 3;
-		default:
-			return -1;
+			throw new BadSimulationException("Could not append children");
 		}
 	}
 	
@@ -206,17 +200,6 @@ public class XMLWriterFactory {
 		return e;
 	}
 
-	/**
-	 * FireSimulation and SegregationSimulation both require only one property, which is a double between 0 and 1. This randomizes
-	 * the data in props array
-	 * 
-	 * @return double array of one index containing a number between 0 and 1
-	 */
-	private static double[] getFireSegProps() {
-		double[] props = new double[1];
-		props[0] = Math.random();
-		return props;
-	}
 	
 	private static double[] getWatorProps() {
 		double[] props = {3,3,4,5}; // this will change inevitably
@@ -230,7 +213,7 @@ public class XMLWriterFactory {
 	 * @param paramName Name of node to be created
 	 * @param prop      property/value of node
 	 * @param file      file to create element in
-	 * @param sim       parent node to which param node will be attached; usually simulatoin
+	 * @param sim       parent node to which param node will be attached; usually simulation
 	 */
 	private static void setParams(String paramName, double prop, Document file, Element sim) {
 		Element e = file.createElement("param");
@@ -240,31 +223,100 @@ public class XMLWriterFactory {
 	}
 	
 	/**
+	 * Helper method that finds each cell type and its corresponding states
+	 * 
+	 * @param tag	The simulation tag that pars should look under
+	 * @param pars  XML parser
+	 * @return		Map to be returned by getPossibleStates
+	 */
+	private static HashMap<String,ArrayList<Integer>> getStates(Element tag, SimulationXMLParser pars) {
+		HashMap<String,ArrayList<Integer>> map = new HashMap<>();
+		NodeList cellTypes = tag.getElementsByTagName("cell");
+//		for (int i = 0; i < cellTypes.getLength(); i++) {
+//			Element cell = (Element) cellTypes.item(i);
+//			System.out.println(cell.getAttribute("type"));
+//		}
+		for (int i = 0; i < cellTypes.getLength(); i++) {
+			Element cell = (Element) cellTypes.item(i);
+			ArrayList<Integer> states = new ArrayList<>();
+			NodeList nodes = cell.getElementsByTagName("state");
+			Element stateList = (Element) (nodes.item(0));
+			String s = stateList.getTextContent();
+			String[] arr = s.split(" ");
+			for (String str:arr) {
+				states.add(Integer.parseInt(str));
+			}
+			map.put(cell.getAttribute("type"), states);
+		}
+		return map;
+	}
+	/**
+	 * Generates a HashMap mapping possible cell types to an ArrayList of possible states that the corresponding cell type can take on
+	 * 
+	 * @param pars    XMLParser object that will be used to check random_properties.xml
+	 * @param simType Pretty self-explanatory
+	 * @return 		  A map of cell types to possible states for each cell type
+	 */
+	private static HashMap<String,ArrayList<Integer>> getPossibleStates(SimulationXMLParser pars, String simType) {
+		Document doc = pars.getDocument();
+		NodeList listOfSims = doc.getElementsByTagName("simulation");
+		boolean check = false;
+		HashMap<String,ArrayList<Integer>> stateMap = null;
+		for (int i = 0; i < listOfSims.getLength(); i++) {
+			Element simulationTag = (Element) listOfSims.item(i);
+			if(simulationTag.getAttribute("type").equals(simType)) {
+				check = true;
+				stateMap = getStates(simulationTag,pars);
+			}
+		}
+		if (!check || stateMap == null)
+			throw new BadSimulationException();
+		return stateMap;
+	}
+	/**
+	 * 
+	 * 
+	 * @param sim		node to append children to
+	 * @param parent    parent node to which params are attached
+	 * @param file		file to append nodes to
+	 */
+	private static void setUpParams(Element sim, Element parent, Document file) {
+		NodeList paramList = parent.getElementsByTagName("param");
+		double[] props = new double[paramList.getLength()];
+		String[] paramNames = new String[props.length];
+		for (int i = 0; i < props.length; i++) {
+			String s = paramList.item(i).getTextContent();
+			String[] arr = s.split(" ");
+			double minBound = Double.parseDouble(arr[0]);
+			double maxBound = Double.parseDouble(arr[1]);
+			props[i] = Math.random() * (maxBound - minBound) + minBound;
+			paramNames[i] = ((Element)paramList.item(i)).getAttribute("id");
+		}
+		for (int i = 0; i < props.length; i++) {
+			setParams(paramNames[i],props[i],file,sim);
+		}
+	}
+	/**
 	 * Generates <param> tags for each element in the props array for the given simulation and appends them to the simulation tag.
 	 * 
 	 * @param simType String containing name of simulation
 	 * @param sim     The element that each <param> should be appended to. Should be the simulation tag every time
 	 * @param file    The file in which elements are being created
+	 * @param pars    SimulationXMLParser object that will scan through random_properties.xml to set each prop
 	 */
-	private static void appendRandomProps(String simType, Element sim, Document file) {
-		String param;
-		if (simType.equals("FireCell")) {
-			param = "probCatch";
-		} else {
-			param = "similarityReq";
-		}
-		double[] props;
-		switch (simType) {
-		case "Fire":
-		case "Segregation":
-			props = getFireSegProps();
-			setParams(param,props[0],file,sim);
-			return;
-		case "Wator":
-			props = getWatorProps();
-			for (int i = 0; i < WATOR_PROPS.length; i++) {
-				setParams(WATOR_PROPS[i],props[i],file,sim);
+	private static void appendRandomProps(String simType, Element sim, Document file, SimulationXMLParser pars) {
+		Document doc = pars.getDocument();
+		NodeList listOfSims = doc.getElementsByTagName("simulation");
+		boolean check = false;
+		for (int i = 0; i < listOfSims.getLength(); i++) {
+			Element simulationTag = (Element) listOfSims.item(i);
+			if(simulationTag.getAttribute("type").equals(simType)) {
+				check = true;
+				setUpParams(sim, simulationTag, file);
 			}
+		}
+		if (!check) {
+			throw new BadSimulationException();
 		}
 	}
 	/**
@@ -294,8 +346,7 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		Grid g = GridFactory.generateRandomizedGrid("Rectangle", new Dimension(2,2), "GameOfLife");
-		saveSimData(g, "GameOfLife");
+		writeRandomSimData(3,3,"Fire","Rectangle");
 	}
 	
 }
