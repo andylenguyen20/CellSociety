@@ -28,7 +28,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import cellsociety_team07.simulation.Cell;
+import cellsociety_team07.simulation.FireCell;
+import cellsociety_team07.simulation.GameOfLifeCell;
 import cellsociety_team07.simulation.Grid;
+import cellsociety_team07.simulation.SegregationCell;
+import cellsociety_team07.simulation.WatorCell;
 
 import org.w3c.dom.Node;
 
@@ -176,13 +180,13 @@ public class XMLWriterFactory {
 	private static int getNumStates(String simType) {
 		switch (simType) {
 		case "GameOfLife":
-			return 2;
+			return new GameOfLifeCell().getColors().length;
 		case "Fire":
-			return 3;
+			return new FireCell().getColors().length;
 		case "Segregation":
-			return 3;
+			return new SegregationCell().getColors().length;
 		case "Wator":
-			return 3;
+			return new WatorCell().getColors().length;
 		default:
 			return -1;
 		}
@@ -259,7 +263,7 @@ public class XMLWriterFactory {
 	 */
 	private static void appendRandomProps(String simType, Element sim, Document file) {
 		String param;
-		if (simType.equals("FireCell")) {
+		if (simType.equals("Fire")) {
 			param = "probCatch";
 		} else {
 			param = "similarityReq";
@@ -305,7 +309,7 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		writeRandomSimData(10,10,"Wator","Wator","Triangle");
+		writeRandomSimData(10,10,"Fire","Fire","Triangle");
 	}
 	
 }
