@@ -1,23 +1,29 @@
 package cellsociety_team07.visualization;
 
 import java.util.ArrayList;
+/**
+ * This DataPlotter class is responsible for adding points to the Population Line Chart that gets updated to show real-time population counts of the different
+ * states of cells on screen
+ * @author Dana Park
+ */
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
-
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Paint;
 
 public class DataPlotter {
 	
-	private GraphCreator graphCreator = new GraphCreator();
+	/**
+	 * This plotPoints method is responsible for adding points to the Population Line Chart that gets updated to show real-time population counts of the different
+	 * states of cells on screen
+	 * @author Dana Park
+	 */
 
 	public static void plotPoints( Map<Paint, Integer> populations, ConcurrentLinkedQueue<Number> dataQ1,ConcurrentLinkedQueue<Number> dataQ2, 
 				     ConcurrentLinkedQueue<Number>dataQ3, ExecutorService executor ) {
 			if (populations == null) return;
-			List keys = new ArrayList(populations.keySet());
+			List<Paint> keys = new ArrayList<Paint>(populations.keySet());
 			for (int i = 0; i < populations.size(); i++) {
 				Object obj = keys.get(i);
 				if (populations.size()==0)

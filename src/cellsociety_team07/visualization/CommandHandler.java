@@ -1,6 +1,13 @@
 package cellsociety_team07.visualization;
 
 import javafx.animation.Timeline;
+/**
+ * This CommandHandler class executes appropriate actions whenever a button on the Choose Command drop down is pushed. 
+ * It allows the user to Play, Pause, Slow Down,
+ * and Speed Up, as well as Step Forward through the simulation
+ * @author Dana Park
+ */
+
 import javafx.event.Event;
 
 public class CommandHandler {

@@ -1,14 +1,13 @@
 package cellsociety_team07.visualization;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
 
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.HBox;
+/**
+ * This GraphCreator class sets up the initial properties of the LineChart that shows Population Count as a simulation runs
+ * @author Dana Park
+ */
 
 public class GraphCreator {
 	
@@ -19,7 +18,7 @@ public class GraphCreator {
 	private NumberAxis xAxis;
 	private NumberAxis yAxis;
 	
-	public LineChart getLineChart() {
+	protected LineChart<Number, Number> getLineChart() {
 		setXAxis();
 	    setYAxis();
 	    return setLineChart();
@@ -39,7 +38,8 @@ public class GraphCreator {
 	     yAxis.setLabel("Pop Count");
 	}
 
-	private LineChart setLineChart() {
+	@SuppressWarnings("unchecked")
+	private LineChart<Number, Number>  setLineChart() {
 		  final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis) {
 	           @Override
 	           protected void dataItemAdded(Series<Number, Number> series, int itemIndex, Data<Number, Number> item) {
@@ -58,17 +58,17 @@ public class GraphCreator {
 	        return lineChart;
 	}
 	
-	public NumberAxis getXAxis() {
+	protected NumberAxis getXAxis() {
 		return xAxis;
 	}
 	
-	public XYChart.Series<Number, Number> getSeries1(){
+	protected XYChart.Series<Number, Number> getSeries1(){
 		return series1;
 	}
-	public  XYChart.Series<Number, Number> getSeries2(){
+	protected  XYChart.Series<Number, Number> getSeries2(){
 		return series2;
 	}
-	public  XYChart.Series<Number, Number> getSeries3(){
+	protected  XYChart.Series<Number, Number> getSeries3(){
 		return series3;
 	}
 

@@ -20,6 +20,14 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
 
+/**
+ * This Visualizer class is responsible for the constant visualization and maintenance of all aspects that are on screen, including
+ * drop down menus, buttons,textfields, the grid with live action cells, and a live-action graph at the bottom of the screen.
+ * This class runs the program and updates aspects of the program as necessary.
+ * @author Dana Park
+ */
+
+
 public class Visualizer extends Application {
 	
 	private static final int MY_SPEED = 5;
@@ -51,6 +59,11 @@ public class Visualizer extends Application {
 	private ConcurrentLinkedQueue<Number> dataQ2 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQ3 = new ConcurrentLinkedQueue<>();
 	
+	
+	/**
+	 *  The start method allows the program to start and run by calling appropriate methods to set up and update the screen.
+	 * @author Dana Park
+	 */
 	@Override
 	public void start(Stage stage) {
 		stg = stage;

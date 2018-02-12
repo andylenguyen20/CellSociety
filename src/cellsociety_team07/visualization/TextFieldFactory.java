@@ -9,16 +9,16 @@ import javafx.scene.layout.HBox;
 
 public class TextFieldFactory {
 	
-	protected TextField textFieldCreator(TextField textField) {
+	protected static TextField textFieldCreator(TextField textField, ResourceBundle com, String txt) {
 		
 		textField = new TextField ();
-		textField.setPromptText("Enter State");
+		textField.setPromptText(com.getString(txt));
 		textField.getText();
 		return textField;
 		
 	}
 	
-	protected Button makeButton(Button button) {
+	protected static Button makeButton(Button button) {
 		button = new Button("Enter");
 		return button;
 		

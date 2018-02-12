@@ -2,6 +2,13 @@ package cellsociety_team07.visualization;
 
 import java.util.ResourceBundle;
 
+/**
+ * This PropsChangeTextField class is responsible for initializing the textfield at the right of the screen which allows you to change
+ * the params of the simulation once data is entered in the textfield and the Submit button next to the textfield is pressed
+ * @author Dana Park
+ */
+
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
