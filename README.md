@@ -32,7 +32,6 @@ The main class that runs this project is Visualizer.java.
 The main files we use to test our programs were XML files: fire_simulation.xml, gol_simulation.xml, segregation_simulation.xml, and wator_simuation.xml
 
 Errors we expect our program to handle without crashing: We expect that the user can input invalid information into our four text boxes. For instance, the user can type in out-of-bound indices for states and props as well as null props. In addition, the user can input an invalid number of arguments into the "GET RANDOM" simulation feature.
-
 **Any data or resource files required by the project (including format of non-standard files)**
 
 We used CommandBar.properties and SimulationBar.properties as our resource bundles for this project.
