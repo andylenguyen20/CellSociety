@@ -57,7 +57,7 @@ To change the parameters of the Simulations, click the “Index:Prop” Text Fie
 
 To generate a new XML file of the exact configurations of the simulation at hand, click the Save State button, and refresh the folder containing the xml files to see a new file pop up.
 
-We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation type and clicks the  “GENERATE RANDOM” button. DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably, so if the user decided to generate a grid size that was too large, the simulation would just be a 20x20 grid. In addition, we made it so that the user can’t input an odd number of rows for the triangle simulation because we felt that the definition of “neighbor” for triangles in the unbounded case was very subjective and undefined.
+We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation type and clicks the  “GENERATE RANDOM” button. DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably.
 
 **Any decisions, assumptions, or simplifications you made to handle vague, ambiguous, or conflicting requirements**
 
