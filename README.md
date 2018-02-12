@@ -57,7 +57,11 @@ To change the parameters of the Simulations, click the “Index:Prop” Text Fie
 
 To generate a new XML file of the exact configurations of the simulation at hand, click the Save State button, and refresh the folder containing the xml files to see a new file pop up.
 
-We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation type and clicks the  “GENERATE RANDOM” button. DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably.
+We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation and clicks the  “GENERATE RANDOM” button. 
+You enter the width,height, simulation name, and cell shape type all separated by colons in the text field next to the Generate Random Button. (e.g. to get a 4 by 4 triangle cell Fire simulation
+you would enter 4:4:Fire:Triangle)
+DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably.
+
 
 **Any decisions, assumptions, or simplifications you made to handle vague, ambiguous, or conflicting requirements**
 
