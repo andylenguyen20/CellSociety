@@ -1,5 +1,6 @@
 package cellsociety_team07.visualization;
 import cellsociety_team07.config.Simulation;
+import cellsociety_team07.config.XMLWriterFactory;
 import cellsociety_team07.simulation.Cell;
 import cellsociety_team07.simulation.Grid;
 import java.util.*;
@@ -12,7 +13,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
+
+
+
 /**
  * This Visualizer class is responsible for the constant visualization and maintenance of all aspects that are on screen, including
  * drop down menus, buttons,textfields, the grid with live action cells, and a live-action graph at the bottom of the screen.
@@ -40,6 +45,9 @@ public class Visualizer extends Application {
 	private int cellState= 1;
 	private TextFieldCreator stateChanger;
 	private TextFieldCreator propsChanger;
+	private String currentSimType;
+	private String nextSimType;
+
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
 	private static final int MAXIMUM_POINTS = 20;
@@ -57,6 +65,7 @@ public class Visualizer extends Application {
 		stg = stage;
 		stg.setTitle("CA Simulation");
 		simulation = new Simulation("xml/wator_simulation.xml");
+		currentSimType = simulation.getType();
 		getInitialProp();
 		myScene = setUpGame(SCREEN_XY, SCREEN_XY, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
@@ -92,20 +101,22 @@ public class Visualizer extends Application {
 		root = new Group();
 		stateChanger = new TextFieldCreator(myResources_C, "EnterStateChangeCommand", "EnterCommand");
 		propsChanger = new TextFieldCreator(myResources_C, "EnterPropChangeCommand", "SubmitCommand");
+
 		menuCreator = new MenuCreator();
 		cellDrawer= new CellsToVisualize();
 		graphCreator = new GraphCreator();
 	}
 	
 	private BorderPane setUpBorderPane() {
-		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
-													stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart(0, simulation.getCells().size() ));
+		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.textHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
+													stateChanger.textHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart(0, simulation.getCells().size() ));
 	}
 
 	private Scene setUpGame(int height, int background, String sim) {
 		initializeHelpers();
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
+		currentSimType = nextSimType;
 		drawFreshGrid();
 		root.getChildren().add(setUpBorderPane());
 		return scene;
@@ -115,7 +126,7 @@ public class Visualizer extends Application {
 		public void run() {
 			Map<Paint, Integer> populations = cellDrawer.getPopulations();
 			try {
-				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, chartExecutor);
+				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, chartExecutor, simulation.getCells().size());
 				Thread.sleep(100);
 				chartExecutor.execute(this);
 		   }catch (InterruptedException ex) {
@@ -125,6 +136,11 @@ public class Visualizer extends Application {
 		}
 	
 	private void drawFreshGrid() {
+		if(currentSimType != nextSimType) {
+			cellState = 0;
+		}else {
+			props = null;
+		}
 		cellDrawer.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root, props, cellState);
 	}
 	
@@ -144,10 +160,12 @@ public class Visualizer extends Application {
 	}
 	
 	public void handleUserInput() {
-		propsChanger.getSubmit().setOnAction((e) -> {
+		propsChanger.getButton().setOnAction((e) -> {
    	    		handleParamChanges(e); });
-		stateChanger.getSubmit().setOnAction((e) -> {
+		stateChanger.getButton().setOnAction((e) -> {
 			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
+		menuCreator.getRandomBox().getButton().setOnAction((e) -> {
+			System.out.println("hello"); });
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));	});
 		menuCreator.saveStateButton().setOnAction((e) -> {
@@ -202,8 +220,22 @@ public class Visualizer extends Application {
 		
 	}
 	
+	private void handleRandomGeneration(Event e) {
+		String str = menuCreator.getRandomBox().getTextValue().getText();
+		String [] arrOfStr = str.split(":", 4);
+		if (arrOfStr.length!=4) return;
+		int height =	Integer.parseInt(arrOfStr[0]) ;
+		int width = Integer.parseInt(arrOfStr[1]);
+		String simType = arrOfStr[2];
+		String shape = arrOfStr[3];
+		XMLWriterFactory.writeRandomSimData(height, width, simType, shape);
+		newSim("xml/" + simType + "_random" + ".xml");
+		nextSimType = simType;
+	}
+	
 	private void handleSimulation(Event e) {
 		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
+		nextSimType = selectedAction;
 		if (selectedAction.equals("Game of Life")) 
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation")) 
@@ -212,7 +244,7 @@ public class Visualizer extends Application {
 			newSim("xml/wator_simulation.xml");
 		if (selectedAction.equals("Fire")) 
 			newSim("xml/fire_simulation.xml");
-		}
+	}
 	
 	private void newSim(String sim) {
 		dataQueue1 = new ConcurrentLinkedQueue<>();

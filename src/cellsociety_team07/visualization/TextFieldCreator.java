@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 public class TextFieldCreator {
 	protected  TextField textField;
 	protected  Button button;
+	private static final int SPACING =10;
 	
 	
 	/**
@@ -31,15 +32,15 @@ public class TextFieldCreator {
 	}
 	
 
-	protected  HBox propsHBoxMaker(ResourceBundle com, String txt, String enter) {
+	protected  HBox textHBoxMaker(ResourceBundle com, String txt, String enter) {
 		HBox hb = new HBox();
 		hb.getChildren().addAll(textField, button);
-		hb.setSpacing(10);
+		hb.setSpacing(SPACING);
 		return hb;
 	}
 	
 	
-	protected Button getSubmit() {
+	protected Button getButton() {
 		return button;
 	}
 	

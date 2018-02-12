@@ -21,7 +21,7 @@ public class DataPlotter {
 	 */
 
 	protected static void plotPoints( Map<Paint, Integer> populations, ConcurrentLinkedQueue<Number> dataQueue1,ConcurrentLinkedQueue<Number> dataQueue2, 
-				     ConcurrentLinkedQueue<Number>dataQueue3, ExecutorService executor ) {
+				     ConcurrentLinkedQueue<Number>dataQueue3, ExecutorService executor, int maxValue ) {
 			if (populations == null) return;
 			List<Paint> keys = new ArrayList<Paint>(populations.keySet());
 			for (int i = 0; i < populations.size(); i++) {
@@ -29,7 +29,7 @@ public class DataPlotter {
 				if (populations.size()==0)
 					break;
 				else if (i == 0 && populations.size() == 1 && populations.get(keys.get(0))!=null) {
-					dataQueue1.add(25);
+					dataQueue1.add(maxValue);
 					dataQueue2.add(0);
 				}
 				else if (i == 0) 

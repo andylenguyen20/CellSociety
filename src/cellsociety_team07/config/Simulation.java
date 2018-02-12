@@ -30,6 +30,9 @@ public class Simulation {
 	public String getTitle(){
 		return myTitle;
 	}
+	public String getType() {
+		return myType;
+	}
 	
 	private void setUpRandomizedGrid(){
 		Dimension gridDimensions = simXMLParser.getGridDimensions();

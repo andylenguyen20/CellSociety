@@ -3,7 +3,7 @@
     <type>Fire</type>
     <title>FireSimulation</title>
     <author>Brendan Cheng</author>
-    <param id="probCatch">20.0</param>
+    <param id="probCatch">0.449243759937575</param>
     <grid>
         <dimension>
             <width>5.0</width>
@@ -14,7 +14,7 @@
             <point>1.0,0.0</point>
             <point>1.0,1.0</point>
             <point>0.0,1.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>0.0,1.0</point>
@@ -28,161 +28,161 @@
             <point>1.0,2.0</point>
             <point>1.0,3.0</point>
             <point>0.0,3.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>0.0,3.0</point>
             <point>1.0,3.0</point>
             <point>1.0,4.0</point>
             <point>0.0,4.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>0.0,4.0</point>
             <point>1.0,4.0</point>
             <point>1.0,5.0</point>
             <point>0.0,5.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>1.0,0.0</point>
             <point>2.0,0.0</point>
             <point>2.0,1.0</point>
             <point>1.0,1.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>1.0,1.0</point>
             <point>2.0,1.0</point>
             <point>2.0,2.0</point>
             <point>1.0,2.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>1.0,2.0</point>
             <point>2.0,2.0</point>
             <point>2.0,3.0</point>
             <point>1.0,3.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>1.0,3.0</point>
             <point>2.0,3.0</point>
             <point>2.0,4.0</point>
             <point>1.0,4.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>1.0,4.0</point>
             <point>2.0,4.0</point>
             <point>2.0,5.0</point>
             <point>1.0,5.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,0.0</point>
             <point>3.0,0.0</point>
             <point>3.0,1.0</point>
             <point>2.0,1.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,1.0</point>
             <point>3.0,1.0</point>
             <point>3.0,2.0</point>
             <point>2.0,2.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,2.0</point>
             <point>3.0,2.0</point>
             <point>3.0,3.0</point>
             <point>2.0,3.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,3.0</point>
             <point>3.0,3.0</point>
             <point>3.0,4.0</point>
             <point>2.0,4.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,4.0</point>
             <point>3.0,4.0</point>
             <point>3.0,5.0</point>
             <point>2.0,5.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,0.0</point>
             <point>4.0,0.0</point>
             <point>4.0,1.0</point>
             <point>3.0,1.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,1.0</point>
             <point>4.0,1.0</point>
             <point>4.0,2.0</point>
             <point>3.0,2.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,2.0</point>
             <point>4.0,2.0</point>
             <point>4.0,3.0</point>
             <point>3.0,3.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,3.0</point>
             <point>4.0,3.0</point>
             <point>4.0,4.0</point>
             <point>3.0,4.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,4.0</point>
             <point>4.0,4.0</point>
             <point>4.0,5.0</point>
             <point>3.0,5.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>4.0,0.0</point>
             <point>5.0,0.0</point>
             <point>5.0,1.0</point>
             <point>4.0,1.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>4.0,1.0</point>
             <point>5.0,1.0</point>
             <point>5.0,2.0</point>
             <point>4.0,2.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>4.0,2.0</point>
             <point>5.0,2.0</point>
             <point>5.0,3.0</point>
             <point>4.0,3.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>4.0,3.0</point>
             <point>5.0,3.0</point>
             <point>5.0,4.0</point>
             <point>4.0,4.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>4.0,4.0</point>
             <point>5.0,4.0</point>
             <point>5.0,5.0</point>
             <point>4.0,5.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
     </grid>
 </simulation>

@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 /**
@@ -23,6 +24,9 @@ public class MenuCreator {
 	private Button saveState;
 	private ButtonMaker stepButtonMaker;
 	private ButtonMaker stateSaveButtonMaker;
+	private TextFieldCreator ranGenInput;
+	private HBox randomGenBox;
+
 
 	protected String getResources(ResourceBundle rb, String s) {
 		return rb.getString(s);
@@ -60,12 +64,20 @@ public class MenuCreator {
 		return saveState;
 	}
 	
+	private HBox makeRandomGenText(ResourceBundle com, String textFieldName, String buttonName) {
+		ranGenInput = new TextFieldCreator (com, textFieldName, buttonName);
+		randomGenBox=ranGenInput.textHBoxMaker(com, "EnterPropChangeCommand", "SubmitCommand");
+		return randomGenBox;
+		
+	}
+	
 	protected HBox addHBox(ResourceBundle com, ResourceBundle sim) {
 	    HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(INSET_TYPE_Y, INSET_TYPE_X, INSET_TYPE_Y, INSET_TYPE_X));
 	    hbox.setSpacing(SPACING);
 	    hbox.setStyle("-fx-background-color: #336699;");
-	    hbox.getChildren().addAll(getSimulationMenu(sim),getCommandsBox(com),makeStepForward(com,"StepForwardCommand"),makeSaveState(com, "SaveStateCommand"));
+	    hbox.getChildren().addAll(getSimulationMenu(sim),getCommandsBox(com),makeStepForward(com,"StepForwardCommand"),
+	    							 makeSaveState(com, "SaveStateCommand"),makeRandomGenText(com, "EnterRandomCommand", "RandomCommand"));
 	    return hbox;
 	}
 
@@ -83,6 +95,10 @@ public class MenuCreator {
 	
 	protected Button saveStateButton() {
 		return saveState;
+	}
+	
+	protected TextFieldCreator getRandomBox() {
+		return ranGenInput;
 	}
 
 }
