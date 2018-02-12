@@ -1,5 +1,4 @@
 package cellsociety_team07.visualization;
-
 import cellsociety_team07.config.Simulation;
 import cellsociety_team07.simulation.Cell;
 import cellsociety_team07.simulation.Grid;
@@ -26,7 +25,6 @@ import javafx.scene.paint.Paint;
  * This class runs the program and updates aspects of the program as necessary.
  * @author Dana Park
  */
-
 
 public class Visualizer extends Application {
 	
@@ -109,17 +107,9 @@ public class Visualizer extends Application {
 		graphCreator = new GraphCreator();
 	}
 	
-	private void setUpBorderPane() {
-		BorderPane borderPane = new BorderPane();
-		borderPane.setPrefSize(800, 800); 
-		borderPane.setTop(menuCreator.addHBox(myResources_C, myResources_S));	    
-		borderPane.setRight(propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"));
-		borderPane.setLeft(stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"));
-		borderPane.setBottom(graphCreator.getLineChart());
-		borderPane.setStyle("-fx-padding: 10;" +"-fx-border-style: solid inside;" + "-fx-border-width: 2;" + 
-						"-fx-border-insets: 5;" +"-fx-border-radius: 5;" + "-fx-border-color: blue;");
-		root.getChildren().add(borderPane);
-		
+	private BorderPane setUpBorderPane() {
+		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
+													stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart());
 	}
 
 	private Scene setUpGame(int height, int background, String sim) {
@@ -127,7 +117,7 @@ public class Visualizer extends Application {
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
 		drawFreshGrid();
-		setUpBorderPane();
+		root.getChildren().add(setUpBorderPane());
 		return scene;
 	}
 	
@@ -195,7 +185,7 @@ public class Visualizer extends Application {
 			addNewPoint(graphCreator.getSeries2(), MAX_DATA_POINTS);
 			addNewPoint(graphCreator.getSeries3(), MAX_DATA_POINTS);
 			graphCreator.getXAxis().setLowerBound(xSeriesData - MAX_DATA_POINTS);
-	        graphCreator.getXAxis().setUpperBound(xSeriesData - 1);
+	         graphCreator.getXAxis().setUpperBound(xSeriesData - 1);
 	}
 	
 	private void addNewPoint(XYChart.Series<Number, Number> series, int maxData) {
