@@ -60,25 +60,36 @@ To generate a new XML file of the exact configurations of the simulation at hand
 We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation type and clicks the  “GENERATE RANDOM” button. DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably, so if the user decided to generate a grid size that was too large, the simulation would just be a 20x20 grid. In addition, we made it so that the user can’t input an odd number of rows for the triangle simulation because we felt that the definition of “neighbor” for triangles in the unbounded case was very subjective and undefined.
 
 **Any decisions, assumptions, or simplifications you made to handle vague, ambiguous, or conflicting requirements**
+
 Much like I mentioned above, we made it so that the user can’t input an odd number of rows for the triangle simulation because we decided that the definition of triangle neighbors in the unbounded case was really subjective.
 
 
 **Any known bugs, crashes, or problems with the project's functionality**
+
 We do not have any major known bugs within our program's functionality. However, something that should be mentioned is that at times, the program has lagging issues, e.g. with regards to the graph. In addition, it can't handle grid sizes larger than 400 cells due to these lagging issues, so we set a cap error check on that within our program so that users can't input more than this number of cells.
 
 **Any extra features included in the project**
+
 -Added a live-action graph that shows current populations of each cell type displayed on the grid of cells
+
 -Allowed for users to change parameters of a simulation
+
 -Allowed for users to change states of cells by directly clicking on them
+
 -Allowed for users to save an XML file to the exact configuration of a current simulation running on screen by clicking a button
+
 -Adjusted the program to allow for shapes other than squares:
+
 - had cells extend the Polygon class so that can be drawn to other shapes and have a coordinate system that can be drawn to the screen. Specifically created an extra triangle grid implementation, but the program is fit to handle hexagonal as well because all you have to do is generate a coordinate system for octagons (bounded neighbor finding will always work and drawing will always work as long as the coordinate system is valid)
 
 -allowed for a variety of grid edge types, such as finite and toroidal by adjusting the neighbor-finding algorithm to vertice-intersections
+
 - vertice intersections allow our neighbor-finding to handle diagonal, adjacent, or touching neighbors
 
 -allowed simulations initial configurations to be set both by a list of specific locations and states and also by a random generator based on a file random_properties.xml, which has the range information as well as the cell types and possible states to choose from for each simulation
+
 -allowed users to save the current state of the simulation as an XML configuration file: named "<simulation_type>State.xml"
 
 **Your impressions of the assignment to help improve it in the future**
+
 We feel that this assignment was a lot of hard work and could be improved by giving the students more time to work on the project, since we ended up devoting most of our lives these past two weeks on this project alone.
