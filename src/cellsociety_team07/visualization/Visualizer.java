@@ -129,9 +129,9 @@ public class Visualizer extends Application {
 	private void getInitialProp() {
 		List<Cell> cells = simulation.getCells();
 		for(Cell cell : cells) {
-			propsLength = cell.getProps().length;
+			propsLength = cell.getParams().length;
 			props = new double [propsLength]; 
-			props = cell.getProps();
+			props = cell.getParams();
 			}
 		}
 	private void step(double elapsedTime) {

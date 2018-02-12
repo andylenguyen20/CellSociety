@@ -7,19 +7,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The purpose of this class is to find neighbors for all cells in the grid in an unbounded
+ * grid type. This class works for both square and triangular grids and could be open for extension
+ * for other types of shapes.
+ * @author Andy Nguyen
+ *
+ */
 public class UnboundedNeighborFinder extends NeighborFinder {
 	private double numRows;
 	private double numCols;
+	
+	/**
+	 * instantiates a new UnboundedNeighborFinder object given the neighbor configuration type and the dimensions
+	 * of the grid
+	 * @param allowedNumSharedVertices
+	 * @param gridDimensions
+	 */
 	public UnboundedNeighborFinder(List<Integer> allowedNumSharedVertices, Dimension gridDimensions) {
 		super(allowedNumSharedVertices);
 		this.numRows = gridDimensions.getHeight();
-		System.out.println(numRows);
 		this.numCols = gridDimensions.getWidth();
 	}
 
-	/*
-	 * Given the cell whose neighbors we want to find and given the map of vertices linked to all cells in the grid,
-	 * returns a list of cell neighbors for the given cell, including neighbors that wrap around the grid.
+	/**
+	 * finds the neighbors for a given cell in an unbounded grid. It uses the grid dimensions, the cell, and
+	 * the vertexMap to find these neighbors.
 	 */
 	@Override
 	public List<Cell> findNeighbors(Cell cell, Map<String, List<Cell>> vertexMap){
