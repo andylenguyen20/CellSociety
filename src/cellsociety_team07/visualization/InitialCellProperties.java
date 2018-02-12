@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.visualization;
 
 import java.awt.Point;
 

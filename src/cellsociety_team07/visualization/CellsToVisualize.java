@@ -2,7 +2,6 @@ package cellsociety_team07.visualization;
 
 import java.awt.geom.Point2D;
 import java.util.*;
-
 import cellsociety_team07.config.Simulation;
 import cellsociety_team07.simulation.Cell;
 import javafx.event.Event;
@@ -12,7 +11,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+/**
+ * This is my CellsToVisualize class which allows Visualizer to handle all commands relating to cell properties that are visualized on screen,
+ * including cell states and properties. In this class, all cells are mapped to a certain point on screen and contain their params
+ * 
+ * @author Dana Park
+ */
+
 public class CellsToVisualize  {
+	
 	
 	private static final int STARTING_X = 140;
 	private static final int STARTING_Y = 115;
@@ -20,7 +27,6 @@ public class CellsToVisualize  {
 	
 	protected void drawNewGrid(Simulation sim, double width, double height, Group root, double[] props , int state){
 		populations =  new HashMap<Paint, Integer>();
-		System.out.println("drawnewgrid");
 		List<Cell> cells = sim.getCells();
 		for(Cell cell : cells) {
 			cell.getPoints().clear();
