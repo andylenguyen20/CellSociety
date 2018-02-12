@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
+
+import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Paint;
 
 public class DataPlotter {
@@ -39,6 +41,11 @@ public class DataPlotter {
 				else if (i == 2) 
 					dataQueue3.add(populations.get(obj));
 				}
+		}
+	
+	protected static void addNewPoint(XYChart.Series<Number, Number> series, int maxData) {
+		if (series.getData().size() > maxData) 
+    			series.getData().remove(0, series.getData().size() - maxData);
 		}
 }
 			

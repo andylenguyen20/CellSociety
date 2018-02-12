@@ -24,8 +24,7 @@ import javafx.scene.paint.Paint;
 public class Visualizer extends Application {
 	private static final int MY_SPEED = 5;
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
-	private static final int SCENE_WIDTH = 500;
-	private static final int SCENE_HEIGHT = 500;
+	private static final int SCENE_XY = 500;
 	private static final int SCREEN_XY = 800;
 	private static final double RATE = 1.0;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
@@ -34,26 +33,17 @@ public class Visualizer extends Application {
 	private Stage stg;
 	private Scene myScene;
 	private Group root;
-	
 	private double [] props;
 	private int propsLength;
 	private TextFieldCreator propsChanger;
-	
 	private ResourceBundle myResources_C = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "CommandsBar");
 	private ResourceBundle myResources_S =ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + "SimulationBar");
-	
-
 	private int cellState=0;
 	private TextFieldCreator stateChanger;
-	
 	private String currentSimType;
 	private String nextSimType;
-	
 	private MenuCreator menuCreator;
-	
 	private CellsToVisualize cellDrawer;
-	
-	
 	private GraphCreator graphCreator;
 	private static final int MAXIMUM_POINTS = 20;
 	private int xData = 0;
@@ -78,8 +68,6 @@ public class Visualizer extends Application {
 		setUpLineChartExecutor();
 		setAnimation(stg);
 	}
-	
-	//move into a factory class as a public static method
 	private void setUpLineChartExecutor() {
 		chartExecutor = Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -93,17 +81,13 @@ public class Visualizer extends Application {
         AddPointsToQueue addToQueue = new AddPointsToQueue();
         chartExecutor .execute(addToQueue);
 	}
-	
-	
 	private void setAnimation(Stage s) {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(MY_SPEED));
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-		
 	}
-	
 	private void initializeHelpers() {
 		root = new Group();
 		stateChanger = new TextFieldCreator(myResources_C, "EnterStateChangeCommand", "EnterCommand");
@@ -112,12 +96,9 @@ public class Visualizer extends Application {
 		cellDrawer= new CellsToVisualize();
 		graphCreator = new GraphCreator();
 	}
-	
 	private BorderPane setUpBorderPane() {
 		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.textHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
-													stateChanger.textHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart(0, simulation.getCells().size() ));
-	}
-
+													stateChanger.textHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart(0, simulation.getCells().size() )); }
 	private Scene setUpGame(int height, int background, String sim) {
 		initializeHelpers();
 		Scene scene = new Scene(root, height, background);
@@ -127,7 +108,6 @@ public class Visualizer extends Application {
 		root.getChildren().add(setUpBorderPane());
 		return scene;
 	}
-	
 	private class AddPointsToQueue implements Runnable {
 		public void run() {
 			Map<Paint, Integer> populations = cellDrawer.getPopulations();
@@ -140,15 +120,13 @@ public class Visualizer extends Application {
 			}
 		}
 	}
-	
 	private void drawFreshGrid() {
 		if(currentSimType != nextSimType) {
 			cellState = 0;
 			props = null;
 		}
-		cellDrawer.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root, props, cellState);
+		cellDrawer.drawNewGrid(simulation, SCENE_XY, SCENE_XY,root, props, cellState);
 	}
-	
 	private void getInitialProp() {
 		List<Cell> cells = simulation.getCells();
 		for(Cell cell : cells) {
@@ -157,17 +135,14 @@ public class Visualizer extends Application {
 			props = cell.getProps();
 			}
 		}
-	
 	private void step(double elapsedTime) {
 		update();
 		updateLineGraph();
 	    handleUserInput();
 	}
-	
 	public void handleUserInput() {
 		propsChanger.getButton().setOnAction((e) -> {
-			
-   	    		handleParamChanges(e); });
+			handleParamChanges(e); });
 		stateChanger.getButton().setOnAction((e) -> {
 			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
 		menuCreator.getRandomBox().getButton().setOnAction((e) -> {
@@ -183,7 +158,6 @@ public class Visualizer extends Application {
 		menuCreator.simulations().setOnAction((e) -> {
 			handleSimulation(e) ; });
 		 }
-
 	private void update() {
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
@@ -193,7 +167,6 @@ public class Visualizer extends Application {
 		}
 		drawFreshGrid();
 	  }
-	
 	private void updateLineGraph() {
 		for (int i = 0; i < MAXIMUM_POINTS; i++) { 
 	            if (dataQueue1.isEmpty()) break;
@@ -203,29 +176,20 @@ public class Visualizer extends Application {
 	            if(dataQueue3.isEmpty()) break;
 	            graphCreator.getSeries3().getData().add(new XYChart.Data<>(xData++, dataQueue3.remove()));
 	        }
-			addNewPoint(graphCreator.getSeries1(), MAXIMUM_POINTS);
-			addNewPoint(graphCreator.getSeries2(), MAXIMUM_POINTS);
-			addNewPoint(graphCreator.getSeries3(), MAXIMUM_POINTS);
+			DataPlotter.addNewPoint(graphCreator.getSeries1(), MAXIMUM_POINTS);
+			DataPlotter.addNewPoint(graphCreator.getSeries2(), MAXIMUM_POINTS);
+			DataPlotter.addNewPoint(graphCreator.getSeries3(), MAXIMUM_POINTS);
 			graphCreator.getXAxis().setLowerBound(xData - MAXIMUM_POINTS);
 	        graphCreator.getXAxis().setUpperBound(xData - 1);
 	}
-	
-	private void addNewPoint(XYChart.Series<Number, Number> series, int maxData) {
-		if (series.getData().size() > maxData) 
-    			series.getData().remove(0, series.getData().size() - maxData);
-		}
-	
 	private void handleParamChanges(Event e) {
 		props = new double[propsLength];
-	
 		String str = propsChanger.getTextValue().getText();
 		String [] arrOfStr = str.split(":", 2);
 		int i =	Integer.parseInt(arrOfStr[0]) ;
 		double d = Double.parseDouble(arrOfStr[1]);
 		props[i] =  d;
-		
 	}
-	
 	private void handleRandomGeneration(Event e) {
 		String str = menuCreator.getRandomBox().getTextValue().getText();
 		String [] arrOfStr = str.split(":", 4);
@@ -239,7 +203,6 @@ public class Visualizer extends Application {
 		newSim("xml/random.xml");
 		nextSimType = simType;
 	}
-	
 	private void handleSimulation(Event e) {
 		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
 		nextSimType = selectedAction;
@@ -252,7 +215,6 @@ public class Visualizer extends Application {
 		if (selectedAction.equals("Fire")) 
 			newSim("xml/fire_simulation.xml");
 	}
-	
 	private void newSim(String sim) {
 		dataQueue1 = new ConcurrentLinkedQueue<>();
 		dataQueue2 = new ConcurrentLinkedQueue<>();
@@ -262,7 +224,6 @@ public class Visualizer extends Application {
 		stg.show();
 		CommandHandler.defaultRateAndPlay(RATE, animation);
 	}
-	
 	private void handleStepForward(String code) {
 		switch (code) {
 		case "Step Forward":
@@ -273,11 +234,9 @@ public class Visualizer extends Application {
 			break;
 		}
 	}
-
 	private void setSimulation(String s) {
 		simulation = new Simulation(s);
 	}
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
