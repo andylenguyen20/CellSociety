@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 import java.awt.geom.Point2D;
@@ -168,6 +168,7 @@ public class XMLWriterFactory {
 			saveXMLFile(file,f);
 		} catch(Exception e) {
 			throw new BadSimulationException("Could not append children");
+
 		}
 	}
 	
@@ -242,6 +243,7 @@ public class XMLWriterFactory {
 			NodeList nodes = cell.getElementsByTagName("state");
 			Element stateList = (Element) (nodes.item(0));
 			String s = stateList.getTextContent();
+
 			String[] arr = s.split(" ");
 			for (String str:arr) {
 				states.add(Integer.parseInt(str));
@@ -282,6 +284,7 @@ public class XMLWriterFactory {
 	 */
 	private static void setUpParams(Element sim, Element parent, Document file) {
 		NodeList paramList = parent.getElementsByTagName("param");
+
 		double[] props = new double[paramList.getLength()];
 		String[] paramNames = new String[props.length];
 		for (int i = 0; i < props.length; i++) {
