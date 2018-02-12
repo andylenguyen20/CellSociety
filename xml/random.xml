@@ -3,7 +3,7 @@
     <type>Fire</type>
     <title>FireSimulation</title>
     <author>Brendan Cheng</author>
-    <param id="probCatch">0.5305143887522683</param>
+    <param id="probCatch">0.09794177027649031</param>
     <grid>
         <dimension>
             <width>4</width>
@@ -19,13 +19,13 @@
             <point>1.0,0.0</point>
             <point>1.5,1.0</point>
             <point>2.0,0.0</point>
-            <state>2</state>
+            <state>1</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,0.0</point>
             <point>2.5,1.0</point>
             <point>3.0,0.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,0.0</point>
@@ -43,7 +43,7 @@
             <point>1.0,2.0</point>
             <point>1.5,3.0</point>
             <point>2.0,2.0</point>
-            <state>2</state>
+            <state>1</state>
         </cell>
         <cell type="FireCell">
             <point>2.0,2.0</point>
@@ -73,25 +73,25 @@
             <point>2.5,1.0</point>
             <point>3.0,2.0</point>
             <point>3.5,1.0</point>
-            <state>0</state>
+            <state>2</state>
         </cell>
         <cell type="FireCell">
             <point>0.5,3.0</point>
             <point>1.0,4.0</point>
             <point>1.5,3.0</point>
-            <state>0</state>
+            <state>1</state>
         </cell>
         <cell type="FireCell">
             <point>1.5,3.0</point>
             <point>2.0,4.0</point>
             <point>2.5,3.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.5,3.0</point>
             <point>3.0,4.0</point>
             <point>3.5,3.0</point>
-            <state>1</state>
+            <state>2</state>
         </cell>
         <cell type="FireCell">
             <point>0.0,2.0</point>
@@ -133,31 +133,31 @@
             <point>2.0,4.0</point>
             <point>2.5,3.0</point>
             <point>3.0,4.0</point>
-            <state>0</state>
+            <state>1</state>
         </cell>
         <cell type="FireCell">
             <point>3.0,4.0</point>
             <point>3.5,3.0</point>
             <point>4.0,4.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>0.5,1.0</point>
             <point>1.0,0.0</point>
             <point>1.5,1.0</point>
-            <state>1</state>
+            <state>2</state>
         </cell>
         <cell type="FireCell">
             <point>1.5,1.0</point>
             <point>2.0,0.0</point>
             <point>2.5,1.0</point>
-            <state>1</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>2.5,1.0</point>
             <point>3.0,0.0</point>
             <point>3.5,1.0</point>
-            <state>2</state>
+            <state>0</state>
         </cell>
         <cell type="FireCell">
             <point>0.5,3.0</point>
@@ -169,7 +169,7 @@
             <point>1.5,3.0</point>
             <point>2.0,2.0</point>
             <point>2.5,3.0</point>
-            <state>2</state>
+            <state>1</state>
         </cell>
         <cell type="FireCell">
             <point>2.5,3.0</point>

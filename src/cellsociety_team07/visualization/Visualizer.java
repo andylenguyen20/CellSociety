@@ -144,7 +144,6 @@ public class Visualizer extends Application {
 	private void drawFreshGrid() {
 		if(currentSimType != nextSimType) {
 			cellState = 0;
-		}else {
 			props = null;
 		}
 		cellDrawer.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root, props, cellState);
@@ -167,6 +166,7 @@ public class Visualizer extends Application {
 	
 	public void handleUserInput() {
 		propsChanger.getButton().setOnAction((e) -> {
+			
    	    		handleParamChanges(e); });
 		stateChanger.getButton().setOnAction((e) -> {
 			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
@@ -217,11 +217,13 @@ public class Visualizer extends Application {
 	
 	private void handleParamChanges(Event e) {
 		props = new double[propsLength];
+	
 		String str = propsChanger.getTextValue().getText();
 		String [] arrOfStr = str.split(":", 2);
 		int i =	Integer.parseInt(arrOfStr[0]) ;
 		double d = Double.parseDouble(arrOfStr[1]);
 		props[i] =  d;
+		
 	}
 	
 	private void handleRandomGeneration(Event e) {
