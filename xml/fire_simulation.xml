@@ -3,7 +3,7 @@
 <type>Fire</type>
 <title>FireSimulation</title>
 <author>Brendan Cheng</author>
-<param id="probCatch">0.6917538326444984</param>
+<param id="probCatch">0.449243759937575</param>
 <grid>
 <dimension>
 <width>5</width>
