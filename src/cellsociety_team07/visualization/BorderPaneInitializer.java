@@ -4,6 +4,12 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * This BorderPaneInitializer class creates the borderpane that contains all UI aspects when the simulation runs on screen
+ * 
+ * @author Dana Park
+ */
+
 public class BorderPaneInitializer {
 
 	protected static BorderPane setUpBorderPane(HBox menuCreator, HBox propsChanger, HBox statesChanger, LineChart<Number, Number> lineChart) {
