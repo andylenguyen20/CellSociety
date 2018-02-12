@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -14,6 +14,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import cellsociety_team07.simulation.Cell;
 
 public class SimulationXMLParser {
 	private Document document;

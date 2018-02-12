@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 import java.awt.Dimension;
 

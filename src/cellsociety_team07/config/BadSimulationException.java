@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 public class BadSimulationException extends RuntimeException{
 	public BadSimulationException() {

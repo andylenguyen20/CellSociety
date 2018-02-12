@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 import java.awt.Dimension;
 
@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import cellsociety_team07.simulation.Cell;
+import cellsociety_team07.simulation.FireGrid;
+import cellsociety_team07.simulation.GameOfLifeGrid;
+import cellsociety_team07.simulation.Grid;
+import cellsociety_team07.simulation.SegregationGrid;
+import cellsociety_team07.simulation.WatorGrid;
 
 public class GridFactory {
 	private static final HashMap<String,ArrayList<String>> typeMap = new HashMap<>();

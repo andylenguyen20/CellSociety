@@ -1,6 +1,13 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 import java.awt.Dimension;
+
+import cellsociety_team07.simulation.Cell;
+import cellsociety_team07.simulation.FireCell;
+import cellsociety_team07.simulation.GameOfLifeCell;
+import cellsociety_team07.simulation.Grid;
+import cellsociety_team07.simulation.SegregationCell;
+import cellsociety_team07.simulation.WatorCell;
 
 public class SimulationObjectManager {
 	public static Cell getDefaultCell(String simulationType, double[] cellProps){

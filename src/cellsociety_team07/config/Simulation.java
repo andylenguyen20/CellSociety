@@ -1,10 +1,12 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import cellsociety_team07.simulation.Cell;
+import cellsociety_team07.simulation.Grid;
 import javafx.scene.paint.Color;
 
 public class Simulation {
