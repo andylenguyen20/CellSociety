@@ -20,7 +20,7 @@ public class DataPlotter {
 	 * @author Dana Park
 	 */
 
-	public static void plotPoints( Map<Paint, Integer> populations, ConcurrentLinkedQueue<Number> dataQueue1,ConcurrentLinkedQueue<Number> dataQueue2, 
+	protected static void plotPoints( Map<Paint, Integer> populations, ConcurrentLinkedQueue<Number> dataQueue1,ConcurrentLinkedQueue<Number> dataQueue2, 
 				     ConcurrentLinkedQueue<Number>dataQueue3, ExecutorService executor ) {
 			if (populations == null) return;
 			List<Paint> keys = new ArrayList<Paint>(populations.keySet());

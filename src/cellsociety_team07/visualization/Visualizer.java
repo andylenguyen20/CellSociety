@@ -3,37 +3,28 @@ import cellsociety_team07.config.Simulation;
 import cellsociety_team07.simulation.Cell;
 import cellsociety_team07.simulation.Grid;
 import java.util.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import java.util.concurrent.*;
+import javafx.scene.*;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
-
 /**
  * This Visualizer class is responsible for the constant visualization and maintenance of all aspects that are on screen, including
  * drop down menus, buttons,textfields, the grid with live action cells, and a live-action graph at the bottom of the screen.
  * This class runs the program and updates aspects of the program as necessary.
  * @author Dana Park
  */
-
 public class Visualizer extends Application {
-	
 	private static final int MY_SPEED = 5;
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
 	private static final int SCENE_WIDTH = 500;
 	private static final int SCENE_HEIGHT = 500;
-	private static final int SCREEN_WIDTH = 800;
-	private static final int SCREEN_HEIGHT = 800;
+	private static final int SCREEN_XY = 800;
 	private static final double RATE = 1.0;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private Timeline animation;
@@ -57,8 +48,6 @@ public class Visualizer extends Application {
     private ConcurrentLinkedQueue<Number> dataQueue1 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQueue2 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQueue3 = new ConcurrentLinkedQueue<>();
-	
-	
 	/**
 	 *  The start method allows the program to start and run by calling appropriate methods to set up and update the screen.
 	 * @author Dana Park
@@ -69,7 +58,7 @@ public class Visualizer extends Application {
 		stg.setTitle("CA Simulation");
 		simulation = new Simulation("xml/wator_simulation.xml");
 		getInitialProp();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/wator_simulation.xml" );
+		myScene = setUpGame(SCREEN_XY, SCREEN_XY, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
 		setUpLineChartExecutor();
@@ -110,7 +99,7 @@ public class Visualizer extends Application {
 	
 	private BorderPane setUpBorderPane() {
 		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
-													stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart());
+													stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart(0, simulation.getCells().size() ));
 	}
 
 	private Scene setUpGame(int height, int background, String sim) {
@@ -229,7 +218,8 @@ public class Visualizer extends Application {
 		dataQueue1 = new ConcurrentLinkedQueue<>();
 		dataQueue2 = new ConcurrentLinkedQueue<>();
 		dataQueue3 = new ConcurrentLinkedQueue<>();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, sim);
+		
+		myScene = setUpGame(SCREEN_XY, SCREEN_XY, sim);
 		stg.setScene(myScene);
 		stg.show();
 		CommandHandler.defaultRateAndPlay(RATE, animation);

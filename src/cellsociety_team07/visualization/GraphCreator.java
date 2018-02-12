@@ -10,11 +10,9 @@ import javafx.scene.chart.XYChart;
  */
 
 public class GraphCreator {
-	
 	private static final int MAXIMUM_DATA = 20;
 	private static final int TICK_INTEGER = 10;
 	private static final int LOWER_BOUND=0;
-	private static final int MAXIMUM_Y = 50;
 	private static final int PREF_HEIGHT = 150;
 	private static final int PREF_WIDTH = 760;
 	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
@@ -23,11 +21,9 @@ public class GraphCreator {
 	private NumberAxis xAxis;
 	private NumberAxis yAxis;
 	
-	
-	protected LineChart<Number, Number> getLineChart() {
+	protected LineChart<Number, Number> getLineChart(int lowerBound, int upperBound) {
 		setXAxis();
-	    setYAxis();
-	    return setLineChart();
+	    return setLineChart(lowerBound, upperBound);
 	}
 	
 	private void setXAxis() {
@@ -39,19 +35,16 @@ public class GraphCreator {
 	     xAxis.setMinorTickVisible(false);
 	}
 	
-	private void setYAxis() {
-		 yAxis = new NumberAxis(LOWER_BOUND,MAXIMUM_Y, MAXIMUM_Y);
-	     yAxis.setLabel("Pop Count");
-	}
-
 	@SuppressWarnings("unchecked")
-	private LineChart<Number, Number>  setLineChart() {
+	private LineChart<Number, Number>  setLineChart(int lowerBound, int upperBound) {
+		yAxis = new NumberAxis(lowerBound,upperBound, upperBound);
+   	    yAxis.setLabel("Pop Count");
 		  final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis) {
 	           @Override
 	           protected void dataItemAdded(Series<Number, Number> series, int itemIndex, Data<Number, Number> item) {
 	            }
 	        	};
-	        lineChart.setAnimated(false);
+	        	lineChart.setAnimated(false);
 	        lineChart.setTitle("Simulation Population Graph");
 	        lineChart.setHorizontalGridLinesVisible(true);
 	        lineChart.setPrefHeight(PREF_HEIGHT);
@@ -62,6 +55,9 @@ public class GraphCreator {
 	
 	
 	protected NumberAxis getXAxis() {
+		return xAxis;
+	}
+	protected NumberAxis getYAxis() {
 		return xAxis;
 	}
 	protected XYChart.Series<Number, Number> getSeries1(){

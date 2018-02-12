@@ -28,7 +28,7 @@ public class MenuCreator {
 		return rb.getString(s);
 	}
 	
-	protected ComboBox<String> getCommandsBox(ResourceBundle c) {
+	private ComboBox<String> getCommandsBox(ResourceBundle c) {
 		commandsBox = new ComboBox<String>();
 		commandsBox.setValue(getResources(c, "InitialCommand"));
 		commandsBox.getItems().addAll(getResources(c, "PlayCommand"),
@@ -37,7 +37,7 @@ public class MenuCreator {
 		return commandsBox;
 	}
 	
-	protected ComboBox<String> getSimulationMenu(ResourceBundle s) {
+	private ComboBox<String> getSimulationMenu(ResourceBundle s) {
 		simulationMenu = new ComboBox<String>();
 		simulationMenu.setValue(getResources(s, "InitialCommand"));
 		simulationMenu.getItems().addAll(getResources(s, "GOLCommand"),
@@ -45,26 +45,22 @@ public class MenuCreator {
 				getResources(s, "PredatorPreyCommand"));
 		return simulationMenu;
 	}
+
 	
-	protected Button makeButton(Button button, ResourceBundle c, String string) {
-		button = new Button(getResources(c, string));
-		return button;
-	}
-	
-	protected Button makeStepForward(ResourceBundle resource, String command) {
+	private Button makeStepForward(ResourceBundle resource, String command) {
 		stepButtonMaker = new ButtonMaker (resource, command);
 		stepForward = stepButtonMaker.makeButton(stepForward, resource, command);
 		return stepForward;
 	}
 	
 	
-	protected Button makeSaveState(ResourceBundle resource, String command) {
+	private Button makeSaveState(ResourceBundle resource, String command) {
 		stateSaveButtonMaker = new ButtonMaker (resource, command);
 		saveState = stateSaveButtonMaker.makeButton(saveState, resource, command);
 		return saveState;
 	}
 	
-	public HBox addHBox(ResourceBundle com, ResourceBundle sim) {
+	protected HBox addHBox(ResourceBundle com, ResourceBundle sim) {
 	    HBox hbox = new HBox();
 	    hbox.setPadding(new Insets(INSET_TYPE_Y, INSET_TYPE_X, INSET_TYPE_Y, INSET_TYPE_X));
 	    hbox.setSpacing(SPACING);
