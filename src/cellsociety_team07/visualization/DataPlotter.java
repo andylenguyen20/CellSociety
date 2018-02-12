@@ -20,8 +20,8 @@ public class DataPlotter {
 	 * @author Dana Park
 	 */
 
-	public static void plotPoints( Map<Paint, Integer> populations, ConcurrentLinkedQueue<Number> dataQ1,ConcurrentLinkedQueue<Number> dataQ2, 
-				     ConcurrentLinkedQueue<Number>dataQ3, ExecutorService executor ) {
+	public static void plotPoints( Map<Paint, Integer> populations, ConcurrentLinkedQueue<Number> dataQueue1,ConcurrentLinkedQueue<Number> dataQueue2, 
+				     ConcurrentLinkedQueue<Number>dataQueue3, ExecutorService executor ) {
 			if (populations == null) return;
 			List<Paint> keys = new ArrayList<Paint>(populations.keySet());
 			for (int i = 0; i < populations.size(); i++) {
@@ -29,15 +29,15 @@ public class DataPlotter {
 				if (populations.size()==0)
 					break;
 				else if (i == 0 && populations.size() == 1 && populations.get(keys.get(0))!=null) {
-					dataQ1.add(25);
-					dataQ2.add(0);
+					dataQueue1.add(25);
+					dataQueue2.add(0);
 				}
 				else if (i == 0) 
-					dataQ1.add(populations.get(obj));
+					dataQueue1.add(populations.get(obj));
 				else if (i == 1) 
-					dataQ2.add(populations.get(obj));
+					dataQueue2.add(populations.get(obj));
 				else if (i == 2) 
-					dataQ3.add(populations.get(obj));
+					dataQueue3.add(populations.get(obj));
 				}
 		}
 }

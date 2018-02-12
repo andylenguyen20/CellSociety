@@ -11,12 +11,15 @@ import javafx.scene.chart.XYChart;
 
 public class GraphCreator {
 	
-	private static final int MAX_DATA_POINTS = 20;
+	private static final int MAXIMUM_DATA = 20;
+	private static final int LOWER_BOUND=0;
+	private static final int TICK_INTEGER = 10;
 	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
 	private NumberAxis xAxis;
 	private NumberAxis yAxis;
+	
 	
 	protected LineChart<Number, Number> getLineChart() {
 		setXAxis();
@@ -25,7 +28,7 @@ public class GraphCreator {
 	}
 	
 	private void setXAxis() {
-		 xAxis = new NumberAxis(0, MAX_DATA_POINTS, MAX_DATA_POINTS / 10);
+		 xAxis = new NumberAxis(LOWER_BOUND, MAXIMUM_DATA, MAXIMUM_DATA / TICK_INTEGER);
 	     xAxis.setForceZeroInRange(false);
 	     xAxis.setAutoRanging(false);
 	     xAxis.setTickLabelsVisible(false);
@@ -34,7 +37,7 @@ public class GraphCreator {
 	}
 	
 	private void setYAxis() {
-		 yAxis = new NumberAxis(0,25, 25);
+		 yAxis = new NumberAxis(0,50, 50);
 	     yAxis.setLabel("Pop Count");
 	}
 
@@ -44,7 +47,7 @@ public class GraphCreator {
 	           @Override
 	           protected void dataItemAdded(Series<Number, Number> series, int itemIndex, Data<Number, Number> item) {
 	            }
-	        };
+	        	};
 	        lineChart.setAnimated(false);
 	        lineChart.setTitle("Simulation Population Graph");
 	        lineChart.setHorizontalGridLinesVisible(true);
@@ -58,10 +61,10 @@ public class GraphCreator {
 	        return lineChart;
 	}
 	
+	
 	protected NumberAxis getXAxis() {
 		return xAxis;
 	}
-	
 	protected XYChart.Series<Number, Number> getSeries1(){
 		return series1;
 	}

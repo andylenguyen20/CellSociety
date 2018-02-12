@@ -45,6 +45,10 @@ public class Simulation {
 		grid.setCellNeighbors();
 	}
 
+	public void saveCurrentState() {
+		XMLWriterFactory.saveSimData(grid, myType);
+	}
+	
 	public Grid getGrid(){
 		return grid;
 	}

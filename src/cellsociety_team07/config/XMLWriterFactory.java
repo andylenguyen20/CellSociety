@@ -20,11 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import cellsociety_team07.simulation.Cell;
-import cellsociety_team07.simulation.FireCell;
-import cellsociety_team07.simulation.GameOfLifeCell;
 import cellsociety_team07.simulation.Grid;
-import cellsociety_team07.simulation.SegregationCell;
-import cellsociety_team07.simulation.WatorCell;
 
 public class XMLWriterFactory {
 	
@@ -62,8 +58,8 @@ public class XMLWriterFactory {
 		Document file; // document actively being written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
 		File f = new File("xml/" + simType + "State.xml"); // filepath where document will eventually be saved
-		List<Cell> cells = g.getCells();
 		// Set up file
+		List<Cell> cells = g.getCells();
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			file = db.newDocument(); // create new document
@@ -92,7 +88,7 @@ public class XMLWriterFactory {
 				c.setAttribute(TYPE, cell.getClass().getSimpleName());
 				// get Points, State
 				for (Double d:cell.getVertices()) {
-					c.appendChild(addData(file, "point", String.valueOf(d.getX()) + "," + String.valueOf(d.getY())));
+					c.appendChild(addData(file, "point", d.getX() + "," + d.getY()));
 				}
 				c.appendChild(addData(file, "state", String.valueOf(cell.getCurrentState())));
 				// add to grid node
@@ -165,20 +161,19 @@ public class XMLWriterFactory {
 	 * 
 	 * @param simType String containing simulation type
 	 * @return        number of states for that simulation type
-	 * @throws        BadSimulationException if invalid simType
 	 */
-	private static int getNumStates(String simType) throws BadSimulationException {
+	private static int getNumStates(String simType) {
 		switch (simType) {
 		case "GameOfLife":
-			return new GameOfLifeCell().getColors().length;
+			return 2;
 		case "Fire":
-			return new FireCell().getColors().length;
+			return 3;
 		case "Segregation":
-			return new SegregationCell().getColors().length;
+			return 3;
 		case "Wator":
-			return new WatorCell().getColors().length;
+			return 3;
 		default:
-			throw new BadSimulationException();
+			return -1;
 		}
 	}
 	
@@ -253,7 +248,7 @@ public class XMLWriterFactory {
 	 */
 	private static void appendRandomProps(String simType, Element sim, Document file) {
 		String param;
-		if (simType.equals("Fire")) {
+		if (simType.equals("FireCell")) {
 			param = "probCatch";
 		} else {
 			param = "similarityReq";
@@ -299,7 +294,6 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		//writeRandomSimData(10,10,"Fire","Fire","Triangle");
 		Grid g = GridFactory.generateRandomizedGrid("Rectangle", new Dimension(2,2), "GameOfLife");
 		saveSimData(g, "GameOfLife");
 	}
