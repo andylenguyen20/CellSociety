@@ -14,6 +14,9 @@ import javafx.scene.layout.HBox;
  */
 
 public class MenuCreator {
+	private static final int INSET_TYPE_X = 15;
+	private static final int INSET_TYPE_Y = 12;
+	private static final int SPACING =10;
 	private ComboBox<String> commandsBox;
 	private ComboBox<String> simulationMenu;
 	private Button stepForward;
@@ -63,8 +66,8 @@ public class MenuCreator {
 	
 	public HBox addHBox(ResourceBundle com, ResourceBundle sim) {
 	    HBox hbox = new HBox();
-	    hbox.setPadding(new Insets(15, 12, 15, 12));
-	    hbox.setSpacing(10);
+	    hbox.setPadding(new Insets(INSET_TYPE_Y, INSET_TYPE_X, INSET_TYPE_Y, INSET_TYPE_X));
+	    hbox.setSpacing(SPACING);
 	    hbox.setStyle("-fx-background-color: #336699;");
 	    hbox.getChildren().addAll(getSimulationMenu(sim),getCommandsBox(com),makeStepForward(com,"StepForwardCommand"),makeSaveState(com, "SaveStateCommand"));
 	    return hbox;

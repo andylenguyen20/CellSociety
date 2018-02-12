@@ -34,6 +34,7 @@ public class Visualizer extends Application {
 	private static final int SCENE_HEIGHT = 500;
 	private static final int SCREEN_WIDTH = 800;
 	private static final int SCREEN_HEIGHT = 800;
+	private static final double RATE = 1.0;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private Timeline animation;
 	private Simulation simulation;
@@ -181,7 +182,7 @@ public class Visualizer extends Application {
 	  }
 	
 	private void updateLineGraph() {
-		for (int i = 0; i < 25; i++) { 
+		for (int i = 0; i < MAXIMUM_POINTS; i++) { 
 	            if (dataQueue1.isEmpty()) break;
 	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xData++, dataQueue1.remove()));
 	            if(dataQueue2.isEmpty()) break;
@@ -231,7 +232,7 @@ public class Visualizer extends Application {
 		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, sim);
 		stg.setScene(myScene);
 		stg.show();
-		CommandHandler.defaultRateAndPlay(1.0, animation);
+		CommandHandler.defaultRateAndPlay(RATE, animation);
 	}
 	
 	private void handleStepForward(String code) {

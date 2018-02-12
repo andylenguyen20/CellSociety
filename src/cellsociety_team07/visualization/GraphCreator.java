@@ -12,8 +12,11 @@ import javafx.scene.chart.XYChart;
 public class GraphCreator {
 	
 	private static final int MAXIMUM_DATA = 20;
-	private static final int LOWER_BOUND=0;
 	private static final int TICK_INTEGER = 10;
+	private static final int LOWER_BOUND=0;
+	private static final int MAXIMUM_Y = 50;
+	private static final int PREF_HEIGHT = 150;
+	private static final int PREF_WIDTH = 760;
 	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
@@ -37,7 +40,7 @@ public class GraphCreator {
 	}
 	
 	private void setYAxis() {
-		 yAxis = new NumberAxis(0,50, 50);
+		 yAxis = new NumberAxis(LOWER_BOUND,MAXIMUM_Y, MAXIMUM_Y);
 	     yAxis.setLabel("Pop Count");
 	}
 
@@ -51,12 +54,8 @@ public class GraphCreator {
 	        lineChart.setAnimated(false);
 	        lineChart.setTitle("Simulation Population Graph");
 	        lineChart.setHorizontalGridLinesVisible(true);
-	        lineChart.setPrefHeight(150);
-	        lineChart.setMinHeight(150);
-	        lineChart.setMaxHeight(150);
-	        lineChart.setPrefWidth(760);
-	        lineChart.setMinWidth(750);
-	        lineChart.setMaxWidth(760);
+	        lineChart.setPrefHeight(PREF_HEIGHT);
+	        lineChart.setPrefWidth(PREF_WIDTH);
 	        lineChart.getData().addAll(series1, series2, series3);
 	        return lineChart;
 	}
