@@ -28,6 +28,7 @@ public class Visualizer extends Application {
 	private static final int SCREEN_XY = 800;
 	private static final double RATE = 1.0;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
+	private static final int MAXIMUM_POINTS = 20;
 	private Timeline animation;
 	private Simulation simulation;
 	private Stage stg;
@@ -45,7 +46,6 @@ public class Visualizer extends Application {
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
 	private GraphCreator graphCreator;
-	private static final int MAXIMUM_POINTS = 20;
 	private int xData = 0;
 	private ExecutorService chartExecutor;
     private ConcurrentLinkedQueue<Number> dataQueue1 = new ConcurrentLinkedQueue<>();
@@ -58,7 +58,7 @@ public class Visualizer extends Application {
 	@Override
 	public void start(Stage stage) {
 		stg = stage;
-		stg.setTitle("CA Simulation");
+		stg.setTitle(myResources_S.getString("ScreenTitle"));
 		simulation = new Simulation("xml/wator_simulation.xml");
 		currentSimType = simulation.getType();
 		getInitialProp();
@@ -77,7 +77,6 @@ public class Visualizer extends Application {
                 return thread;
             }
         });
-
         AddPointsToQueue addToQueue = new AddPointsToQueue();
         chartExecutor .execute(addToQueue);
 	}
@@ -102,7 +101,7 @@ public class Visualizer extends Application {
 	private Scene setUpGame(int height, int background, String sim) {
 		initializeHelpers();
 		Scene scene = new Scene(root, height, background);
-		setSimulation(sim);
+		simulation = new Simulation(sim);
 		currentSimType = nextSimType;
 		drawFreshGrid();
 		root.getChildren().add(setUpBorderPane());
@@ -162,9 +161,8 @@ public class Visualizer extends Application {
 		Grid grid = simulation.getGrid();
 		grid.prepareNextState();
 		grid.update();
-		for(Cell cell : grid.getCells()) {
+		for(Cell cell : grid.getCells()) 
 			root.getChildren().remove(cell);
-		}
 		drawFreshGrid();
 	  }
 	private void updateLineGraph() {
@@ -233,9 +231,6 @@ public class Visualizer extends Application {
 		default:
 			break;
 		}
-	}
-	private void setSimulation(String s) {
-		simulation = new Simulation(s);
 	}
 	public static void main(String[] args) {
 		launch(args);

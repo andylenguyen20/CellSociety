@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Paint;
@@ -47,6 +50,7 @@ public class DataPlotter {
 		if (series.getData().size() > maxData) 
     			series.getData().remove(0, series.getData().size() - maxData);
 		}
+
 }
 			
 
