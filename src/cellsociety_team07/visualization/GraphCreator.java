@@ -10,21 +10,20 @@ import javafx.scene.chart.XYChart;
  */
 
 public class GraphCreator {
-	
 	private static final int MAXIMUM_DATA = 20;
-	private static final int LOWER_BOUND=0;
 	private static final int TICK_INTEGER = 10;
+	private static final int LOWER_BOUND=0;
+	private static final int PREF_HEIGHT = 150;
+	private static final int PREF_WIDTH = 760;
 	private XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 	private XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
 	private NumberAxis xAxis;
 	private NumberAxis yAxis;
 	
-	
-	protected LineChart<Number, Number> getLineChart() {
+	protected LineChart<Number, Number> getLineChart(int lowerBound, int upperBound) {
 		setXAxis();
-	    setYAxis();
-	    return setLineChart();
+	    return setLineChart(lowerBound, upperBound);
 	}
 	
 	private void setXAxis() {
@@ -36,33 +35,29 @@ public class GraphCreator {
 	     xAxis.setMinorTickVisible(false);
 	}
 	
-	private void setYAxis() {
-		 yAxis = new NumberAxis(0,50, 50);
-	     yAxis.setLabel("Pop Count");
-	}
-
 	@SuppressWarnings("unchecked")
-	private LineChart<Number, Number>  setLineChart() {
+	private LineChart<Number, Number>  setLineChart(int lowerBound, int upperBound) {
+		yAxis = new NumberAxis(lowerBound,upperBound, upperBound);
+   	    yAxis.setLabel("Pop Count");
 		  final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis) {
 	           @Override
 	           protected void dataItemAdded(Series<Number, Number> series, int itemIndex, Data<Number, Number> item) {
 	            }
 	        	};
-	        lineChart.setAnimated(false);
+	        	lineChart.setAnimated(false);
 	        lineChart.setTitle("Simulation Population Graph");
 	        lineChart.setHorizontalGridLinesVisible(true);
-	        lineChart.setPrefHeight(150);
-	        lineChart.setMinHeight(150);
-	        lineChart.setMaxHeight(150);
-	        lineChart.setPrefWidth(760);
-	        lineChart.setMinWidth(750);
-	        lineChart.setMaxWidth(760);
+	        lineChart.setPrefHeight(PREF_HEIGHT);
+	        lineChart.setPrefWidth(PREF_WIDTH);
 	        lineChart.getData().addAll(series1, series2, series3);
 	        return lineChart;
 	}
 	
 	
 	protected NumberAxis getXAxis() {
+		return xAxis;
+	}
+	protected NumberAxis getYAxis() {
 		return xAxis;
 	}
 	protected XYChart.Series<Number, Number> getSeries1(){

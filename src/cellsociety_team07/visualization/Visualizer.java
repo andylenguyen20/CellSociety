@@ -1,23 +1,22 @@
 package cellsociety_team07.visualization;
 import cellsociety_team07.config.Simulation;
+import cellsociety_team07.config.XMLWriterFactory;
 import cellsociety_team07.simulation.Cell;
 import cellsociety_team07.simulation.Grid;
 import java.util.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import java.util.concurrent.*;
+import javafx.scene.*;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
+
+
 
 /**
  * This Visualizer class is responsible for the constant visualization and maintenance of all aspects that are on screen, including
@@ -25,15 +24,13 @@ import javafx.scene.paint.Paint;
  * This class runs the program and updates aspects of the program as necessary.
  * @author Dana Park
  */
-
 public class Visualizer extends Application {
-	
 	private static final int MY_SPEED = 5;
 	private static final int MILLISECOND_DELAY = 1000 / MY_SPEED;
 	private static final int SCENE_WIDTH = 500;
 	private static final int SCENE_HEIGHT = 500;
-	private static final int SCREEN_WIDTH = 800;
-	private static final int SCREEN_HEIGHT = 800;
+	private static final int SCREEN_XY = 800;
+	private static final double RATE = 1.0;
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private Timeline animation;
 	private Simulation simulation;
@@ -48,6 +45,9 @@ public class Visualizer extends Application {
 	private int cellState= 1;
 	private TextFieldCreator stateChanger;
 	private TextFieldCreator propsChanger;
+	private String currentSimType;
+	private String nextSimType;
+
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
 	private static final int MAXIMUM_POINTS = 20;
@@ -56,8 +56,6 @@ public class Visualizer extends Application {
     private ConcurrentLinkedQueue<Number> dataQueue1 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQueue2 = new ConcurrentLinkedQueue<>();
 	private ConcurrentLinkedQueue<Number> dataQueue3 = new ConcurrentLinkedQueue<>();
-	
-	
 	/**
 	 *  The start method allows the program to start and run by calling appropriate methods to set up and update the screen.
 	 * @author Dana Park
@@ -67,8 +65,9 @@ public class Visualizer extends Application {
 		stg = stage;
 		stg.setTitle("CA Simulation");
 		simulation = new Simulation("xml/wator_simulation.xml");
+		currentSimType = simulation.getType();
 		getInitialProp();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, "xml/wator_simulation.xml" );
+		myScene = setUpGame(SCREEN_XY, SCREEN_XY, "xml/wator_simulation.xml" );
 		stg.setScene(myScene);
 		stg.show();
 		setUpLineChartExecutor();
@@ -102,20 +101,22 @@ public class Visualizer extends Application {
 		root = new Group();
 		stateChanger = new TextFieldCreator(myResources_C, "EnterStateChangeCommand", "EnterCommand");
 		propsChanger = new TextFieldCreator(myResources_C, "EnterPropChangeCommand", "SubmitCommand");
+
 		menuCreator = new MenuCreator();
 		cellDrawer= new CellsToVisualize();
 		graphCreator = new GraphCreator();
 	}
 	
 	private BorderPane setUpBorderPane() {
-		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
-													stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart());
+		return BorderPaneInitializer.setUpBorderPane(menuCreator.addHBox(myResources_C, myResources_S), propsChanger.textHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"), 
+													stateChanger.textHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"), graphCreator.getLineChart(0, simulation.getCells().size() ));
 	}
 
 	private Scene setUpGame(int height, int background, String sim) {
 		initializeHelpers();
 		Scene scene = new Scene(root, height, background);
 		setSimulation(sim);
+		currentSimType = nextSimType;
 		drawFreshGrid();
 		root.getChildren().add(setUpBorderPane());
 		return scene;
@@ -125,7 +126,7 @@ public class Visualizer extends Application {
 		public void run() {
 			Map<Paint, Integer> populations = cellDrawer.getPopulations();
 			try {
-				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, chartExecutor);
+				DataPlotter.plotPoints(populations, dataQueue1, dataQueue2, dataQueue3, chartExecutor, simulation.getCells().size());
 				Thread.sleep(100);
 				chartExecutor.execute(this);
 		   }catch (InterruptedException ex) {
@@ -135,6 +136,11 @@ public class Visualizer extends Application {
 		}
 	
 	private void drawFreshGrid() {
+		if(currentSimType != nextSimType) {
+			cellState = 0;
+		}else {
+			props = null;
+		}
 		cellDrawer.drawNewGrid(simulation, SCENE_WIDTH, SCENE_HEIGHT,root, props, cellState);
 	}
 	
@@ -154,10 +160,12 @@ public class Visualizer extends Application {
 	}
 	
 	public void handleUserInput() {
-		propsChanger.getSubmit().setOnAction((e) -> {
+		propsChanger.getButton().setOnAction((e) -> {
    	    		handleParamChanges(e); });
-		stateChanger.getSubmit().setOnAction((e) -> {
+		stateChanger.getButton().setOnAction((e) -> {
 			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
+		menuCreator.getRandomBox().getButton().setOnAction((e) -> {
+			System.out.println("hello"); });
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));	});
 		menuCreator.saveStateButton().setOnAction((e) -> {
@@ -181,7 +189,7 @@ public class Visualizer extends Application {
 	  }
 	
 	private void updateLineGraph() {
-		for (int i = 0; i < 25; i++) { 
+		for (int i = 0; i < MAXIMUM_POINTS; i++) { 
 	            if (dataQueue1.isEmpty()) break;
 	            graphCreator.getSeries1().getData().add(new XYChart.Data<>(xData++, dataQueue1.remove()));
 	            if(dataQueue2.isEmpty()) break;
@@ -212,8 +220,22 @@ public class Visualizer extends Application {
 		
 	}
 	
+	private void handleRandomGeneration(Event e) {
+		String str = menuCreator.getRandomBox().getTextValue().getText();
+		String [] arrOfStr = str.split(":", 4);
+		if (arrOfStr.length!=4) return;
+		int height =	Integer.parseInt(arrOfStr[0]) ;
+		int width = Integer.parseInt(arrOfStr[1]);
+		String simType = arrOfStr[2];
+		String shape = arrOfStr[3];
+		XMLWriterFactory.writeRandomSimData(height, width, simType, shape);
+		newSim("xml/" + simType + "_random" + ".xml");
+		nextSimType = simType;
+	}
+	
 	private void handleSimulation(Event e) {
 		String selectedAction = menuCreator.simulations().getSelectionModel().getSelectedItem();
+		nextSimType = selectedAction;
 		if (selectedAction.equals("Game of Life")) 
 			newSim("xml/gol_simulation.xml");
 		if (selectedAction.equals("Segregation")) 
@@ -222,16 +244,17 @@ public class Visualizer extends Application {
 			newSim("xml/wator_simulation.xml");
 		if (selectedAction.equals("Fire")) 
 			newSim("xml/fire_simulation.xml");
-		}
+	}
 	
 	private void newSim(String sim) {
 		dataQueue1 = new ConcurrentLinkedQueue<>();
 		dataQueue2 = new ConcurrentLinkedQueue<>();
 		dataQueue3 = new ConcurrentLinkedQueue<>();
-		myScene = setUpGame(SCREEN_WIDTH, SCREEN_HEIGHT, sim);
+		
+		myScene = setUpGame(SCREEN_XY, SCREEN_XY, sim);
 		stg.setScene(myScene);
 		stg.show();
-		CommandHandler.defaultRateAndPlay(1.0, animation);
+		CommandHandler.defaultRateAndPlay(RATE, animation);
 	}
 	
 	private void handleStepForward(String code) {

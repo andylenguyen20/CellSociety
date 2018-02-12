@@ -11,10 +11,11 @@ import javafx.scene.layout.HBox;
  */
 
 public class BorderPaneInitializer {
+	private static  final int PANE_XY_DIMENSIONS = 800;
 
 	protected static BorderPane setUpBorderPane(HBox menuCreator, HBox propsChanger, HBox statesChanger, LineChart<Number, Number> lineChart) {
 		BorderPane borderPane = new BorderPane();
-		borderPane.setPrefSize(800, 800); 
+		borderPane.setPrefSize(PANE_XY_DIMENSIONS, PANE_XY_DIMENSIONS); 
 		borderPane.setTop(menuCreator);	    
 		borderPane.setRight(propsChanger);
 		borderPane.setLeft(statesChanger);
