@@ -62,7 +62,7 @@ public class GraphCreator {
 		return xAxis;
 	}
 	
-	public  XYChart.Series<Number, Number> getSeries1(){
+	public XYChart.Series<Number, Number> getSeries1(){
 		return series1;
 	}
 	public  XYChart.Series<Number, Number> getSeries2(){

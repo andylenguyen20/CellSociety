@@ -87,7 +87,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class MenuCreator {
-	
 	private ComboBox<String> commandsBox;
 	private ComboBox<String> simulationMenu;
 	private Button stepForward;
