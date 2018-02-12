@@ -48,8 +48,8 @@ public class Visualizer extends Application {
 	private GraphCreator graphCreator;
 	private int propsLength;
 	private int cellState= 1;
-	private StateChangeTextField stateChanger;
-	private PropsChangeTextField propsChanger;
+	private TextFieldCreator stateChanger;
+	private TextFieldCreator propsChanger;
 	private MenuCreator menuCreator;
 	private CellsToVisualize cellDrawer;
 	private static final int MAX_DATA_POINTS = 20;
@@ -102,8 +102,8 @@ public class Visualizer extends Application {
 	
 	private void initializeHelpers() {
 		root = new Group();
-		stateChanger = new StateChangeTextField();
-		propsChanger = new PropsChangeTextField();
+		stateChanger = new TextFieldCreator(myResources_C, "EnterStateChangeCommand", "EnterCommand");
+		propsChanger = new TextFieldCreator(myResources_C, "EnterPropChangeCommand", "SubmitCommand");
 		menuCreator = new MenuCreator();
 		cellDrawer= new CellsToVisualize();
 		graphCreator = new GraphCreator();
@@ -114,7 +114,7 @@ public class Visualizer extends Application {
 		borderPane.setPrefSize(800, 800); 
 		borderPane.setTop(menuCreator.addHBox(myResources_C, myResources_S));	    
 		borderPane.setRight(propsChanger.propsHBoxMaker(myResources_C, "EnterPropChangeCommand", "SubmitCommand"));
-		borderPane.setLeft(stateChanger.stateHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"));
+		borderPane.setLeft(stateChanger.propsHBoxMaker(myResources_C, "EnterStateChangeCommand", "EnterCommand"));
 		borderPane.setBottom(graphCreator.getLineChart());
 		borderPane.setStyle("-fx-padding: 10;" +"-fx-border-style: solid inside;" + "-fx-border-width: 2;" + 
 						"-fx-border-insets: 5;" +"-fx-border-radius: 5;" + "-fx-border-color: blue;");
@@ -162,7 +162,7 @@ public class Visualizer extends Application {
 		updateLineGraph();
 	    propsChanger.getSubmit().setOnAction((e) -> {
 	   	    		handleParamChanges(e); });
-	    stateChanger.getEnter().setOnAction((e) -> {
+	    stateChanger.getSubmit().setOnAction((e) -> {
     			cellState = Integer.parseInt(stateChanger.getTextValue().getText()); });
 		menuCreator.stepButton().setOnAction((e) -> {
 			handleStepForward(menuCreator.getResources(myResources_C, "StepForwardCommand"));	});
@@ -254,5 +254,4 @@ public class Visualizer extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-}
+ }
