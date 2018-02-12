@@ -1,12 +1,9 @@
 package cellsociety_team07.config;
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
 
@@ -16,21 +13,14 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import javafx.scene.paint.Paint;
-import javafx.scene.paint.Color;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
+import org.w3c.dom.Node;
 import cellsociety_team07.simulation.Cell;
 import cellsociety_team07.simulation.Grid;
-
-import org.w3c.dom.Node;
 
 public class XMLWriterFactory {
 	
@@ -61,13 +51,10 @@ public class XMLWriterFactory {
 	 * Loops through List of Cells and saves their current state and locations (based on vertices) to an XML
 	 * document. Also saves simulation type and grid dimensions.
 	 * 
-	 * @param cells: List of Cells to be saved and read
 	 * @param g:     Grid containing cells to saved and read
 	 * @param simType: String containing type of simulation
-	 * @param simTitle: title of simulation
 	 */
-	public static void getSimData(Grid g, String simType, String simTitle) {
-		System.out.println("hiif");
+	public static void saveSimData(Grid g, String simType) {
 		Document file; // document actively being written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
 		File f = new File("xml/" + simType + "State.xml"); // filepath where document will eventually be saved
@@ -91,10 +78,9 @@ public class XMLWriterFactory {
 			sim.appendChild(grid);
 			// Dimensions
 			Element dim = file.createElement(DIMENSION);
-			dim.appendChild(addData(file,WIDTH,g.numCols() + ""));
-			dim.appendChild(addData(file,HEIGHT,g.numRows() + ""));
+			dim.appendChild(addData(file,WIDTH,String.valueOf(g.numCols())));
+			dim.appendChild(addData(file,HEIGHT,String.valueOf(g.numRows())));
 			grid.appendChild(dim);
-			System.out.println(dim.getFirstChild().toString());
 			// Input cell data
 			for (Cell cell:cells) {
 				Element c = file.createElement(CELL);
@@ -111,7 +97,7 @@ public class XMLWriterFactory {
 			// Format + save file
 			saveXMLFile(file,f);
 		} catch(Exception e) {
-			throw new BadSimulationException("");
+			throw new BadSimulationException();
 		}
 	}
 	
@@ -121,13 +107,13 @@ public class XMLWriterFactory {
 	 * @param height    Height of grid to be generated
 	 * @param width     Width of grid to be generated
 	 * @param simType   Type of simulation
-	 * @param simTitle  Title
 	 * @param shape     Cell shape
 	 */
-	public static void writeRandomSimData(int height, int width, String simType, String simTitle, String shape) {
+	public static void writeRandomSimData(int height, int width, String simType, String shape) {
+		SimulationXMLParser simPars = new SimulationXMLParser("xml/random_properties.xml"); // create object to read random properties
 		Document file; // document to be written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
-		File f = new File("xml/" + simType + ".xml");
+		File f = new File("xml/Random.xml");
 		// Dimensions
 		Dimension d = new Dimension(width,height);
 		// Get Triangular Cell Grid
@@ -143,9 +129,8 @@ public class XMLWriterFactory {
 			sim.appendChild(addData(file,TYPE,simType));
 			sim.appendChild(addData(file,TITLE,simType + "Simulation"));
 			sim.appendChild(addData(file,AUTHOR,"Brendan Cheng"));
-			
+			// Append Props
 			appendRandomProps(simType,sim,file);
-			
 			// Set up grid node
 			Element grid = file.createElement(GRID);
 			sim.appendChild(grid);
@@ -167,7 +152,7 @@ public class XMLWriterFactory {
 			// Format + save file
 			saveXMLFile(file,f);
 		} catch(Exception e) {
-			e.printStackTrace();
+			throw new BadSimulationException();
 		}
 	}
 	
@@ -309,7 +294,8 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		writeRandomSimData(10,10,"Wator","Wator","Triangle");
+		Grid g = GridFactory.generateRandomizedGrid("Rectangle", new Dimension(2,2), "GameOfLife");
+		saveSimData(g, "GameOfLife");
 	}
 	
 }

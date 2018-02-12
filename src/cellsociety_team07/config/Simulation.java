@@ -46,7 +46,7 @@ public class Simulation {
 	}
 
 	public void saveCurrentState() {
-		XMLWriterFactory.getSimData(grid, myType, myTitle);
+		XMLWriterFactory.saveSimData(grid, myType);
 	}
 	
 	public Grid getGrid(){
