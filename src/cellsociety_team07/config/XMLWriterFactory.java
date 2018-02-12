@@ -1,4 +1,4 @@
-package cellsociety_team07;
+package cellsociety_team07.config;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -26,6 +26,10 @@ import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import cellsociety_team07.simulation.Cell;
+import cellsociety_team07.simulation.Grid;
+
 import org.w3c.dom.Node;
 
 public class XMLWriterFactory {
@@ -301,7 +305,7 @@ public class XMLWriterFactory {
 	}
 	
 	public static void main(String[] args) {
-		writeRandomSimData(5,5,"Fire","Fire","Rectangle");
+		writeRandomSimData(10,10,"Wator","Wator","Triangle");
 	}
 	
 }
