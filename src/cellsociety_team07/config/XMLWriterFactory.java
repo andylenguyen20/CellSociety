@@ -70,10 +70,11 @@ public class XMLWriterFactory {
 	 * @param simType: String containing type of simulation
 	 * @param simTitle: title of simulation
 	 */
-	public static void getSimData(List<Cell> cells, Grid g, String simType, String simTitle) {
+	public static void getSimData(Grid g, String simType, String simTitle) {
 		Document file; // document actively being written to
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance(); // DBF object to work on file
 		File f = new File("xml/" + simType + "State.xml"); // filepath where document will eventually be saved
+		List<Cell> cells = g.getCells();
 		// Set up file
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -176,8 +177,9 @@ public class XMLWriterFactory {
 	 * 
 	 * @param simType String containing simulation type
 	 * @return        number of states for that simulation type
+	 * @throws        BadSimulationException if invalid simType
 	 */
-	private static int getNumStates(String simType) {
+	private static int getNumStates(String simType) throws BadSimulationException {
 		switch (simType) {
 		case "GameOfLife":
 			return new GameOfLifeCell().getColors().length;
@@ -188,7 +190,7 @@ public class XMLWriterFactory {
 		case "Wator":
 			return new WatorCell().getColors().length;
 		default:
-			return -1;
+			throw new BadSimulationException();
 		}
 	}
 	
