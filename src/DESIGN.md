@@ -2,15 +2,7 @@
 
 Provide the high-level design goals of your project.
 
-* The goal of this project is design a flexible model that allows users to create and run simulations of specific types that follow certain rules. It also allows users to style their simulations given different configurations and provide additional functionality beyond that of a simple simulation.
-
-* On the front-end, the design goal was to create a simple, easy-to-understand user experience for the CA Simulations, allowing the user
-  to easily understand how to manipulate the simulations to play, pause, switch simulations, change simulation parameters, etc. This was achieved through
-  having a main Visualizer class that was responsible for running and updating the program. Visualizer called on different classes located within the visualization
-  package to do work for it, such as the CommandHandler class or the DataPlotter class. The UI components were laid out in a BorderPane to make the layout
-  easy for the user. 
-
-
+* The goal of this project was to design a flexible, easy-to-use CA simulation model that allows users to create and run various cell simulations that follow certain rules. Through the UI, users have the ability to manipulate simulations such as by pausing, playing, stepping forward one frame, switching simulations, or changing simulation parameters. On the back end, a relatively Java-proficient user who wishes to add additional simulation types need only write new classes for a cell type and its corresponding grid to add another simulation - there is no need to tamper with any front-end code, which helps to simplify customizing the simulation model as a whole.
 
 
 Explain, in detail, how to add new features to your project
@@ -38,14 +30,14 @@ Justify major design choices, including trade-offs (i.e., pros and cons), made i
 
 * One design decision made by the team during the Basic Implementation was to have a separate Fish and Shark cell for Wator. However, there were still bugs in
   the Wator simulation by the time that the Basic Implementation was due, and it was very hard to debug and fix those changes because the two separate Cell
-  classes were not reacting to eachother the way that they should. We had originally designed it this way to allow additional flexibility and compartmentalizing
+  classes were not reacting to each other the way that they should. We had originally designed it this way to allow additional flexibility and compartmentalizing
   of the different types of cells. Since Fish and Shark abide by different rules, we thought it would be more clean/logical to separate them into two classes.
   During the second sprint, however, we realized that implementing user input actions for Wator would not work with the same methodology as the other classes.
   Additionally, changes we made in the front-end further highlighted the bugs we had in the Wator simulation. Therefore, we designed a single Wator cell that
   includes both Fish and Shark. While the tradeoff was that we were not able to separate Fish and Shark into two different entitities, I think this designed helped
   both the back-end and front-end of the program. This one Wator cell implementation was easier to implement and fixed the original bugs in the program.
 
-* Another design decsision made by the team was to stick with using a double[]props to represent Simulation Parameters, just like we had done in the basic
+* Another design decision made by the team was to stick with using a double[]props to represent Simulation Parameters, just like we had done in the basic
   implementation, instead of switching to a HashMap of Strings, representing the String names of Parameters, mapped to values of double parameters. We had 
   originally debated switching to the HashMap format because that would make it easier for the user to input changed into the program. For example, inputting
   "SharkStartingEnergy:5.0" is way easier and clearer to the user than having to put the index of the double array and then the parameter value ("2:5.0"). However, 
@@ -61,5 +53,7 @@ State any assumptions or decisions made to simplify or resolve ambiguities in yo
 * On the UI side, we assumed that the user would know the indexes of the parameters that she/he would like to change when typing in a new desired parameter
   in the TextField designed to allow the user to change parameters. We also assumed the user would know the integer corresponding to the state of a cell, so they
   would, for example, type in 1 to the TextField in Game of Life to change cell states to alive, and 0 to change cell states to dead.
+  
+* On the configuration side, we assumed a certain format for XML file (i.e. tags, attributes, etc. all have same names and appear in same order for a given simulation). This facilitated reading and writing XML files to get or store the configuration of the grid.
 
 
