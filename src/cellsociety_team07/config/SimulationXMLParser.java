@@ -96,6 +96,10 @@ public class SimulationXMLParser {
 		return type.getTextContent();
 	}
 	
+	public Document getDocument() {
+		return document;
+	}
+	
 	public double[] getSimulationParams(){
 		NodeList parameters = document.getElementsByTagName("param");
 		double[] params = new double[parameters.getLength()];

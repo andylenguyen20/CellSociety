@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<simulation_types>
+    <simulation type = "GameOfLife">
+        <cell type = "GameOfLifeCell">
+            <state>0 1</state>
+        </cell>
+    </simulation>
+    <simulation type = "Fire">
+        <param id = "probCatch">0 1</param>
+        <cell type = "FireCell">
+            <state>0 1 2</state>
+        </cell>
+    </simulation>
+    <simulation type = "Segregation">
+        <param id = "similarityReq">0 1</param>
+        <cell type = "SegregationCell">
+            <state>0 1 2</state>
+        </cell>
+    </simulation>
+    <simulation type = "Wator">
+        <param id = "FishCrononReproduce">0 10</param>
+        <param id = "SharkCrononReproduce">0 10</param>
+        <param id = "SharkStartingEnergy">1 10</param>
+        <param id = "EnergyForEatingFish">1 10</param>
+        <cell type = "WatorCell">
+            <state>0 1 2</state>
+        </cell>
+    </simulation>
+</simulation_types>
