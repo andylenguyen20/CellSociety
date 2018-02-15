@@ -7,18 +7,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
  
+/**
+ * The purpose of this class is to find neighbors for all cells in the grid in a bounded
+ * grid type. This class works for all shape types and should be closed for modification because it
+ * is a universal way of finding neighbors.
+ * @author Andy Nguyen
+ *
+ */
 public class NeighborFinder {
     public static final List<Integer> TOUCHING_NEIGHBORS = new ArrayList<>(Arrays.asList(1,2));
     public static final List<Integer> ADJACENT_NEIGHBORS = new ArrayList<>(Arrays.asList(2));
     public static final List<Integer> DIAGONAL_NEIGHBORS = new ArrayList<>(Arrays.asList(1));
     private List<Integer> allowedNumSharedVertices;
+    
+    /**
+     * Initializes a new NeighborFinder object that has a given neighbor type: adjacent, touching, or diagonal
+     * @param allowedNumSharedVertices
+     */
     public NeighborFinder(List<Integer> allowedNumSharedVertices){
         this.allowedNumSharedVertices = allowedNumSharedVertices;
     }
    
-    /*
-     * Given the cell whose neighbors we want to find and given the map of vertices linked to all cells in the grid,
-     * returns a list of cell neighbors for the given cell.
+    /**
+     * Finds the neighbors for a given cell using the grid's vertexMap. This works for all shape types.
+     * @param cell
+     * @param verticeMap
+     * @return
      */
     public List<Cell> findNeighbors(Cell cell, Map<String, List<Cell>> verticeMap){
         List<Double> cellVertices = cell.getVertices();
@@ -35,7 +49,7 @@ public class NeighborFinder {
         }
         return this.getValidNeighbors(numSharedVertices);
     }
-   
+
     protected List<Cell> getValidNeighbors(Map<Cell, Integer> numSharedVertices){
         List<Cell> neighborList = new ArrayList<>();
         for(Cell potentialNeighbor : numSharedVertices.keySet()){

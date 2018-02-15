@@ -15,6 +15,13 @@ import cellsociety_team07.simulation.Grid;
 import cellsociety_team07.simulation.SegregationGrid;
 import cellsociety_team07.simulation.WatorGrid;
 
+/**
+ * The purpose of this class is to provide a static way to generate either a grid that is fully
+ * initialized with initialized cells or a grid that is fully initialized with unitialized cells.
+ * It does this for Rectangular and Triangular grids for all four simulation types.
+ * @author Andy Nguyen and Brendan Cheng
+ *
+ */
 public class GridFactory {
 	private static final HashMap<String,ArrayList<String>> typeMap = new HashMap<>();
 	static {
@@ -36,6 +43,14 @@ public class GridFactory {
 	private static final double rectangleXStep = 1;
 	private static final double rectangleYStep = 1;
 	
+	/**
+	 * Creates a new grid object that contains the initializedCells and grid dimensions. This method
+	 * does not need to call and helpers or perform any coordinate system calculations
+	 * @param initializedCells
+	 * @param gridDimensions
+	 * @param simType
+	 * @return	the Grid of initialized cells
+	 */
 	public static Grid generateInitializedGrid(List<Cell> initializedCells, Dimension gridDimensions, String simType){
 		switch(simType){
 		case "Fire": 
@@ -51,6 +66,15 @@ public class GridFactory {
 		}
 	}
 	
+	/**
+	 * Creates a grid that has a list of blank cells of a given simulation type and grid shape. These cells 
+	 * have the appropriate vertices for the specific grid shape, but are blank in that they are not yet initialized
+	 * with any initial state or simulation parameters.
+	 * @param gridShape
+	 * @param gridDim
+	 * @param simType
+	 * @return	the Grid of interest
+	 */
 	public static Grid generateRandomizedGrid(String gridShape, Dimension gridDim, String simType){
 		switch(simType){
 		case "Fire": 
@@ -66,9 +90,13 @@ public class GridFactory {
 		}
 	}
 	
-	/*
+	/**
 	 * given grid type and grid dimensions, return a list of uninitialized cells that have vertices corresponding to the
 	 * matching grid coordinate system
+	 * @param gridShape	the shape of the grid of interest
+	 * @param gridDim	the grid dimensions of interest
+	 * @param simType	the simulation type of interest
+	 * @return
 	 */
 	public static List<Cell> generateCellsOfGrid(String gridShape, Dimension gridDim, String simType){
 		switch(gridShape){

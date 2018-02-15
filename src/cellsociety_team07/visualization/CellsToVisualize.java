@@ -42,7 +42,7 @@ public class CellsToVisualize  {
 	
 	
 	private void initializeCells(Cell cell, double[]props, int state) {
-		if(props!=null)cell.setProps(props);
+		if(props!=null)cell.setParams(props);
 		cell.setFill(cell.getColor());
 		cell.setStroke(Color.WHITE);
 		cell.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -67,6 +67,6 @@ public class CellsToVisualize  {
 	}
 	
 	public void changeParam(Event e, Cell cell, double[] prob) {
-         cell.setProps(prob);
+         cell.setParams(prob);
 	   } 
 	}

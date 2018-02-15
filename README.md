@@ -32,7 +32,6 @@ The main class that runs this project is Visualizer.java.
 The main files we use to test our programs were XML files: fire_simulation.xml, gol_simulation.xml, segregation_simulation.xml, and wator_simuation.xml
 
 Errors we expect our program to handle without crashing: We expect that the user can input invalid information into our four text boxes. For instance, the user can type in out-of-bound indices for states and props as well as null props. In addition, the user can input an invalid number of arguments into the "GET RANDOM" simulation feature.
-
 **Any data or resource files required by the project (including format of non-standard files)**
 
 We used CommandBar.properties and SimulationBar.properties as our resource bundles for this project.
@@ -57,7 +56,11 @@ To change the parameters of the Simulations, click the “Index:Prop” Text Fie
 
 To generate a new XML file of the exact configurations of the simulation at hand, click the Save State button, and refresh the folder containing the xml files to see a new file pop up.
 
-We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation type and clicks the  “GENERATE RANDOM” button. DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably, so if the user decided to generate a grid size that was too large, the simulation would just be a 20x20 grid. In addition, we made it so that the user can’t input an odd number of rows for the triangle simulation because we felt that the definition of “neighbor” for triangles in the unbounded case was very subjective and undefined.
+We also have the ability to generate a random XML file configuration given the user inputs a dimension and simulation and clicks the  “GENERATE RANDOM” button. 
+You enter the width,height, simulation name, and cell shape type all separated by colons in the text field next to the Generate Random Button. (e.g. to get a 4 by 4 triangle cell Fire simulation
+you would enter 4:4:Fire:Triangle)
+DISCLAIMER: There is a maximum grid size at which the program can run without lagging considerably.
+
 
 **Any decisions, assumptions, or simplifications you made to handle vague, ambiguous, or conflicting requirements**
 
